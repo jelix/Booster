@@ -1,0 +1,16 @@
+P /booster/var/config/installer.ini.php
+- /booster/var/config/installer.ini.php
+P /booster/var/log/*.log
+- /booster/var/log/*.log
++ /booster/var/uploads/.dummy
+P /booster/var/uploads/**
+- /booster/var/uploads/**
++ /booster/
++ /lib/
++ /temp/booster/.dummy
+P /temp/booster/**
+- /temp/booster/**
+- /.build-files
+- /Makefile
+- .gitignore
+- .git

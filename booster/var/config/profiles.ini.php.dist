@@ -7,29 +7,29 @@ jacl2_profile=booster
 
 [jdb:booster]
 driver=mysql
-database=booster
-host=localhost
-user=booster
-password=
+database="__BOOSTER_JELIX_ORG_DB_NAME__"
+host="__BOOSTER_JELIX_ORG_DB_HOST__"
+user="__BOOSTER_JELIX_ORG_DB_LOGIN__"
+password="__BOOSTER_JELIX_ORG_DB_PASSWD__"
 persistent=on
 force_encoding = on
 
 ; profile to access to the forum database
 [jdb:hfnu]
 driver=mysql
-database=jelix
-host=localhost
-user=jelix
-password=
+database="__JELIX_ORG_DB_NAME__"
+host="__JELIX_ORG_DB_HOST__"
+user="__JELIX_ORG_DB_LOGIN__"
+password="__JELIX_ORG_DB_PASSWD__"
 persistent=on
 force_encoding=on
 
 ;----------------- jCache
 [jcache]
 
-default = myapp
+default = booster
 
-[jcache:myapp]
+[jcache:booster]
 ;    disable or enable cache for this profile
 enabled = 1
 ;    driver type (file, db, memcached)
