@@ -25,9 +25,10 @@
 {/form}
 
 <div class="loginbox-links">
-    ({*<a href="{jurl 'jcommunity~registration:index'}">S'inscrire</a>*},
-    <a href="https://jelix.org/forums/registration/">S'inscrire sur jelix.org</a>,
-    <a href="{jurl 'jcommunity~password:index'}">mot de passe oublié</a>)
+    {*(<a href="{jurl 'jcommunity~registration:index'}">S'inscrire</a>,
+    <a href="{jurl 'jcommunity~password:index'}">mot de passe oublié</a>)*}
+    (<a href="https://jelix.org/forums/registration/">S'inscrire sur jelix.org</a>,
+    <a href="https://jelix.org/forums/registration/password">mot de passe oublié</a>)
 </div>
 
 {/ifuserconnected}
