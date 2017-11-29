@@ -21,13 +21,19 @@ class registrationCtrl extends jController {
     * registration form
     */
     function index() {
+        $rep = $this->getResponse("redirectUrl");
+        $rep->url = 'https://jelix.org/forums/registration/';
+        return $rep;
+
+/*
+
         if(jAuth::isConnected())
             return $this->noaccess();
 
         $rep = $this->getResponse('html');
         $rep->title = jLocale::get('register.registration.title');
         $rep->body->assignZone('MAIN','registration');
-        return $rep;
+        return $rep;*/
     }
 
     /**
@@ -40,8 +46,11 @@ class registrationCtrl extends jController {
 
         global $gJConfig;
         $rep= $this->getResponse("redirect");
-        $rep->action = "registration:index";
-
+        //$rep->action = "registration:index";
+        $rep->action = "login:index";
+        jMessage::add("Sorry, registration is deactivated here. Register your account on https://jelix.org/forums/registration/", "error");
+        return $rep;
+/*
         $form = jForms::get('registration');
         if(!$form)
             return $rep;
@@ -109,7 +118,7 @@ class registrationCtrl extends jController {
 
         $rep->action="registration:confirmform";
         $rep->params= array('login'=>$login);
-        return $rep;
+        return $rep;*/
     }
 
     /**
@@ -117,6 +126,12 @@ class registrationCtrl extends jController {
     * to activate the account
     */
     function confirmform() {
+        $rep= $this->getResponse("redirect");
+        //$rep->action = "registration:index";
+        $rep->action = "login:index";
+        jMessage::add("Sorry, registration is deactivated here. Register your account on https://jelix.org/forums/registration/", "error");
+        return $rep;
+        /*
         if(jAuth::isConnected())
             return $this->noaccess();
 
@@ -131,13 +146,19 @@ class registrationCtrl extends jController {
         $tpl = new jTpl();
         $tpl->assign('form',$form);
         $rep->body->assign('MAIN',$tpl->fetch('registration_confirmation'));
-        return $rep;
+        return $rep;*/
     }
 
     /**
     * activate an account. the key should be given as a parameter
     */
     function confirm() {
+        $rep= $this->getResponse("redirect");
+        //$rep->action = "registration:index";
+        $rep->action = "login:index";
+        jMessage::add("Sorry, registration is deactivated here. Register your account on https://jelix.org/forums/registration/", "error");
+        return $rep;
+        /*
         if(jAuth::isConnected())
             return $this->noaccess();
 
@@ -185,7 +206,7 @@ class registrationCtrl extends jController {
         jForms::destroy('confirmation');
         
         $rep->action="registration:confirmok";
-        return $rep;
+        return $rep;*/
     }
 
     /**

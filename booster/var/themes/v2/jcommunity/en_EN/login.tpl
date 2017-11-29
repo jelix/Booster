@@ -9,7 +9,8 @@
     </div>
 
 {else}
-<p>If you already own an account on <a href="http://jelix.org/forums/">the forum</a>, then you can use it to connect here</p>
+<!--<p>If you already own an account on <a href="http://jelix.org/forums/">the forum</a>, then you can use it to connect here</p>-->
+    <p>You should already have an account on jelix.org to authenticate here.</p>
 {form $form, 'jcommunity~login:in'}
     <p> {ctrl_label 'auth_login'} {ctrl_control 'auth_login'}
      - {ctrl_label 'auth_password'} {ctrl_control 'auth_password'}
@@ -24,8 +25,10 @@
 {/form}
 
 <div class="loginbox-links">
-  (<a href="{jurl 'jcommunity~registration:index'}">Register</a>,
-  <a href="{jurl 'jcommunity~password:index'}">Forgotten password</a>)
+    {*(<a href="{jurl 'jcommunity~registration:index'}">Register</a>,
+    <a href="{jurl 'jcommunity~password:index'}">Forgotten password</a>)*}
+  (<a href="https://jelix.org/forums/registration/">Register on jelix.org</a>,
+    <a href="https://jelix.org/forums/registration/password">Forgotten password</a>)
 </div>
 
 {/ifuserconnected}
