@@ -25,10 +25,6 @@ ifndef JELIX_ORG_DB_PASSWD
     BOOSTER_JELIX_ORG_DB_PASSWD=jelix
 endif
 
-ifndef BOOSTER_JELIX_ORG_DEPLOY_TARGET
-    BOOSTER_JELIX_ORG_DEPLOY_TARGET=/tmp/booster.jelix.org
-endif
-
 booster/var/config/profiles.ini.php:
 	cp booster/var/config/profiles.ini.php.dist booster/var/config/profiles.ini.php
 	@sed -i "s!__JELIX_ORG_DB_NAME__!$(JELIX_ORG_DB_NAME)!" booster/var/config/profiles.ini.php
@@ -49,6 +45,6 @@ clean:
 
 .PHONY: deploy
 deploy: build
-	rsync -av --delete --ignore-times --checksum --include-from=.build-files ./ $(BOOSTER_JELIX_ORG_DEPLOY_TARGET)
-
+	rsync -av --delete --ignore-times --checksum --include-from=.build-files ./ $(BOOSTER_JELIX_ORG_DEPLOY_SSH):$(BOOSTER_JELIX_ORG_DEPLOY_DIR)
+	ssh $(BOOSTER_JELIX_ORG_DEPLOY_SSH) 'cd $(BOOSTER_JELIX_ORG_DEPLOY_DIR) && ./update.sh'
 
