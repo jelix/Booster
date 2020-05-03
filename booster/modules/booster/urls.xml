@@ -70,7 +70,7 @@
         <static name="lang" value="fr_FR" />
     </url>
     <url pathinfo="/feed/en" action="rss:index">
-        <static name="lang" value="en_EN" />
+        <static name="lang" value="en_US" />
     </url>
     <url pathinfo="/feed" action="rss:index"/>
 

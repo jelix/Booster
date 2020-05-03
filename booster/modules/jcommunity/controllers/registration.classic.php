@@ -44,7 +44,6 @@ class registrationCtrl extends jController {
         if(jAuth::isConnected())
             return $this->noaccess();
 
-        global $gJConfig;
         $rep= $this->getResponse("redirect");
         //$rep->action = "registration:index";
         $rep->action = "login:index";
@@ -54,7 +53,7 @@ class registrationCtrl extends jController {
         $form = jForms::get('registration');
         if(!$form)
             return $rep;
-        
+
         jEvent::notify('jcommunity_registration_init_form', array('form'=>$form) );
 
         $form->initFromRequest();
@@ -86,8 +85,8 @@ class registrationCtrl extends jController {
 
         $responses = $ev->getResponse();
         $hasErrors = false;
-        foreach ($responses as $response) {             
-            if (isset($response['errorRegistration']) && $response['errorRegistration'] != "") { 
+        foreach ($responses as $response) {
+            if (isset($response['errorRegistration']) && $response['errorRegistration'] != "") {
                 jMessage::add($response['errorRegistration'], 'error');
                 $hasErrors = true;
             }
@@ -101,9 +100,9 @@ class registrationCtrl extends jController {
         jEvent::notify('jcommunity_registration_after_save', array('form'=>$form, 'user'=>$user));
 
         $mail = new jMailer();
-        $mail->From = $gJConfig->mailer['webmasterEmail'];
-        $mail->FromName = $gJConfig->mailer['webmasterName'];
-        $mail->Sender = $gJConfig->mailer['webmasterEmail'];
+        $mail->From = jApp::config()->mailer['webmasterEmail'];
+        $mail->FromName = jApp::config()->mailer['webmasterName'];
+        $mail->Sender = jApp::config()->mailer['webmasterEmail'];
         $mail->Subject = jLocale::get('register.mail.new.subject');
 
         $tpl = new jTpl();
@@ -204,7 +203,7 @@ class registrationCtrl extends jController {
         jAuth::changePassword($login, $form->getData('conf_password'));
         jAuth::login($login, $form->getData('conf_password'));
         jForms::destroy('confirmation');
-        
+
         $rep->action="registration:confirmok";
         return $rep;*/
     }

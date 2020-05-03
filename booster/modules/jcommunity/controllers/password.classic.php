@@ -31,13 +31,12 @@ class passwordCtrl extends jController {
     }
 
     /**
-    * send a new password 
+    * send a new password
     */
     function send() {
         if(jAuth::isConnected())
             return $this->noaccess();
 
-        global $gJConfig;
         $rep= $this->getResponse("redirect");
         $rep->action="password:index";
 
@@ -67,9 +66,9 @@ class passwordCtrl extends jController {
         jAuth::updateUser($user);
 
         $mail = new jMailer();
-        $mail->From = $gJConfig->mailer['webmasterEmail'];
-        $mail->FromName = $gJConfig->mailer['webmasterName'];
-        $mail->Sender = $gJConfig->mailer['webmasterEmail'];
+        $mail->From = jApp::config()->mailer['webmasterEmail'];
+        $mail->FromName = jApp::config()->mailer['webmasterName'];
+        $mail->Sender = jApp::config()->mailer['webmasterEmail'];
         $mail->Subject = jLocale::get('password.mail.pwd.change.subject');
 
         $tpl = new jTpl();

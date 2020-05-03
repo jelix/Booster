@@ -6,7 +6,7 @@ default=booster
 jacl2_profile=booster
 
 [jdb:booster]
-driver=mysql
+driver=mysqli
 database="__BOOSTER_JELIX_ORG_DB_NAME__"
 host="__BOOSTER_JELIX_ORG_DB_HOST__"
 user="__BOOSTER_JELIX_ORG_DB_LOGIN__"
@@ -16,7 +16,7 @@ force_encoding = on
 
 ; profile to access to the forum database
 [jdb:hfnu]
-driver=mysql
+driver=mysqli
 database="__JELIX_ORG_DB_NAME__"
 host="__JELIX_ORG_DB_HOST__"
 user="__JELIX_ORG_DB_LOGIN__"

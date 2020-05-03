@@ -25,11 +25,10 @@ class myHtmlResponse extends jResponseHtml {
     }
 
     protected function doAfterActions() {
-        global $gJConfig, $gJCoord;
         $this->body->assignIfNone('MAIN','<p>no content</p>');
         $this->body->assignIfNone('MENU','');
         $this->body->assign('SEARCH',jZone::get('booster~search'));
-        $title = $gJConfig->booster['title'];
+        $title = jApp::config()->booster['title'];
         if ($this->title)
             $this->title = $this->title .' | '. $title;
         else
@@ -43,6 +42,7 @@ class myHtmlResponse extends jResponseHtml {
         $this->body->assign('packlang', false);
         $this->body->assign('your_ressources', false);
 
+        $gJCoord = jApp::coord();
         if ( array_key_exists('module', $gJCoord->request->params) ) {
             if ( $gJCoord->request->params['module'] == 'booster' ) {
                 if (array_key_exists('action',$gJCoord->request->params)) {

@@ -14,16 +14,16 @@
             <a href="#content">Contenu</a> -
             <a href="#topmenubar">rubriques</a> -
             <a href="#submenubar">sous rubriques</a>
-        </div>       
+        </div>
         {zone 'jcommunity~status'}
         <div id="lang-box">
-          <a href="{jurl 'booster~default:index', array('lang'=>'en_EN')}" hreflang="en" title="english">en</a>
+          <a href="{jurl 'booster~default:index', array('lang'=>'en_US')}" hreflang="en" title="english">en</a>
           <strong>fr</strong>
         </div>
     </div>
 </div>
 
- 
+
 <div id="header">
     <div class="top-container">
         <h1 id="logo">
@@ -67,7 +67,7 @@
 
         <div id="content">
             {jmessage}
-    
+
             {$MAIN}
 
         </div>

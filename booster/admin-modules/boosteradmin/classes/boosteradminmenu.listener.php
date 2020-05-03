@@ -11,8 +11,7 @@
 class boosteradminmenuListener extends jEventListener{
 
     function onmasteradminGetMenuContent ($event) {
-        global $gJConfig;
-        $chemin = $gJConfig->urlengine['basePath'] . 'themes/' . $gJConfig->theme .'/';
+        $chemin = jApp::config()->urlengine['basePath'] . 'themes/' . jApp::config()->theme .'/';
         if ( jAcl2::check('booster.admin.index')) {
             $event->add(new masterAdminMenuItem('booster','Booster', '', 20));
 
