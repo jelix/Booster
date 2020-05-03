@@ -30,9 +30,8 @@ class jDbPDOResultSet extends PDOStatement {
             $rec = parent::fetch();
         }
 
-        if ($rec && count($this->modifier)) {
-            foreach($this->modifier as $m)
-                call_user_func_array($m, array($rec, $this));
+        if ($rec) {
+            $this->applyModifiers($rec);
         }
         return $rec;
     }
@@ -42,7 +41,7 @@ class jDbPDOResultSet extends PDOStatement {
      * @param integer $fetch_style
      * @param integer $fetch_argument
      * @param array $ctor_arg
-     * @return array list of object which contain all rows
+     * @return object[] list of object which contain all rows
      */
     public function fetchAll ($fetch_style = null, $fetch_argument=null, $ctor_arg=null) {
         // if the user requested to override the style set with setFetchMode, use it
@@ -63,11 +62,19 @@ class jDbPDOResultSet extends PDOStatement {
         }
 
         if (count($this->modifier)) {
-            foreach ($records as $rec)
-                foreach($this->modifier as $m)
-                    call_user_func_array($m, array($rec, $this));
+            foreach ($records as $rec) {
+                $this->applyModifiers($rec);
+            }
         }
         return $records;
+    }
+
+    protected function applyModifiers($result) {
+        if (count($this->modifier)) {
+            foreach($this->modifier as $m) {
+                call_user_func_array($m, array($result, $this));
+            }
+        }
     }
 
     /**
@@ -75,6 +82,7 @@ class jDbPDOResultSet extends PDOStatement {
      * @param int $mode  the mode, a PDO::FETCH_* constant
      * @param mixed $arg1 a parameter for the given mode
      * @param mixed $arg2 a parameter for the given mode
+     * @return boolean true if the fetch mode is ok
      */
     public function setFetchMode($mode, $arg1=null , $arg2=null){
         $this->_fetchMode = $mode;
@@ -89,6 +97,7 @@ class jDbPDOResultSet extends PDOStatement {
 
     /**
      * @param string $text a binary string to unescape
+     * @return string the unescaped string
      * @since 1.1.6
      */
     public function unescapeBin($text) {
@@ -97,13 +106,13 @@ class jDbPDOResultSet extends PDOStatement {
 
     /**
      * a callback function which will modify on the fly record's value
-     * @var array of callback
+     * @var callable[]
      * @since 1.1.6
      */
     protected $modifier = array();
 
     /**
-     * @param callback $function a callback function
+     * @param callable $function a callback function
      *     the function should accept in parameter the record,
      *     and the resulset object
      * @since 1.1.6

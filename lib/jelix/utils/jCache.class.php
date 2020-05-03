@@ -78,6 +78,9 @@ interface jICacheDriver {
 
 /**
  * Global caching data provided from whatever sources
+ *
+ * @package     jelix
+ * @subpackage  cache
  * @since 1.2
  */
 class jCache {
@@ -91,7 +94,7 @@ class jCache {
     */
     public static function get ($key, $profile='') {
 
-        $drv = self::_getDriver($profile);
+        $drv = self::getDriver($profile);
 
         if (!$drv->enabled) {
             return false;
@@ -111,16 +114,17 @@ class jCache {
     }
 
     /**
-    * set a specific data in the cache
-    * @param string $key    key used for storing data
-    * @param mixed  $value    data to store
-    * @param mixed  $ttl    data time expiration. 0 means no expire, use a timestamp UNIX or a delay in secondes which mustn't exceed 30 days i.e 2592000s or a string in date format US
-    * @param string $profile the cache profile name to use. if empty, use the default profile
-    * @return boolean false if failure
-    */
+     * set a specific data in the cache
+     * @param string $key key used for storing data
+     * @param mixed $value data to store
+     * @param mixed $ttl data time expiration. 0 means no expire, use a timestamp UNIX or a delay in secondes which mustn't exceed 30 days i.e 2592000s or a string in date format US
+     * @param string $profile the cache profile name to use. if empty, use the default profile
+     * @return bool false if failure
+     * @throws jException
+     */
     public static function set ($key, $value, $ttl=null, $profile='') {
 
-        $drv = self::_getDriver($profile);
+        $drv = self::getDriver($profile);
 
         if (!$drv->enabled || is_resource($value)) {
             return false;
@@ -150,20 +154,21 @@ class jCache {
     }
 
     /**
-    * call a specified method/function or get the result from cache. The function
-    * must not return false. The result of the function is stored into the
-    * cache system, with the function name and other things as key. If the
-    * key already exists in the cache, the function is not called and the value
-    * is returned directly.
-    * @param mixed  $fn        method/function name ($functionName or array($object, $methodName) or array($className, $staticMethodName))
-    * @param array  $fnargs    arguments used by the method/function
-    * @param mixed  $ttl    data time expiration. 0 means no expire, use a timestamp UNIX or a delay in secondes which mustn't exceed 30 days i.e 2592000s or a string in date format US
-    * @param string $profile the cache profile name to use. if empty, use the default profile
-    * @return mixed         method/function result
-    */
+     * call a specified method/function or get the result from cache. The function
+     * must not return false. The result of the function is stored into the
+     * cache system, with the function name and other things as key. If the
+     * key already exists in the cache, the function is not called and the value
+     * is returned directly.
+     * @param mixed $fn method/function name ($functionName or array($object, $methodName) or array($className, $staticMethodName))
+     * @param array $fnargs arguments used by the method/function
+     * @param mixed $ttl data time expiration. 0 means no expire, use a timestamp UNIX or a delay in secondes which mustn't exceed 30 days i.e 2592000s or a string in date format US
+     * @param string $profile the cache profile name to use. if empty, use the default profile
+     * @return mixed method/function result
+     * @throws jException
+     */
     public static function call ($fn, $fnargs=array(), $ttl=null, $profile='') {
 
-        $drv = self::_getDriver($profile);
+        $drv = self::getDriver($profile);
 
         if($drv->enabled){
 
@@ -232,7 +237,7 @@ class jCache {
     */
     public static function delete ($key, $profile=''){
 
-        $drv = self::_getDriver($profile);
+        $drv = self::getDriver($profile);
 
         if (!$drv->enabled) {
             return false;
@@ -253,7 +258,7 @@ class jCache {
     */
     public static function increment ($key, $incvalue=1, $profile='') {
 
-        $drv = self::_getDriver($profile);
+        $drv = self::getDriver($profile);
 
         if (!$drv->enabled) {
             return false;
@@ -273,7 +278,7 @@ class jCache {
     */
     public static function decrement ($key, $decvalue=1, $profile=''){
 
-        $drv = self::_getDriver($profile);
+        $drv = self::getDriver($profile);
 
         if (!$drv->enabled) {
             return false;
@@ -284,16 +289,17 @@ class jCache {
     }
 
     /**
-    * replace a specific data value by $value
-    * @param string $key    key used for storing data in the cache
-    * @param mixed  $value    data to replace
-    * @param mixed  $ttl    data time expiration. 0 means no expire, use a timestamp UNIX or a delay in secondes which mustn't exceed 30 days i.e 2592000s or a string in date format US
-    * @param string $profile the cache profile name to use. if empty, use the default profile
-    * @return boolean false if failure
-    */
+     * replace a specific data value by $value
+     * @param string $key key used for storing data in the cache
+     * @param mixed $value data to replace
+     * @param mixed $ttl data time expiration. 0 means no expire, use a timestamp UNIX or a delay in secondes which mustn't exceed 30 days i.e 2592000s or a string in date format US
+     * @param string $profile the cache profile name to use. if empty, use the default profile
+     * @return bool false if failure
+     * @throws jException
+     */
     public static function replace ($key, $value, $ttl=null, $profile=''){
 
-        $drv = self::_getDriver($profile);
+        $drv = self::getDriver($profile);
 
         if(!$drv->enabled || is_resource($value)){
             return false;
@@ -318,16 +324,17 @@ class jCache {
     }
 
     /**
-    * add data in the cache
-    * @param string $key    key used for storing data in the cache
-    * @param mixed  $value    data to add
-    * @param mixed  $ttl    data time expiration. 0 means no expire, use a timestamp UNIX or a delay in secondes which mustn't exceed 30 days i.e 2592000s or a string in date format US
-    * @param string $profile the cache profile name to use. if empty, use the default profile
-    * @return boolean false if failure
-    */
+     * add data in the cache
+     * @param string $key key used for storing data in the cache
+     * @param mixed $value data to add
+     * @param mixed $ttl data time expiration. 0 means no expire, use a timestamp UNIX or a delay in secondes which mustn't exceed 30 days i.e 2592000s or a string in date format US
+     * @param string $profile the cache profile name to use. if empty, use the default profile
+     * @return bool false if failure
+     * @throws jException
+     */
     public static function add ($key, $value, $ttl=null, $profile=''){
 
-        $drv = self::_getDriver($profile);
+        $drv = self::getDriver($profile);
 
         if (!$drv->enabled || is_resource($value)) {
             return false;
@@ -368,7 +375,7 @@ class jCache {
     */
     public static function garbage ($profile=''){
 
-        $drv = self::_getDriver($profile);
+        $drv = self::getDriver($profile);
 
         if (!$drv->enabled) {
             return false;
@@ -385,7 +392,7 @@ class jCache {
     */
     public static function flush ($profile='') {
 
-        $drv = self::_getDriver($profile);
+        $drv = self::getDriver($profile);
 
         if (!$drv->enabled) {
             return false;
@@ -401,7 +408,7 @@ class jCache {
      * @param string $profile profile name
      * @return jICacheDriver
      */
-    protected static function _getDriver($profile) {
+    public static function getDriver($profile) {
         return jProfiles::getOrStoreInPool('jcache', $profile, array('jCache', '_loadDriver'), true);
     }
 
@@ -420,23 +427,39 @@ class jCache {
     }
 
     /**
-     * check the key for a specific data in the cache : only alphanumeric characters and the character '_' are accepted
+     * verify the key for a specific data : only a subset of characters
+     * are accepted : letters, numbers, '_','/',':','.','-','@','#','&'.
      *
-     * @param string   $key   key used for storing data
-     * @return boolean
+     * no space.
+     *
+     * db, redis: any characters
+     * memcache: no space, no control char (\t \n \00)
+     * file: any (key is hashed with md5)
+     *
+     * @param string $key key used for storing data
+     * @throws jException
      */
     protected static function _checkKey($key){
-        if (!preg_match('/^[a-z0-9_]+$/i',$key) || strlen($key) > 255) {
+        if (!preg_match('/^[\\w0-9_\\/:\\.\\-@#&]+$/iu',$key) || strlen($key) > 255) {
             throw new jException('jelix~cache.error.invalid.key',$key);
         }
     }
 
+    public static function normalizeKey($key) {
+        if (preg_match('/[^\\w0-9_\\/:\\.\\-@#&]/iu',$key)) {
+            $key = preg_replace('/[^\\w0-9_\\/:\\.\\-@#&]/iu', '_', $key)
+                .'#'.sha1($key);
+        }
+        return $key;
+    }
+
     /**
-    * check and call a specified method/function
-    * @param mixed  $fn        method/function name
-    * @param array  $fnargs    arguments used by the method/function
-    * @return mixed  $data      method/function result
-    */
+     * check and call a specified method/function
+     * @param mixed $fn method/function name
+     * @param array $fnargs arguments used by the method/function
+     * @return mixed $data      method/function result
+     * @throws jException
+     */
     protected static function _doFunctionCall($fn,$fnargs) {
 
         if (!is_callable($fn)) {

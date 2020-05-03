@@ -1,7 +1,7 @@
 <?php
 /**
 * @package    jelix
-* @subpackage kvdb
+* @subpackage kvdb_plugin
 * @author     Laurent Jouanneau
 * @copyright  2012 Laurent Jouanneau
 * @licence  http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
@@ -192,7 +192,7 @@ class dbaKVDriver extends jKVDriver implements jIKVPersistent {
     protected function _connect() {
         
         if (isset($this->_profile['file']) && $this->_profile['file']!='') {
-            $this->_file = str_replace(array('var:', 'temp:'), array(jApp::varPath(), jApp::tempPath()), $this->_profile['file']);
+            $this->_file = jFile::parseJelixPath( $this->_profile['file'] );
         }
         else
             throw new Exception('No file in the configuration of the dba driver for jKVDB');

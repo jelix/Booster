@@ -1,7 +1,7 @@
 <?php
 /**
  * @package     jelix
- * @subpackage  kvdb
+ * @subpackage  kvdb_plugin
  * @author      Yannick Le Guédart
  * @contributor Laurent Jouanneau
  * @copyright   2009 Yannick Le Guédart, 2010 Laurent Jouanneau
@@ -18,7 +18,7 @@ class memcacheKVDriver extends jKVDriver implements jIKVttl {
      * Array of StdClass objects that contains host/port attributes for the
      * memcache servers. Used only during _connection.
      *
-     * @var array
+     * @var object[]
      */
     private $_servers = array();
 
@@ -36,8 +36,8 @@ class memcacheKVDriver extends jKVDriver implements jIKVttl {
      * The host list is in the host profile value, in the form of :
      *
      * host=server1:port1;server2:port2;server3;port3;...
-     *
      * @return Memcache object
+     * @throws jException
      */
     protected function _connect() {
         /* A host is needed */
@@ -129,10 +129,7 @@ class memcacheKVDriver extends jKVDriver implements jIKVttl {
 
     /**
      * Disconnect from the memcache server
-     *
-     * @return Memcache object
      */
-
     protected function _disconnect() {
         $this->_connection->close();
     }

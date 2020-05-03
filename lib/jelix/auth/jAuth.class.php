@@ -4,7 +4,7 @@
 * @subpackage auth
 * @author     Laurent Jouanneau
 * @contributor Frédéric Guillot, Antoine Detante, Julien Issler, Dominique Papin, Tahina Ramaroson, Sylvain de Vathaire, Vincent Viaud
-* @copyright  2001-2005 CopixTeam, 2005-2016 Laurent Jouanneau, 2007 Frédéric Guillot, 2007 Antoine Detante
+* @copyright  2001-2005 CopixTeam, 2005-2019 Laurent Jouanneau, 2007 Frédéric Guillot, 2007 Antoine Detante
 * @copyright  2007-2008 Julien Issler, 2008 Dominique Papin, 2010 NEOV, 2010 BP2I
 *
 * This classes were get originally from an experimental branch of the Copix project (Copix 2.3dev, http://www.copix.org)
@@ -14,10 +14,8 @@
 */
 
 require(JELIX_LIB_PATH.'auth/jIAuthDriver.iface.php');
-
+require(JELIX_LIB_PATH.'auth/jIAuthDriver2.iface.php');
 require(JELIX_LIB_PATH.'auth/jAuthDriverBase.class.php');
-
-
 
 /**
  * This is the main class for authentification process
@@ -35,10 +33,17 @@ class jAuth {
     }
 
     protected static $config = null;
+
+    /**
+     * @var jIAuthDriver
+     */
     protected static $driver = null;
+
     /**
      * Load the configuration of authentification, stored in the auth plugin config
+     * @param null $newconfig
      * @return array
+     * @throws jException
      * @since 1.2.10
      */
     public static function loadConfig($newconfig = null){
@@ -54,6 +59,11 @@ class jAuth {
                 $config = $newconfig;
             }
 
+            // we allow to indicate the driver into the localconfig.ini or mainconfig.ini
+            if (isset(jApp::config()->coordplugin_auth) && isset(jApp::config()->coordplugin_auth['driver'])) {
+                $config['driver'] = trim(jApp::config()->coordplugin_auth['driver']);
+            }
+
             if (!isset($config['session_name'])
                 || $config['session_name'] == '')
                 $config['session_name'] = 'JELIX_USER';
@@ -61,9 +71,23 @@ class jAuth {
             if (!isset( $config['persistant_cookie_path'])
                 ||  $config['persistant_cookie_path'] == '') {
                 if (jApp::config())
-                    $config['persistant_cookie_path'] = jApp::config()->urlengine['basePath'];
+                    $config['persistant_cookie_path'] = jApp::urlBasePath();
                 else
                     $config['persistant_cookie_path'] = '/';
+            }
+
+            if (!isset($config['persistant_crypt_key']) || $config['persistant_crypt_key'] == '') {
+                // in the case of the use of a separate file, persistant_crypt_key may be into the liveconfig.ini.php
+                if (isset(jApp::config()->coordplugin_auth) && isset(jApp::config()->coordplugin_auth['persistant_crypt_key'])) {
+                    $config['persistant_crypt_key'] = trim(jApp::config()->coordplugin_auth['persistant_crypt_key']);
+                }
+                else {
+                    $config['persistant_crypt_key'] = '';
+                }
+            }
+
+            if (!isset($config['persistant_cookie_name'])) {
+                $config['persistant_cookie_name'] = 'jauthSession';
             }
 
             // Read hash method configuration. If not empty, cryptPassword will use
@@ -83,9 +107,7 @@ class jAuth {
                     $password_hash_method = 0;
                 }
             }
-            else {
-                require_once(__DIR__.'/hash_equals.php');
-            }
+            require_once(__DIR__.'/hash_equals.php');
 
             $password_hash_options = (isset($config['password_hash_options'])?$config['password_hash_options']:'');
             if ($password_hash_options != '') {
@@ -105,6 +127,7 @@ class jAuth {
             $config[$config['driver']]['password_hash_method'] = $password_hash_method;
             $config[$config['driver']]['password_hash_options'] = $password_hash_options;
             self::$config = $config;
+            self::$driver = null;
         }
         return self::$config;
     }
@@ -120,13 +143,15 @@ class jAuth {
     /**
      * return the auth driver
      * @return jIAuthDriver
+     * @throws jException
      * @since 1.2.10
      */
     public static function getDriver(){
         if (self::$driver === null) {
             $config = self::loadConfig();
             $db = strtolower($config['driver']);
-            $driver = jApp::loadPlugin($db, 'auth', '.auth.php', $config['driver'].'AuthDriver', $config[$config['driver']]);
+            $driver = jApp::loadPlugin($db, 'auth', '.auth.php',
+                $config['driver'].'AuthDriver', $config[$config['driver']]);
             if(is_null($driver))
                 throw new jException('jelix~auth.error.driver.notfound',$db);
             self::$driver = $driver;
@@ -199,8 +224,13 @@ class jAuth {
      */
     public static function saveNewUser($user){
         $dr = self::getDriver();
-        if($dr->saveNewUser($user))
-            jEvent::notify ('AuthNewUser', array('user'=>$user));
+        if ($dr->saveNewUser($user)) {
+            $eventResp = jEvent::notify('AuthNewUser', array('user' => $user));
+            $allResponses = array();
+            if ($eventResp->inResponse('doUpdate', true, $allResponses)) {
+                $dr->updateUser($user);
+            }
+        }
         return $user;
     }
 
@@ -221,11 +251,13 @@ class jAuth {
      *  the type of $user depends of the driver, so it can have other properties.
      *
      * @param object $user  user data
+     * @return boolean true if the user has been updated
      */
     public static function updateUser($user){
         $dr = self::getDriver();
-        if($dr->updateUser($user) === false)
+        if ($dr->updateUser($user) === false) {
             return false;
+        }
 
         if(self::isConnected() && self::getUserSession()->login === $user->login){
             $config = self::loadConfig();
@@ -261,11 +293,27 @@ class jAuth {
     /**
      * construct the user list
      * @param string $pattern '' for all users
-     * @return array array of object
+     * @return object[] array of objects representing the users
      */
     public static function getUserList($pattern = '%'){
         $dr = self::getDriver();
         return $dr->getUserlist($pattern);
+    }
+
+    /**
+     * Indicate if the password can be changed technically.
+     *
+     * Not related to rights with jAcl2
+     * @param string $login the login of the user
+     * @return boolean
+     * @since 1.6.21
+     */
+    public static function canChangePassword($login) {
+        $dr = self::getDriver();
+        if ($dr instanceof jIAuthDriver2) {
+            return $dr->canChangePassword($login);
+        }
+        return true;
     }
 
     /**
@@ -279,6 +327,7 @@ class jAuth {
         $dr = self::getDriver();
         if($dr->changePassword($login, $newpassword)===false)
             return false;
+        jEvent::notify ('AuthChangePassword', array('login'=>$login, 'password'=>$newpassword));
         if(self::isConnected() && self::getUserSession()->login === $login){
             $config = self::loadConfig();
             $_SESSION[$config['session_name']] = self::getUser($login);
@@ -368,9 +417,12 @@ class jAuth {
         }
 
         if(isset($config['persistant_enable']) && $config['persistant_enable']){
-            if(!isset($config['persistant_cookie_name']))
-                throw new jException('jelix~auth.error.persistant.incorrectconfig','persistant_cookie_name, persistant_crypt_key');
-            setcookie($config['persistant_cookie_name'].'[auth]', '', time() - 3600, $config['persistant_cookie_path'], "", false, true);
+            if(isset($config['persistant_cookie_name'])) {
+                setcookie($config['persistant_cookie_name'].'[auth]', '', time() - 3600, $config['persistant_cookie_path'], "", false, true);
+            }
+            else {
+                jLog::log(jLocale::get('jelix~auth.error.persistant.incorrectconfig','persistant_cookie_name'), 'error');
+            }
         }
     }
 
@@ -389,8 +441,10 @@ class jAuth {
     */
     public static function getUserSession (){
         $config = self::loadConfig();
-        if (! isset ($_SESSION[$config['session_name']]))
+        if (!isset ($_SESSION[$config['session_name']]) ||
+            !$_SESSION[$config['session_name']]) {
             $_SESSION[$config['session_name']] = new jAuthDummyUser();
+        }
         return $_SESSION[$config['session_name']];
     }
 
@@ -444,12 +498,16 @@ class jAuth {
     public static function checkCookieToken() {
         $config = self::loadConfig();
         if (isset($config['persistant_enable']) && $config['persistant_enable'] && !self::isConnected()) {
-            if (isset($config['persistant_cookie_name']) && isset($config['persistant_crypt_key'])) {
+            if (isset($config['persistant_cookie_name']) &&
+                isset($config['persistant_crypt_key']) &&
+                trim($config['persistant_cookie_name']) != '' &&
+                trim($config['persistant_crypt_key']) != ''
+                ) {
                 $cookieName = $config['persistant_cookie_name'];
                 if (isset($_COOKIE[$cookieName]['auth']) && strlen($_COOKIE[$cookieName]['auth'])>0) {
                     $decrypted = jCrypt::decrypt($_COOKIE[$cookieName]['auth'],$config['persistant_crypt_key']);
                     $decrypted = @unserialize($decrypted);
-                    if ($decrypted && is_array($decrypted)) {
+                    if ($decrypted && is_array($decrypted) && count($decrypted) == 2) {
                         list($login, $password) = $decrypted;
                         self::login($login, $password, true);
                     }
@@ -460,9 +518,6 @@ class jAuth {
                     setcookie($cookieName.'[passwd]', '', time() - 3600, $config['persistant_cookie_path']);
                 }
             }
-            else {
-                throw new jException('jelix~auth.error.persistant.incorrectconfig','persistant_cookie_name, persistant_crypt_key');
-            }
         }
     }
 
@@ -472,16 +527,21 @@ class jAuth {
 
         // Add a cookie for session persistance, if enabled
         if (isset($config['persistant_enable']) && $config['persistant_enable']) {
-            if (!isset($config['persistant_crypt_key']) || !isset($config['persistant_cookie_name'])) {
-                throw new jException('jelix~auth.error.persistant.incorrectconfig','persistant_cookie_name, persistant_crypt_key');
+            if (!isset($config['persistant_crypt_key']) ||
+                !isset($config['persistant_cookie_name']) ||
+                trim($config['persistant_crypt_key']) == '' ||
+                trim($config['persistant_cookie_name']) == '') {
+                jLog::log(jLocale::get('jelix~auth.error.persistant.incorrectconfig','persistant_cookie_name, persistant_crypt_key'), 'error');
+                return 0;
             }
 
-            if (isset($config['persistant_duration']))
-                $persistence = $config['persistant_duration']*86400;
-            else
+            if (isset($config['persistant_duration'])) {
+                $persistence = intval($config['persistant_duration'])*86400;
+            }
+            else {
                 $persistence = 86400; // 24h
+            }
             $persistence += time();
-            //$login = $_SESSION[$config['session_name']]->login;
             $encrypted = jCrypt::encrypt(serialize(array($login, $password)),$config['persistant_crypt_key']);
             setcookie($config['persistant_cookie_name'].'[auth]', $encrypted, $persistence, $config['persistant_cookie_path'], "", false, true);
         }

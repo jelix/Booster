@@ -1,10 +1,10 @@
 <?php
 /**
 * @package    jelix
-* @subpackage core
+* @subpackage core_request
 * @author     Laurent Jouanneau
-* @contributor Yannick Le Guédart
-* @copyright  2005-2013 Laurent Jouanneau, 2010 Yannick Le Guédart
+* @contributor Yannick Le Guédart, Julien Issler
+* @copyright  2005-2013 Laurent Jouanneau, 2010 Yannick Le Guédart, 2016 Julien Issler
 * @link        http://www.jelix.org
 * @licence    GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
@@ -15,7 +15,7 @@
  * process depends on the type of request (ex: xmlrpc..)
  *
  * @package  jelix
- * @subpackage core
+ * @subpackage core_request
  */
 abstract class jRequest {
 
@@ -24,7 +24,7 @@ abstract class jRequest {
     * could set from $_GET, $_POST, or from data processing of $HTTP_RAW_POST_DATA
     * @var array
     */
-    public $params;
+    public $params = array();
 
     /**
      * the request type code
@@ -198,9 +198,11 @@ abstract class jRequest {
 
     /**
      * get a response object.
-     * @param string $name the name of the response type (ex: "html")
+     * @param string $type
      * @param boolean $useOriginal true:don't use the response object redefined by the application
      * @return jResponse the response object
+     * @throws jException
+     * @internal param string $name the name of the response type (ex: "html")
      */
     public function getResponse($type='', $useOriginal = false){
 
@@ -298,7 +300,24 @@ abstract class jRequest {
      * @since 1.2
      */
    function getProtocol() {
-      return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] && $_SERVER['HTTPS'] != 'off' ? 'https://':'http://');
+      return ($this->isHttps() ? 'https://':'http://');
+   }
+
+
+    /**
+     *
+     * @return bool true if the request is made with HTTPS
+     * @todo support Forwarded and X-Forwared-Proto headers
+     */
+   function isHttps() {
+       if (jApp::config()->urlengine['forceProxyProtocol'] == 'https') {
+           if (trim(jApp::config()->forceHTTPSPort) === '') {
+               jApp::config()->forceHTTPSPort = true;
+           }
+           return true;
+       }
+
+       return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] && $_SERVER['HTTPS'] != 'off');
    }
 
    /**
@@ -313,6 +332,19 @@ abstract class jRequest {
          return false;
    }
 
+    /**
+     * Says if the request method is POST
+     * @return bool
+     * @since 1.6.17
+     */
+    function isPostMethod() {
+        if (isset($_SERVER['REQUEST_METHOD'])) {
+            return ($_SERVER['REQUEST_METHOD'] === "POST");
+        } else {
+            return false;
+        }
+    }
+
    /**
     * return the application domain name
     * @return string
@@ -322,13 +354,13 @@ abstract class jRequest {
       if (jApp::config()->domainName != '') {
          return jApp::config()->domainName;
       }
-      elseif (isset($_SERVER['SERVER_NAME'])) {
-         return $_SERVER['SERVER_NAME'];
-      }
       elseif (isset($_SERVER['HTTP_HOST'])) {
          if (($pos = strpos($_SERVER['HTTP_HOST'], ':')) !== false)
             return substr($_SERVER['HTTP_HOST'],0, $pos);
          return $_SERVER['HTTP_HOST'];
+      }
+      elseif (isset($_SERVER['SERVER_NAME'])) {
+         return $_SERVER['SERVER_NAME'];
       }
       return '';
    }
@@ -339,9 +371,8 @@ abstract class jRequest {
     * @since 1.2.4
     */
    function getServerURI($forceHttps = null) {
-      $isHttps = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] && $_SERVER['HTTPS'] != 'off');
 
-      if ( ($forceHttps === null && $isHttps) || $forceHttps) {
+      if ( ($forceHttps === null && $this->isHttps()) || $forceHttps) {
          $uri = 'https://';
       }
       else {
@@ -359,7 +390,7 @@ abstract class jRequest {
     * @since 1.2.4
     */
    function getPort($forceHttps = null) {
-      $isHttps = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] && $_SERVER['HTTPS'] != 'off');
+      $isHttps = $this->isHttps();
 
       if ($forceHttps === null)
          $https = $isHttps;
@@ -367,7 +398,7 @@ abstract class jRequest {
          $https = $forceHttps;
 
       $forcePort = ($https ? jApp::config()->forceHTTPSPort : jApp::config()->forceHTTPPort);
-      if ($forcePort === true) {
+      if ($forcePort === true || $forcePort === '1') {
          return '';
       }
       else if ($forcePort) { // a number
@@ -386,45 +417,75 @@ abstract class jRequest {
    }
 
    /**
-    * call it when you want to read the content of the body of a request
-    * when the method is not GET or POST
-    * @return mixed    array of parameters or a single string when the content-type is unknown
-    * @since 1.2
-    */
-   public function readHttpBody() {
-      $input = file_get_contents("php://input");
-      $values = array();
+     * call it when you want to read the content of the body of a request
+     * when the method is not GET or POST
+     * @return mixed    array of parameters or a single string when the content-type is unknown
+     * @since 1.2
+     */
+    public function readHttpBody() {
+        $input = file_get_contents('php://input');
 
-      if (strpos($_SERVER["CONTENT_TYPE"], "application/x-www-form-urlencoded") === 0) {
-         parse_str($input, $values);
-         return $values;
-      }
-      else if (strpos($_SERVER["CONTENT_TYPE"], "multipart/form-data") === 0) {
-
-         if (!preg_match("/boundary=([a-zA-Z0-9]+)/", $_SERVER["CONTENT_TYPE"], $m))
+        if (!isset($_SERVER['CONTENT_TYPE'])) {
             return $input;
+        }
+        $contentType = $_SERVER['CONTENT_TYPE'];
 
-         $parts = explode('--'.$m[1], $input);
-         foreach($parts as $part) {
-            if (trim($part) == '' || $part == '--')
-               continue;
-            list($header, $value) = explode("\r\n\r\n", $part);
-            if (preg_match('/content\-disposition\:(?: *)form\-data\;(?: *)name="([^"]+)"(\;(?: *)filename="([^"]+)")?/i', $header, $m)) {
-               if (isset($m[2]) && $m[3] != '')
-                  $return[$m[1]] = array( $m[3], $value);
-               else
-                  $return[$m[1]] = $value;
-            }
-         }
-         if (count($values))
+        $values = array();
+        if (strpos($contentType, 'application/x-www-form-urlencoded') === 0) {
+            parse_str($input, $values);
             return $values;
-         else
-            return $input;
-      }
-      else {
-         return $input;
-      }
-   }
+        }
+
+        if (strpos($contentType, 'multipart/form-data') === 0) {
+            // XXX it seems php://input is empty for this content-type, as
+            // indicated into the php doc. Only for POST method?
+            return self::parseMultipartBody($contentType, $input);
+        }
+
+        if (jApp::config()->enableRequestBodyJSONParsing && strpos($contentType, 'application/json') === 0) {
+            return json_decode($input, true);
+        }
+
+        return $input;
+    }
+
+    public static function parseMultipartBody($contentType, $input) {
+        $values = array();
+        if (!preg_match('/boundary=([^\\s]+)/', $contentType, $m)) {
+            return $values;
+        }
+
+        $parts = preg_split("/\r\n--" . preg_quote($m[1])."/", $input);
+        foreach ($parts as $part) {
+            if (trim($part) == '' || $part == '--')
+                continue;
+            list($header, $value) = explode("\r\n\r\n", $part, 2);
+            $value = rtrim($value);
+            if (preg_match('/content-disposition\:\\s*form-data\;\\s*name="([^"]+)"(\;\\s*filename="([^"]+)")?/i', $header, $m)) {
+                $name = $m[1];
+                if (isset($m[2]) && $m[3] != '') {
+                    $values = array($m[3], $value);
+                }
+                if (preg_match("/^([^\\[]+)\\[([^\\]]*)\\]$/", $name, $nm)) {
+                    $name = $nm[1];
+                    $index = $nm[2];
+                    if (!isset($values[$name]) || !is_array($values[$name])) {
+                        $values[$name] = array();
+                    }
+                    if ($index === "") {
+                        $values[$name][] = $value;
+                    }
+                    else {
+                        $values[$name][$index] = $value;
+                    }
+                }
+                else {
+                    $values[$name] = $value;
+                }
+            }
+        }
+        return $values;
+    }
 
    private $_headers = null;
 

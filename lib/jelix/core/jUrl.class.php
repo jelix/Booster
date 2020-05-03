@@ -172,15 +172,16 @@ class jUrl extends jUrlBase {
     }
 
     /**
-    * Gets the absolute url corresponding to an action, in the given format with
-    * the domainName in defaultConfig or current
-    * @param string $actSel  action selector. You can use # instead of the module
-    *                or the action name, to specify the current url.
-    * @param array $params associative array with the parameters
-    * @param integer $what the format you want : only jUrl::STRING or jUrl::XMLSTRING
-    * @param string $domainName Customized domain name
-    * @return string the url string
-    */
+     * Gets the absolute url corresponding to an action, in the given format with
+     * the domainName in defaultConfig or current
+     * @param string $actSel action selector. You can use # instead of the module
+     *                or the action name, to specify the current url.
+     * @param array $params associative array with the parameters
+     * @param integer $what the format you want : only jUrl::STRING or jUrl::XMLSTRING
+     * @param string $domainName Customized domain name
+     * @return string the url string
+     * @throws jException
+     */
     static function getFull ($actSel, $params = array (), $what=0, $domainName = null) {
 
         $domain = '';
@@ -263,7 +264,9 @@ class jUrl extends jUrlBase {
 
     /**
      * return the current url engine
+     * @param bool $reset
      * @return jIUrlEngine
+     * @throws jException
      * @internal call with true parameter, to force to re-instancy the engine. useful for test suite
      */
     static function getEngine($reset=false){
@@ -293,11 +296,11 @@ class jUrl extends jUrlBase {
             if( substr($rootUrl, 0, 7) !== 'http://' && substr($rootUrl, 0, 8) !== 'https://' // url is not absolute.
                 && substr($rootUrl, 0, 1) !== '/' ) { //and is not relative to root
                    // so let's prepend basePath :
-                    $rootUrl = jApp::config()->urlengine['basePath'] . $rootUrl;
+                    $rootUrl = jApp::urlBasePath() . $rootUrl;
             }
         } else {
             // basePath by default :
-            $rootUrl = jApp::config()->urlengine['basePath'];
+            $rootUrl = jApp::urlBasePath();
         }
 
         return $rootUrl;
