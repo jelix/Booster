@@ -1,7 +1,7 @@
 <?php
 /**
 * @package   booster
-* @subpackage 
+* @subpackage
 * @author    laurentj
 * @copyright 2011 laurent
 * @link      http://www.jelix.org
@@ -18,7 +18,7 @@ class adminHtmlResponse extends jResponseHtml {
         parent::__construct();
 
         // Include your common CSS and JS files here
-        $config = $GLOBALS['gJConfig'];
+        $config = jApp::config();
         $this->addCSSLink($config->urlengine['jelixWWWPath'].'design/master_admin.css');
         $this->addCSSLink($config->urlengine['basePath'].'themes/'.$config->theme.'/css/admin.css');
     }

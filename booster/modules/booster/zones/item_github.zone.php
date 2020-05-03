@@ -15,7 +15,7 @@ class item_githubZone extends jZone {
     protected $_cacheTimeout = 3600;//1 heure
 
     public function __construct($params=array()){
-       $params['lang'] = $GLOBALS['gJConfig']->locale;
+       $params['lang'] = jApp::config()->locale;
        parent::__construct($params);
     }
 
@@ -42,7 +42,7 @@ class item_githubZone extends jZone {
     	//$last_commit = boosterGithub::getLastCommit($user, $repo);
     	//jLog::dump($last_commit, 'last_commit');
 
-    	
+
     	$forks = jCache::get($key.'forks');
     	$watchers = jCache::get($key.'watchers');
     	$update = jCache::get($key.'update');
@@ -60,8 +60,8 @@ class item_githubZone extends jZone {
 			jCache::set($key.'update', $update, 86400);//1jour
     	}
     	$this->_tpl->assign('forks', $forks);
-    	$this->_tpl->assign('watchers', $watchers); 
-    	$this->_tpl->assign('update', $update); 
+    	$this->_tpl->assign('watchers', $watchers);
+    	$this->_tpl->assign('update', $update);
 
 
     	$activity = jCache::get($key.'activity');
@@ -78,7 +78,7 @@ class item_githubZone extends jZone {
     }
 
     protected function cancelZone(){
-        $this->_tpl->assign('not_ok', true); 
+        $this->_tpl->assign('not_ok', true);
         return;
     }
 }

@@ -13,7 +13,7 @@
         <updateURL>http://www.jelix.org/boosteradmin</updateURL>
     </info>
     <dependencies>
-        <jelix minversion="1.2.*" maxversion="1.4.*"/>
+        <jelix minversion="1.2.*" maxversion="1.6.*"/>
         <module name="jacl2db_admin"/>
         <module name="jauthdb_admin"/>
         <module name="master_admin"/>

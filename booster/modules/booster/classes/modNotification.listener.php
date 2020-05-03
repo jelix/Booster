@@ -17,7 +17,7 @@ class modNotificationListener extends jEventListener{
     protected $mail;
 
     function __construct(){
-        $this->emails = explode(',' , $GLOBALS['gJConfig']->booster['moderators_list']);
+        $this->emails = explode(',' , jApp::config()->booster['moderators_list']);
         $this->mail = new jMailer();
         $this->mail->isHTML(true);
     }
@@ -31,7 +31,7 @@ class modNotificationListener extends jEventListener{
 
         $this->finishAndSend();
     }
-    
+
     function onnew_version_added($event) {
         //$version_id = $event->getParam('version_id');
         $this->mail->Subject = 'Une version a été ajouté';
@@ -40,7 +40,7 @@ class modNotificationListener extends jEventListener{
 
         $this->finishAndSend();
     }
-    
+
     function onitem_edited($event) {
         //$item_id = $event->getParam('item_id');
         $this->mail->Subject = 'Un élément a été modifié';
@@ -49,7 +49,7 @@ class modNotificationListener extends jEventListener{
 
         $this->finishAndSend();
     }
-    
+
     function onversion_edited($event) {
         //$version_id = $event->getParam('version_id');
         $this->mail->Subject = 'Une version a été modifié';
@@ -58,17 +58,17 @@ class modNotificationListener extends jEventListener{
 
         $this->finishAndSend();
     }
-    
-    
-    
+
+
+
     function finishAndSend(){
         if(!empty($this->emails)) {
             foreach($this->emails as $adr) {
                 $this->mail->AddAddress($adr);
             }
-        
+
             $this->mail->Send();
         }
     }
-    
+
 }

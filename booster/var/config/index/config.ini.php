@@ -16,6 +16,7 @@ master_admin.access=2
 jacl2db_admin.access=2
 jauthdb_admin.access=2
 
+jacl2.access=1
 jacl2db.access=2
 jauth.access=2
 jauthdb.access=1

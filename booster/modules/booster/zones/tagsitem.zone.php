@@ -12,7 +12,7 @@ class tagsitemZone extends jZone {
     protected $_tplname='zone.tagsitem';
 
     protected function _prepareTpl(){
-        $item_id = (int) $this->getParam('id');
+        $item_id = (int) $this->param('id');
         $srvTags = jClasses::getService("jtags~tags");
         $tags = $srvTags->getTagsBySubject('booscope',$item_id);
         $this->_tpl->assign('tags',$tags);

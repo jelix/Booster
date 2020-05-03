@@ -17,6 +17,6 @@ class itemimageZone extends jZone {
 			$image_name = 'default.png';
 		}
 
-		return '<img src="'.$GLOBALS['gJConfig']->urlengine['basePath'].'images-items/'.$image_name.'"/>';
+		return '<img src="'.jApp::config()->urlengine['basePath'].'images-items/'.$image_name.'"/>';
     }
 }

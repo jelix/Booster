@@ -16,7 +16,7 @@ class rssCtrl extends jController {
     function index() {
         $rep = $this->getResponse('rss2.0');
 
-        $lang = $GLOBALS['gJConfig']->locale;
+        $lang = jApp::config()->locale;
 
         $rep->infos->title = 'Booster.jelix.org';
         $rep->infos->webSiteUrl= 'http://booster.jelix.org';

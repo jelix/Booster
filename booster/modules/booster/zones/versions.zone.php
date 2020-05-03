@@ -12,11 +12,11 @@ class versionsZone extends jZone {
     protected $_tplname='zone.versions';
 
     protected function _prepareTpl(){
-        $item_id = (int) $this->getParam('id');
+        $item_id = (int) $this->param('id');
         $ctrl=''; $method = '';
         //check which method and controller do the call of this zone
-        if ( array_key_exists('action',$GLOBALS['gJCoord']->request->params) )
-            list($ctrl,$method) = preg_split('/:/',$GLOBALS['gJCoord']->request->params['action']);
+        if ( array_key_exists('action', jApp::coord()->request->params) )
+            list($ctrl,$method) = preg_split('/:/', jApp::coord()->request->params['action']);
         $nbRec= 0;
         if($method == 'viewItem' or $method == 'editItem' or $method == 'editVersion'){
             $datas = jDao::get('booster~boo_versions','booster')->findAllValidated($item_id);

@@ -20,7 +20,7 @@ class myHtmlResponse extends jResponseHtml {
 
         $this->addHeadContent(
             '<link rel="alternate" type="application/rss+xml" title="'.jLocale::get('booster~main.feed.last.items').'" href="'.
-            jUrl::get('booster~rss:index', array('lang' => $GLOBALS['gJConfig']->locale))
+            jUrl::get('booster~rss:index', array('lang' => jApp::config()->locale))
             .'" />');
     }
 

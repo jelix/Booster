@@ -9,10 +9,10 @@
 */
 
 class authorZone extends jZone {
-    
+
     protected $_useCache = true;
-    
+
     protected function _createContent(){
-        return htmlspecialchars(jDao::get('jcommunity~user', 'hfnu')->getById((int) $this->getParam('id'))->nickname);
+        return htmlspecialchars(jDao::get('jcommunity~user', 'hfnu')->getById((int) $this->param('id'))->nickname);
     }
 }
