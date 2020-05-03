@@ -28,8 +28,6 @@
             </order>
         </method>
 
-        <method name="findGroupedByVersionId" type="select" groupby="version_id"></method>
-
         <method name="deleteByVersionId" type="delete">
             <parameter name="id" />
             <conditions>

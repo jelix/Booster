@@ -24,6 +24,7 @@ class boosterListener extends jEventListener{
                 $link .= '</a>';
                 $event->add( $link );
             }
+
             $notify  = jDao::get('booster~boo_versions','booster')->findAllNotModerated();
             $nbRec = $notify->rowCount();
             if ($nbRec > 0 ) {
@@ -35,9 +36,10 @@ class boosterListener extends jEventListener{
                 $link .= '</a>';
                 $event->add( $link );
             }
-            // data that have been modified
-            $notify  = jDao::get('boosteradmin~boo_items_modifs','booster')->findGroupedByItemId();
-            $nbRec = $notify->rowCount();
+            //
+            $conn = jDb::getConnection('booster');
+            $itemModified = $conn->query('SELECT DISTINCT(item_id) FROM boo_items_modifs');
+            $nbRec = $itemModified->rowCount();
             if ($nbRec > 0 ) {
                 $link = '<a href="'.jUrl::get('boosteradmin~items:index').'">';
                 if($nbRec == 1)
@@ -47,8 +49,8 @@ class boosterListener extends jEventListener{
                 $link .= '</a>';
                 $event->add( $link );
             }
-            $notify  = jDao::get('boosteradmin~boo_versions_modifs','booster')->findGroupedByVersionId();
-            $nbRec = $notify->rowCount();
+            $versionModified = $conn->query('SELECT DISTINCT(version_id) FROM boo_versions_modifs');
+            $nbRec = $versionModified->rowCount();
             if ($nbRec > 0 ) {
                 $link = '<a href="'.jUrl::get('boosteradmin~versions:index').'">';
                 if($nbRec == 1)

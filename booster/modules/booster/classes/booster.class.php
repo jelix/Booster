@@ -71,7 +71,7 @@ class booster {
      * to the dedicated "waiting table"
      */
     function saveEditItem($form) {
-        $dao_modif = jDao::get('boosteradmin~boo_items_modifs');jLog::dump($form->getModifiedControls());
+        $dao_modif = jDao::get('boosteradmin~boo_items_modifs');
         foreach($form->getModifiedControls() as $field => $old_value){
             if($field == '_submit')
                 continue;

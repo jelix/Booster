@@ -29,8 +29,6 @@
             </order>
         </method>
 
-        <method name="findGroupedByItemId" type="select" groupby="item_id"></method>
-
         <method name="deleteByItemId" type="delete">
             <parameter name="id" />
             <conditions>

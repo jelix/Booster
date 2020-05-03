@@ -19,7 +19,11 @@ class itemsCtrl extends jController {
     function index() {
         $tpl = new jTpl();
         $rep = $this->getResponse('html');
-        $tpl->assign('datas_mod',jDao::get('boosteradmin~boo_items_modifs','booster')->findGroupedByItemId());
+        $conn = jDb::getConnection('booster');
+        $itemModified = $conn->query('SELECT bi.id, bi.name, bim.date, bi.item_by 
+            FROM boo_items_modifs bim 
+            INNER JOIN boo_items bi ON (bim.item_id = bi.id) GROUP BY bi.id, bi.name, bi.item_by');
+        $tpl->assign('datas_mod', $itemModified);
         $tpl->assign('datas_new',jDao::get('booster~boo_items','booster')->findAllNotModerated());
         $rep->body->assign('MAIN',$tpl->fetch('items_mod'));
         return $rep;
@@ -42,7 +46,7 @@ class itemsCtrl extends jController {
         $form = jForms::create('boosteradmin~items_mod', $id);
         $form->initFromDao('booster~boo_items');
         $form->setData('id',$id);
-        
+
         $tags = implode(',', jClasses::getService("jtags~tags")->getTagsBySubject('booscope', $id) ) ;
         $form->setData('tags', $tags);
         $rep = $this->getResponse('html');
@@ -67,9 +71,9 @@ class itemsCtrl extends jController {
                 $form->setErrorOn('short_desc',jLocale::get('booster~main.desc.mandatory'));
                 $form->setErrorOn('short_desc_fr',jLocale::get('booster~main.desc.mandatory'));
                 $rep->action='add';
-                return $rep;                
-            }        
-            
+                return $rep;
+            }
+
             // we validate the new item
             // then remove the data from the "waiting table" (items_mod)
             if ($form->getData('status')==1) {
@@ -162,9 +166,9 @@ class itemsCtrl extends jController {
                 $form->setErrorOn('short_desc',jLocale::get('booster~main.desc.mandatory'));
                 $form->setErrorOn('short_desc_fr',jLocale::get('booster~main.desc.mandatory'));
                 $rep->action='add';
-                return $rep;                
-            }        
-            
+                return $rep;
+            }
+
             $tagStr ='';
             $tagStr = str_replace('.',' ',$form->getData("tags"));
             $tags = explode(",", $tagStr);
@@ -189,7 +193,7 @@ class itemsCtrl extends jController {
         }
         return $rep;
     }
-    
+
     function delete() {
         $rep = $this->getResponse('redirect');
         $rep->action = 'boosteradmin~items:indexAll';

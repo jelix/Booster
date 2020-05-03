@@ -30,13 +30,13 @@ auth_required=on
 on_error=2
 
 ; locale key for the error message when on_error=1
-error_message = "jcommunity~login.error.notlogged"
+error_message="jcommunity~login.error.notlogged"
 
 ; action to execute on a missing authentification when on_error=2
-on_error_action = "jcommunity~login:out"
+on_error_action="jcommunity~login:out"
 
 ; action to execute when a bad ip is checked with secure_with_ip=1 and on_error=2
-bad_ip_action = "jcommunity~login:out"
+bad_ip_action="jcommunity~login:out"
 
 
 ;=========== Parameters for jauth module
@@ -45,24 +45,22 @@ bad_ip_action = "jcommunity~login:out"
 on_error_sleep=3
 
 ; action to redirect after the login
-after_login = "jcommunity~account:show"
+after_login="jcommunity~account:show"
 
 ; action to redirect after a logout
-after_logout = "jcommunity~login:index"
+after_logout="jcommunity~login:index"
 
 ; says if after_login can be overloaded by a "auth_url_return" parameter in the url/form for the login
-enable_after_login_override = on
+enable_after_login_override=on
 
 ; says if after_logout can be overloaded by a "auth_url_return" parameter in the url/form for the login
-enable_after_logout_override = on
+enable_after_logout_override=on
 
 ;============ Parameters for the persistance of the authentification
 
 ; enable the persistance of the authentification between two sessions
 persistant_enable=off
 
-; key to use to crypt the password in the cookie. replace it by your own words !
-persistant_crypt_key=exampleOfCryptKey
 
 ; the name of the cookie which is used to store data for the authentification
 persistant_cookie_name=jelixAuthentificationCookie
@@ -71,7 +69,7 @@ persistant_cookie_name=jelixAuthentificationCookie
 persistant_duration=1
 
 ; base path for the cookie. If empty, it uses the basePath value from the main configuration.
-persistant_cookie_path =
+persistant_cookie_path=
 
 ;=========== Parameters for drivers
 
@@ -81,7 +79,7 @@ persistant_cookie_path =
 dao="jcommunity~user"
 
 ; profile to use for jDb
-profile="hfnu"
+profile=hfnu
 
 ; name of the php function to crypt the password in the database
 password_crypt_function=md5
@@ -95,3 +93,4 @@ form="jauthdb_admin~jelixuser"
 ; path of the directory where to store files uploaded by the form (jauthdb_admin module)
 ; should be related to the var directory of the application
 uploadsDirectory=
+
