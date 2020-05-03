@@ -1,5 +1,9 @@
 P /booster/var/config/installer.ini.php
 - /booster/var/config/installer.ini.php
+P /booster/var/config/liveconfig.ini.php
+- /booster/var/config/liveconfig.ini.php
+P /booster/var/config/localconfig.ini.php
+- /booster/var/config/localconfig.ini.php
 P /booster/var/log/*.log
 - /booster/var/log/*.log
 + /booster/var/uploads/.dummy

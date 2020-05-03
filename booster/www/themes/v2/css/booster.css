@@ -8,7 +8,7 @@
 
 /* ======================== default styles */
 body {
-    font-family: Helvetica, Verdana, Arial, Sans; 
+    font-family: Helvetica, Verdana, Arial, Sans;
     font-size:0.8em;
     margin:0;
     padding:0;
@@ -74,7 +74,7 @@ code.filename, code.command, code.envar {
     padding-right:3px;
     font-weight:normal;
 }
-code.filename { 
+code.filename {
     -moz-border-radius:4px;
     -webkit-border-radius:4px;
     -o-border-radius:4px;
@@ -141,12 +141,12 @@ code.returnvalue {}
 
 
 #login-box, #lang-box {
-  display:inline; 
+  display:inline;
   display:inline-block;
   padding:4px 10px;
   font-size:0.8em;
   -moz-border-radius:5px;
-  -webkit-border-radius:5px; 
+  -webkit-border-radius:5px;
   -o-border-radius:5px;
   border-radius:5px ;
   z-index:100;
@@ -168,7 +168,7 @@ code.returnvalue {}
 #lang-box {
     background:-moz-linear-gradient(top, #87B2C3,#5595AF, #3c90af);
     background-color:#3c90af;
-    color:white;  
+    color:white;
     text-transform: uppercase;
 }
 
@@ -187,7 +187,7 @@ code.returnvalue {}
     text-align:center;
 }
 
-#topmenubar li { 
+#topmenubar li {
     display:inline;
     padding:5px 10px 10px 10px;
     margin:0;
@@ -199,7 +199,7 @@ code.returnvalue {}
     font-weight:bold;
 }
 #topmenubar li a, #submenubar li a {
-  color:white; 
+  color:white;
   text-decoration:none;
   text-shadow: #002830 1px 1px 1px;
 }
@@ -208,7 +208,7 @@ code.returnvalue {}
 #topmenubar li a:hover{ text-shadow: #AABDC1 1px 1px 8px;}
 #topmenubar li.selected a {
     text-shadow: #c03033 0px 0px 10px;
-    
+
 }
 
 #footer {
@@ -237,7 +237,7 @@ code.returnvalue {}
     text-align:right;
 }
 #footer li{ margin-bottom: 5px;
-    
+
 }
 .footer-box {
     float:left;
@@ -249,7 +249,7 @@ code.returnvalue {}
     padding: 1em;
     background-color:white;
     -moz-border-radius:5px;
-    -webkit-border-radius:5px; 
+    -webkit-border-radius:5px;
     -o-border-radius:5px;
     border-radius:5px ;
     font-size:1.1em;
@@ -271,7 +271,7 @@ code.returnvalue {}
 
 /*  ================= contenu principal */
 #content-header {
-    
+
 }
     #submenubar, .submenubar {
         background:-moz-linear-gradient(top, #2b4c53,#27474E 40%, #244148 60%, #002830);
@@ -289,11 +289,11 @@ code.returnvalue {}
         -o-box-shadow: #999 3px 3px 8px 0px;
         box-shadow: #999 3px 3px 8px 0px;
         -moz-border-radius:5px;
-        -webkit-border-radius: 5px; 
+        -webkit-border-radius: 5px;
         -o-border-radius:5px;
         border-radius:5px ;
     }
-    #submenubar li { 
+    #submenubar li {
         display:inline;
         padding:5px;
         font-size:1em;
@@ -381,7 +381,7 @@ code.returnvalue {}
   font-size:0.7em;
 }
 
-#article h1:hover a.anchor, #article h2:hover a.anchor, #article h3:hover a.anchor, 
+#article h1:hover a.anchor, #article h2:hover a.anchor, #article h3:hover a.anchor,
 #article h4:hover a.anchor, #article h5:hover a.anchor { visibility:visible; }
 
 #article .search .edit { width:150px;}
@@ -459,7 +459,7 @@ code.returnvalue {}
 
 
 #content-footer {
-    
+
 }
 #mainfooter {
     margin:1em;
@@ -498,7 +498,7 @@ code.returnvalue {}
     -o-box-shadow: #999 3px 3px 8px 0px;
     box-shadow: #999 3px 3px 8px 0px;
     -moz-border-radius:5px;
-    -webkit-border-radius: 5px; 
+    -webkit-border-radius: 5px;
     -o-border-radius:5px;
     border-radius:5px ;
     padding:10px;
@@ -506,11 +506,11 @@ code.returnvalue {}
 
 #book-page-header .book-hierarchy a { text-decoration:none;}
 #book-page-header .book-hierarchy a:hover { text-decoration: underline; }
-#book-page-header .book-hierarchy ul { margin:1em 0 0 1em; padding:0 0 0 1em; 
+#book-page-header .book-hierarchy ul { margin:1em 0 0 1em; padding:0 0 0 1em;
    list-style-image:url(puce_menu_actif.png);
    background-repeat:repeat-y;}
 #book-page-header .book-hierarchy ul ul { margin-top:0; background-image:none;}
-#book-page-header .book-hierarchy ul li { margin:0; padding:0 0 0 0em; }
+#book-page-header .book-hierarchy ul li { margin:0; padding:0 0 0 0; }
 #book-page-header .book-hierarchy li.actif { font-weight:bold;}
 #book-page-header .book-hierarchy li.actif a:hover {}
 #book-page-header .book-hierarchy li.actif ul { font-weight:normal; font-size:0.9em; }
@@ -737,7 +737,7 @@ small{font-size:0.8em;}
 
     background-color:white;
     -moz-border-radius:10px;
-    -webkit-border-radius:10px; 
+    -webkit-border-radius:10px;
     border-radius:10px ;
     color:#333;
     border:1px solid #A9BDD1;
@@ -749,7 +749,7 @@ small{font-size:0.8em;}
 
     background-color:#EFF3F7;
     -moz-border-radius:10px;
-    -webkit-border-radius:10px; 
+    -webkit-border-radius:10px;
     border-radius:10px ;
     color:#000;
 }
@@ -805,10 +805,10 @@ small{font-size:0.8em;}
   border:1px solid #EFF3F7;
   border-right-color:#849BB2;
   line-height:12px;
-  
+
   opacity:0.6;
   -moz-border-radius:5px 0 0 5px;
-  -webkit-border-radius:5px 0 0 5px; 
+  -webkit-border-radius:5px 0 0 5px;
   border-radius:5px 0 0 5px;
 }
 .booster-item-desc .tabs-lang li.ui-state-hover a, .booster-item-desc .tabs-lang li.ui-state-focus a{
@@ -870,7 +870,7 @@ small{font-size:0.8em;}
   margin-bottom:5px;
 }
 
-#booster_tagscloud{clear:both};
+#booster_tagscloud{clear:both; }
 #tagscloud { margin: 20px 50px 50px; }
 #tagscloud li { display: inline; }
 #tagscloud a {text-decoration: none;}
