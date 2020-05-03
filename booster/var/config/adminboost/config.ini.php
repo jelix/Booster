@@ -1,12 +1,13 @@
 ;<?php die(''); ?>
 ;for security reasons , don't remove or modify the first line
 
-startModule=master_admin
+startModule="master_admin"
 startAction="default:index"
 
+pluginsPath="app:plugins/,lib:jelix-plugins/,module:jacl2db/plugins"
 [responses]
-html=adminHtmlResponse
-htmlauth=adminLoginHtmlResponse
+html="adminHtmlResponse"
+htmlauth="adminLoginHtmlResponse"
 
 [modules]
 jelix.access=2
@@ -24,8 +25,8 @@ jtags.access=1
 boosteradmin.access=2
 booster.access=1
 
-jcommunity.dbprofile=hfnu
-jauthdb_admin.dbprofile=hfnu 
+jcommunity.dbprofile="hfnu"
+jauthdb_admin.dbprofile="hfnu"
 
 [simple_urlengine_entrypoints]
 adminboost="jacl2db~*@classic, jauth~*@classic, jacl2db_admin~*@classic, jauthdb_admin~*@classic, master_admin~*@classic, jcommunity~*@classic, booster~*@classic, jtags~*@classic"
@@ -33,3 +34,4 @@ adminboost="jacl2db~*@classic, jauth~*@classic, jacl2db_admin~*@classic, jauthdb
 [coordplugins]
 auth="adminboost/auth.coord.ini.php"
 jacl2="adminboost/jacl2.coord.ini.php"
+
