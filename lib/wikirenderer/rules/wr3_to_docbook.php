@@ -6,7 +6,7 @@
  * @subpackage rules
  * @author Laurent Jouanneau
  * @copyright 2003-2010 Laurent Jouanneau
- * @link http://wikirenderer.berlios.de
+ * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public 2.1
@@ -85,7 +85,7 @@ class wr3dbk_code extends WikiTagXhtml {
     public $endTag='@@';
     public function getContent(){
         $code = $this->wikiContentArr[0];
-        return '<code>'.htmlspecialchars($code).'</code>';
+        return '<code>'.$this->_doEscape($code).'</code>';
     }
     public function isOtherTagAllowed() {
         return false;
@@ -128,7 +128,7 @@ class wr3dbk_anchor extends WikiTagXhtml {
     protected $attribute=array('id');
     public $separators=array('|');
     public function getContent(){
-        return '<anchor id="'.htmlspecialchars($this->wikiContentArr[0]).'"/>';
+        return '<anchor id="'.$this->_doEscape($this->wikiContentArr[0]).'"/>';
     }
 }
 
@@ -144,18 +144,19 @@ class wr3dbk_link extends WikiTagXhtml {
         $cntattr=count($this->attribute);
         $cnt=($this->separatorCount + 1 > $cntattr?$cntattr:$this->separatorCount+1);
         if($cnt == 1 ){
-            $contents = $this->wikiContentArr[0];
+            list($href, $label) = $this->config->processLink($this->wikiContentArr[0], $this->name);
 
-            if(preg_match("/^\#(.+)$/", $contents, $m))
-                return '<link linkterm="'.htmlspecialchars($m[1]).'">'.htmlspecialchars($contents).'</link>';
+            if(preg_match("/^\#(.+)$/", $href, $m))
+                return '<link linkterm="'.$this->_doEscape($m[1]).'">'.$this->_doEscape($label).'</link>';
             else
-                return '<ulink url="'.htmlspecialchars($contents).'">'.htmlspecialchars($contents).'</ulink>';
+                return '<ulink url="'.$this->_doEscape($href).'">'.$this->_doEscape($label).'</ulink>';
 
         }else{
-            if(preg_match("/^\#(.+)$/", $this->wikiContentArr[1], $m))
-                return '<link linkterm="'.htmlspecialchars($m[1]).'">'.$this->contents[0].'</link>';
+            list($href, $label) = $this->config->processLink($this->wikiContentArr[1], $this->name);
+            if(preg_match("/^\#(.+)$/", $href, $m))
+                return '<link linkterm="'.$this->_doEscape($m[1]).'">'.$this->contents[0].'</link>';
             else
-                return '<ulink url="'.htmlspecialchars($this->wikiContentArr[1]).'">'.$this->contents[0].'</ulink>';
+                return '<ulink url="'.$this->_doEscape($href).'">'.$this->contents[0].'</ulink>';
         }
     }
 }
@@ -186,7 +187,8 @@ class wr3dbk_image extends WikiTagXhtml {
                 $alt='<textobject><phrase>'.$contents[1].'</phrase></textobject>';
             case 1:
             default:
-                $attribut.=' fileref="'.$contents[0].'"';
+               list($href, $label) = $this->config->processLink($contents[0], $this->name);
+                $attribut.=' fileref="'.$this->_doEscape($href).'"';
         }
 
         return '<inlinemediaobject><imageobject><imagedata'.$attribut.'/></imageobject>'.$alt.'</inlinemediaobject>';
@@ -397,7 +399,7 @@ class wr3dbk_pre extends WikiRendererBloc {
    }
 
     public function getRenderedLine(){
-        return htmlspecialchars($this->_detectMatch);
+        return htmlspecialchars($this->_detectMatch, ENT_COMPAT, $this->engine->getConfig()->charset);
     }
 
     public function detect($string){

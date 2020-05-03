@@ -4,7 +4,7 @@
 * @subpackage  utils
 * @author      Laurent Jouanneau
 * @contributor Julien Issler, Hadrien Lanneau
-* @copyright   2006-2009 Laurent Jouanneau
+* @copyright   2006-2012 Laurent Jouanneau
 * @copyright   2008 Julien Issler, 2011 Hadrien Lanneau
 * @link        http://www.jelix.org
 * @licence     http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public Licence, see LICENCE file
@@ -69,6 +69,15 @@ abstract class jDatatype {
     public function check($value){
         return true;
     }
+
+    /**
+     * says if the value can contain only whitespaces
+     * @return boolean
+     * @since 1.2.7
+     */
+    public function allowWhitespace() {
+        return false;
+    }
 }
 
 /**
@@ -89,7 +98,7 @@ class jDatatypeString extends jDatatype {
         if($this->hasFacets){
             $len = iconv_strlen(
                 trim(preg_replace( '@\s+@', ' ', $value)),
-                $GLOBALS['gJConfig']->charset
+                jApp::config()->charset
             );
             if($this->length !== null && $len != $this->length)
                 return false;
@@ -100,6 +109,10 @@ class jDatatypeString extends jDatatype {
             if($this->pattern !== null && !preg_match($this->pattern,$value))
                 return false;
         }
+        return true;
+    }
+
+    public function allowWhitespace() {
         return true;
     }
 }
@@ -130,9 +143,9 @@ class jDatatypeHtml extends jDatatype implements jIFilteredDatatype {
     public function check($value){
         if($this->hasFacets){
             if ($this->fromWysiwyg)
-                $len = iconv_strlen(strip_tags($value,'<img><img/><object><embed><video><video/><svg>'), $GLOBALS['gJConfig']->charset);
+                $len = iconv_strlen(strip_tags($value,'<img><img/><object><embed><video><video/><svg>'), jApp::config()->charset);
             else
-                $len = iconv_strlen($value, $GLOBALS['gJConfig']->charset);
+                $len = iconv_strlen($value, jApp::config()->charset);
             if($this->length !== null && $len != $this->length)
                 return false;
             if($this->minLength !== null && $len < $this->minLength)
@@ -146,6 +159,10 @@ class jDatatypeHtml extends jDatatype implements jIFilteredDatatype {
 
     public function getFilteredValue() {
         return $this->newValue;
+    }
+
+    public function allowWhitespace() {
+        return true;
     }
 }
 
@@ -239,7 +256,7 @@ class jDatatypeDateTime extends jDatatype {
 
     protected function _addFacet($type,$value){
         if($type == 'maxValue' || $type == 'minValue'){
-            if(!preg_match('#^\d{4}-\d{2}-\d{2} (\d{2}:\d{2}(:\d{2})?)?$#',$value))
+            if(!preg_match('#^\d{4}-\d{2}-\d{2}( \d{2}:\d{2}(:\d{2})?)?$#',$value))
                 $value = date($this->_date_format,strtotime($value));
             $this->$type = new jDateTime();
             $this->$type->setFromString($value,$this->format);
@@ -296,6 +313,17 @@ class jDatatypeLocaleDate extends jDatatypeDateTime {
  */
 class jDatatypeLocaleTime extends jDatatypeDateTime {
     protected $format=12;
+}
+
+
+/**
+ * Datatype localetime
+ * @package     jelix
+ * @subpackage  utils
+ * @author dhughuet, time short
+ */
+class jDatatypeLocaleTimeShort extends jDatatypeDateTime {
+    protected $format=14;
 }
 
 

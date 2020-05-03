@@ -5,8 +5,8 @@
  * @package WikiRenderer
  * @subpackage rules
  * @author Laurent Jouanneau
- * @copyright 2008 Laurent Jouanneau
- * @link http://wikirenderer.berlios.de
+ * @copyright 2008-2012 Laurent Jouanneau
+ * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public 2.1
@@ -77,6 +77,16 @@ class dokuwiki_to_xhtml  extends WikiRendererConfig  {
         }
         return $finalTexte;
     }
+
+    public function processLink($url, $tagName='') {
+        $label = $url;
+        if(strlen($label) > 40)
+            $label = substr($label,0,40).'(..)';
+  
+        if(strpos($url,'javascript:')!==false) // for security reason
+            $url='#';
+        return array($url, $label);
+    }
 }
 
 // ===================================== inline tags
@@ -110,7 +120,8 @@ class DokuWikiTag extends WikiTagXhtml {
                 $len = ($match[0][1])-$begin;
                 $str.= substr($string, $begin, $len);
                 $begin = $match[0][1] + strlen($match[0][0]);
-                $str.='<a href="'.$match[2][0].'">'.$match[2][0].'</a>';
+                list($href, $label) = $this->config->processLink($match[2][0], $this->name);
+                $str.='<a href="'.$this->_doEscape($href).'">'.$this->_doEscape($label).'</a>';
             }
             if($begin < strlen($string))
                 $str.= substr($string, $begin);
@@ -179,17 +190,11 @@ class dkxhtml_link extends WikiTagXhtml {
     public function getContent(){
         $cntattr=count($this->attribute);
         $cnt=($this->separatorCount + 1 > $cntattr?$cntattr:$this->separatorCount+1);
+        list($href, $label) = $this->config->processLink($this->wikiContentArr[0], $this->name);
         if($cnt == 1 ){
-            $contents = $this->wikiContentArr[0];
-            $href=$contents;
-            if(strpos($href,'javascript:')!==false) // for security reason
-                $href='#';
-            if(strlen($contents) > 40)
-                $contents=substr($contents,0,40).'(..)';
-            return '<a href="'.htmlspecialchars(trim($href)).'">'.htmlspecialchars($contents).'</a>';
+            return '<a href="'.$this->_doEscape(trim($href)).'">'.$this->_doEscape($label).'</a>';
         }else{
-            if(strpos($this->wikiContentArr[0],'javascript:')!==false) // for security reason
-                $this->wikiContentArr[0]='#';
+            $this->wikiContentArr[0] = $href;
             return parent::getContent();
         }
     }
@@ -215,7 +220,7 @@ class dkxhtml_nowiki_inline extends WikiTagXhtml {
     public $beginTag='<nowiki>';
     public $endTag='</nowiki>';
     public function getContent(){
-        return '<div>'.htmlspecialchars($this->wikiContentArr[0]).'</div>';
+        return '<div>'.$this->_doEscape($this->wikiContentArr[0]).'</div>';
     }
 }
 
@@ -258,7 +263,7 @@ class dkxhtml_image extends WikiTagXhtml {
             }
             $href= $m[2];
         }
-
+        list($href, $label) = $this->config->processLink($href, $this->name);
         $tag = '<img src="'.$href.'"';
         if($width != '')
             $tag.=' width="'.$width.'"';
@@ -268,7 +273,7 @@ class dkxhtml_image extends WikiTagXhtml {
             $tag.=' align="'.$align.'"';
 
         if($title != '') 
-            $tag.=' title="'.htmlspecialchars($title).'"';
+            $tag.=' title="'.$this->_doEscape($title).'"';
 
         return $tag.' />';
     }
@@ -481,7 +486,7 @@ class dkxhtml_table_row extends WikiTag {
     protected $columns = array('');
 
     protected function _doEscape($string){
-        return htmlspecialchars($string);
+        return htmlspecialchars($string, ENT_COMPAT, $this->config->charset);
     }
 
     /**
@@ -626,7 +631,7 @@ class dkxhtml_syntaxhighlight extends WikiRendererBloc {
    }
 
     public function getRenderedLine(){
-        return htmlspecialchars($this->_detectMatch);
+        return htmlspecialchars($this->_detectMatch, ENT_COMPAT, $this->engine->getConfig()->charset);
     }
 
     public function detect($string){
@@ -649,6 +654,10 @@ class dkxhtml_syntaxhighlight extends WikiRendererBloc {
                     $this->_closeNow = false;
                     $this->_detectMatch=$m[2];
                 }
+                if (isset($m[1]) && $m[1]!='')
+                    $this->_openTag = '<pre><code class="language-'.trim($m[1]).'">';
+                else
+                    $this->_openTag = '<pre><code>';
                 return true;
             }else{
                 return false;

@@ -61,8 +61,12 @@ final class jResponseBinary  extends jResponse {
      */
     public function output(){
 
+        if($this->_outputOnlyHeaders){
+            $this->sendHttpHeaders();
+            return true;
+        }
+
         if($this->doDownload){
-            $this->mimeType = 'application/forcedownload';
             if (!strlen($this->outputFileName)){
                 $f = explode ('/', str_replace ('\\', '/', $this->fileName));
                 $this->outputFileName = $f[count ($f)-1];

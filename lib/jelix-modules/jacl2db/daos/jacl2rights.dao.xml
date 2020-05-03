@@ -15,21 +15,21 @@
             <parameter name="groups" />
             <conditions >
                <eq property="id_aclsbj" expr="$subject" />
-               <eq property="id_aclres" expr="''"/>
+               <eq property="id_aclres" value="-"/>
                <in property="id_aclgrp" expr="$groups" />
             </conditions>
         </method>
         <method name="getRightsByGroups" type="select">
             <parameter name="groups" />
             <conditions >
-                <eq property="id_aclres" expr="''"/>
+                <eq property="id_aclres" value="-"/>
                 <in property="id_aclgrp" expr="$groups" />
             </conditions>
         </method>
         <method name="getRightsByGroup" type="select">
             <parameter name="group" />
             <conditions >
-                <eq property="id_aclres" expr="''"/>
+                <eq property="id_aclres" value="-"/>
                 <eq property="id_aclgrp" expr="$group" />
             </conditions>
         </method>
@@ -49,7 +49,7 @@
         <method name="getRightsHavingRes" type="select">
            <parameter name="group" />
            <conditions >
-              <neq property="id_aclres" expr="''" />
+              <neq property="id_aclres" value="-" />
               <eq property="id_aclgrp" expr="$group" />
            </conditions>
             <order>
@@ -60,7 +60,7 @@
             <parameter name="subject" />
             <conditions >
                 <eq property="id_aclsbj" expr="$subject" />
-                <eq property="id_aclres" expr="''"/>
+                <eq property="id_aclres" value="-"/>
                 <eq property="id_aclgrp" value="__anonymous" />
             </conditions>
         </method>
@@ -75,7 +75,7 @@
         </method>
         <method name="getAllAnonymousRights" type="select">
             <conditions >
-                <eq property="id_aclres" expr="''"/>
+                <eq property="id_aclres" value="-"/>
                 <eq property="id_aclgrp" value="__anonymous" />
             </conditions>
         </method>
@@ -105,7 +105,7 @@
            <conditions>
               <eq property="id_aclgrp" expr="$group" />
               <in property="id_aclsbj" expr="$subjects" />
-              <eq property="id_aclres" expr="''"/>
+              <eq property="id_aclres" value="-"/>
            </conditions>
         </method>
         <method name="deleteRightsOnResource" type="delete">
@@ -114,7 +114,7 @@
            <conditions>
               <eq property="id_aclgrp" expr="$group" />
               <in property="id_aclsbj" expr="$subjects" />
-              <neq property="id_aclres" expr="''"/>
+              <neq property="id_aclres" value="-"/>
            </conditions>
         </method>
     </factory>

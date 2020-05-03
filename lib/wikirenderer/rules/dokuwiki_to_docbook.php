@@ -6,7 +6,7 @@
  * @subpackage rules
  * @author Laurent Jouanneau
  * @copyright 2008 Laurent Jouanneau
- * @link http://wikirenderer.berlios.de
+ * @link http://wikirenderer.jelix.org
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public 2.1
@@ -26,10 +26,10 @@
 class dokuwiki_to_docbook  extends WikiRendererConfig  {
 
 
-    public $defaultTextLineContainer = 'WikiHtmlTextLine';
+    public $defaultTextLineContainer = 'WikiXmlTextLine';
 
     public $textLineContainers = array(
-            'WikiHtmlTextLine'=>array( 'dkdbk_strong','dkdbk_emphasis','dkdbk_underlined','dkdbk_monospaced',
+            'WikiXmlTextLine'=>array( 'dkdbk_strong','dkdbk_emphasis','dkdbk_underlined','dkdbk_monospaced',
         'dkdbk_subscript', 'dkdbk_superscript', 'dkdbk_del', 'dkdbk_link', 'dkdbk_footnote', 'dkdbk_image',
         'dkdbk_nowiki_inline',),
             'dkdbk_table_row'=>array( 'dkdbk_strong','dkdbk_emphasis','dkdbk_underlined','dkdbk_monospaced',
@@ -68,57 +68,72 @@ class dokuwiki_to_docbook  extends WikiRendererConfig  {
 
         return $finalTexte;
     }
+
+    public function getSectionId($title) {
+        return '';
+    }
+
+    public function processLink($url, $tagName='') {
+        $label = $url;
+        if(strlen($label) > 40)
+            $label = substr($label,0,40).'(..)';
+  
+        if(strpos($url,'javascript:')!==false) // for security reason
+            $url='#';
+        return array($url, $label);
+    }
 }
+
 
 // ===================================== inline tags
 
-class dkdbk_strong extends WikiTagXhtml {
+class dkdbk_strong extends WikiTagXml {
     protected $name='emphasis';
     public $beginTag='**';
     public $endTag='**';
     protected $additionnalAttributes=array('role'=>'strong');
 }
 
-class dkdbk_emphasis extends WikiTagXhtml {
+class dkdbk_emphasis extends WikiTagXml {
     protected $name='emphasis';
     public $beginTag='//';
     public $endTag='//';
 }
 
-class dkdbk_underlined extends WikiTagXhtml {
+class dkdbk_underlined extends WikiTagXml {
     protected $name='underlined';
     public $beginTag='__';
     public $endTag='__';
     public function getContent(){ return $this->contents[0];}
 }
 
-class dkdbk_monospaced extends WikiTagXhtml {
+class dkdbk_monospaced extends WikiTagXml {
     protected $name='code';
     public $beginTag='\'\'';
     public $endTag='\'\'';
 }
 
 
-class dkdbk_subscript extends WikiTagXhtml {
+class dkdbk_subscript extends WikiTagXml {
     protected $name='subscript';
     public $beginTag='<sub>';
     public $endTag='</sub>';
 }
 
-class dkdbk_superscript extends WikiTagXhtml {
+class dkdbk_superscript extends WikiTagXml {
     protected $name='superscript';
     public $beginTag='<sup>';
     public $endTag='</sup>';
 }
 
-class dkdbk_del extends WikiTagXhtml {
+class dkdbk_del extends WikiTagXml {
     protected $name='del';
     public $beginTag='<del>';
     public $endTag='</del>';
     public function getContent(){ return '';}
 }
 
-class dkdbk_link extends WikiTagXhtml {
+class dkdbk_link extends WikiTagXml {
     protected $name='ulink';
     public $beginTag='[[';
     public $endTag=']]';
@@ -126,26 +141,29 @@ class dkdbk_link extends WikiTagXhtml {
     public $separators=array('|');
 
     public function getContent(){
-        $cntattr=count($this->attribute);
-        $cnt=($this->separatorCount + 1 > $cntattr?$cntattr:$this->separatorCount+1);
-        if($cnt == 1 ){
-            $contents = $this->wikiContentArr[0];
+        $cntattr = count($this->attribute);
+        $cnt = ($this->separatorCount + 1 > $cntattr?$cntattr:$this->separatorCount+1);
 
-            if(preg_match("/^\#(.+)$/", $contents, $m))
-                return '<link linkterm="'.htmlspecialchars(trim($m[1])).'">'.htmlspecialchars($contents).'</link>';
-            else
-                return '<ulink url="'.htmlspecialchars(trim($contents)).'">'.htmlspecialchars($contents).'</ulink>';
+        list($href,$label) = $this->config->processLink($this->wikiContentArr[0], $this->name);
 
-        }else{
-            if(preg_match("/^\#(.+)$/", $this->wikiContentArr[0], $m))
-                return '<link linkterm="'.htmlspecialchars(trim($m[0])).'">'.$this->contents[1].'</link>';
-            else
-                return '<ulink url="'.htmlspecialchars(trim($this->wikiContentArr[0])).'">'.$this->contents[1].'</ulink>';
+        if ($cnt == 1 ) {
+            $label = $this->_doEscape($label);
+        } else {
+            $label = $this->contents[1];
         }
+        
+        if ($href == '#' || $href == '')
+            return $label;
+        
+        if(preg_match("/^\#(.+)$/", $href, $m)) {
+            return '<link linkterm="'.$this->_doEscape(trim($m[1])).'">'.$label.'</link>';
+        }
+        else
+            return '<ulink url="'.$this->_doEscape(trim($href)).'">'.$label.'</ulink>';
     }
 }
 
-class dkdbk_footnote extends WikiTagXhtml {
+class dkdbk_footnote extends WikiTagXml {
     protected $name='footnote';
     public $beginTag='((';
     public $endTag='))';
@@ -153,17 +171,17 @@ class dkdbk_footnote extends WikiTagXhtml {
 }
 
 
-class dkdbk_nowiki_inline extends WikiTagXhtml {
+class dkdbk_nowiki_inline extends WikiTagXml {
     protected $name='nowiki';
     public $beginTag='<nowiki>';
     public $endTag='</nowiki>';
     public function getContent(){
-        return '<phrase>'.htmlspecialchars($this->wikiContentArr[0], ENT_NOQUOTES).'</phrase>';
+        return '<phrase>'.$this->_doEscape($this->wikiContentArr[0]).'</phrase>';
     }
 }
 
 
-class dkdbk_image extends WikiTagXhtml {
+class dkdbk_image extends WikiTagXml {
     protected $name='image';
     public $beginTag='{{';
     public $endTag='}}';
@@ -201,8 +219,8 @@ class dkdbk_image extends WikiTagXhtml {
             }
             $href= $m[2];
         }
-
-        $tag = '<inlinemediaobject><imageobject><imagedata fileref="'.$href.'"';
+        list($href, $label) = $this->config->processLink($href, $this->name);
+        $tag = '<inlinemediaobject><imageobject><imagedata fileref="'.$this->_doEscape($href).'"';
         if($width != '')
             $tag.=' contentwidth="'.$width.'px"';
         if($height != '')
@@ -212,7 +230,7 @@ class dkdbk_image extends WikiTagXhtml {
 
         $tag .='/></imageobject>';
         if($title != '') 
-                $tag.='<textobject><phrase>'.htmlspecialchars($title).'</phrase></textobject>';
+                $tag.='<textobject><phrase>'.$this->_doEscape($title).'</phrase></textobject>';
 
         return $tag.'</inlinemediaobject>';
     }
@@ -346,7 +364,12 @@ class dkdbk_title extends WikiRendererBloc {
         }
 
         $conf->sectionLevel[] = $level;
-        return $output.'<section><title>'.$this->_renderInlineTag(trim($this->_detectMatch[2])).'</title>';
+        $title = trim($this->_detectMatch[2]);
+        $id = $conf->getSectionId($title);
+        if ($id)
+            return $output.'<section id="'.$id.'"><title>'.$this->_renderInlineTag($title).'</title>';
+        else
+            return $output.'<section><title>'.$this->_renderInlineTag($title).'</title>';
     }
 }
 
@@ -410,8 +433,6 @@ class dkdbk_blockquote extends WikiRendererBloc {
 }
 
 
-
-
 /**
  *
  */
@@ -425,7 +446,7 @@ class dkdbk_table_row extends WikiTag {
     protected $columns = array('');
 
     protected function _doEscape($string){
-        return htmlspecialchars($string, ENT_NOQUOTES);
+        return htmlspecialchars($string, ENT_NOQUOTES, $this->config->charset);
     }
 
     /**
@@ -540,7 +561,7 @@ class dkdbk_table extends WikiRendererBloc {
     }
 
     public function close(){
-        $this->engine->getConfig()->defaultTextLineContainer = 'WikiHtmlTextLine';
+        $this->engine->getConfig()->defaultTextLineContainer = 'WikiXmlTextLine';
         return $this->_closeTag;
     }
 
@@ -570,7 +591,7 @@ class dkdbk_syntaxhighlight extends WikiRendererBloc {
    }
 
     public function getRenderedLine(){
-        return htmlspecialchars($this->_detectMatch, ENT_NOQUOTES);
+        return htmlspecialchars($this->_detectMatch, ENT_NOQUOTES, $this->engine->getConfig()->charset);
     }
 
     public function detect($string){

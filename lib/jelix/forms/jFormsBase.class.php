@@ -145,7 +145,7 @@ abstract class jFormsBase {
      * set form data from request parameters
      */
     public function initFromRequest(){
-        $req = $GLOBALS['gJCoord']->request;
+        $req = jApp::coord()->request;
         if ($this->securityLevel == jFormsBase::SECURITY_CSRF) {
             if ($this->container->token !== $req->getParam('__JFORMS_TOKEN__'))
                 throw new jException("jelix~formserr.invalid.token");
@@ -859,7 +859,7 @@ abstract class jFormsBase {
      * @since 1.1.2
      */
     public function createNewToken() {
-      if ($this->container->formId != jForms::DEFAULT_ID || $this->container->token == '') {
+      if ($this->container->token == '') {
           $tok = md5($this->container->formId.time().session_id());
           return ($this->container->token = $tok);
       }

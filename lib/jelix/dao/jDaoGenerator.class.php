@@ -6,7 +6,7 @@
 * @contributor Laurent Jouanneau
 * @contributor Bastien Jaillot (bug fix)
 * @contributor Julien Issler
-* @copyright  2001-2005 CopixTeam, 2005-2011 Laurent Jouanneau
+* @copyright  2001-2005 CopixTeam, 2005-2012 Laurent Jouanneau
 * @copyright  2007-2008 Julien Issler
 * This class was get originally from the Copix project (CopixDAOGeneratorV1, Copix 2.3dev20050901, http://www.copix.org)
 * Few lines of code are still copyrighted 2001-2005 CopixTeam (LGPL licence).
@@ -130,6 +130,7 @@ class jDaoGenerator {
                 $src[] =' public $'.$id.';';
         }
 
+        $src[] = '   public function getSelector() { return "'.$this->_daoId.'"; }';
         // TODO PHP 5.3 : we could remove that
         $src[] = '   public function getProperties() { return '.$this->_DaoClassName.'::$_properties; }';
         $src[] = '   public function getPrimaryKeyNames() { return '.$this->_DaoClassName.'::$_pkFields; }';
@@ -686,7 +687,7 @@ class jDaoGenerator {
             $result[] = $start . $field->$info . $end;
         }
 
-        return implode ($beetween,$result);;
+        return implode ($beetween,$result);
     }
 
     /**
@@ -836,7 +837,11 @@ class jDaoGenerator {
             $value = $this->_preparePHPExpr('$'.$prefixfield.$fieldName, $field, true);
 
             if($pattern != ''){
-                $values[$field->name] = sprintf($field->$pattern,'\'.'.$value.'.\'');
+                if(strpos($field->$pattern, "'") !== false && strpos($field->$pattern, "\\'") === false) {
+                    $values[$field->name] = sprintf(str_replace("'", "\\'", $field->$pattern),'\'.'.$value.'.\'');
+                } else {
+                    $values[$field->name] = sprintf($field->$pattern,'\'.'.$value.'.\'');
+                }
             }else{
                 $values[$field->name] = '\'.'.$value.'.\'';
             }
@@ -944,7 +949,7 @@ class jDaoGenerator {
                     $phpvalue = 'implode(\',\', array_map( '.$phpexpr.', '.$cond['value'].'))';
                     $value= '(\'.'.$phpvalue.'.\')';
                 }else{
-                    $value= '('.$cond['value'].')';
+                    $value= '('.str_replace("'", "\\'", $cond['value']).')';
                 }
                 $r.=$cond['operator'].' '.$value;
             }elseif($cond['operator'] == 'IS NULL' || $cond['operator'] == 'IS NOT NULL'){
