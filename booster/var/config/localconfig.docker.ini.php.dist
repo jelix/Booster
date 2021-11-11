@@ -1,0 +1,4 @@
+;<?php die('');?> static local configuration
+
+[mailer]
+mailerType=file
