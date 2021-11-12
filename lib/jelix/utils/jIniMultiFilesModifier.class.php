@@ -95,6 +95,33 @@ class jIniMultiFilesModifier {
         }
     }
 
+    /**
+     * return all values of a section from the both ini files.
+     *
+     * @param string $section the section from wich we want values. 0 is the global section
+     *
+     * @return array the list of values, $key=>$value
+     */
+    public function getValues($section=0) {
+        $masterValues = $this->master->getValues($section);
+        $overValues = $this->overrider->getValues($section);
+
+        foreach ($overValues as $key => &$value)
+        {
+            if (!isset($masterValues[$key])) {
+                $masterValues[$key] = $value;
+                continue;
+            }
+            if (is_array($value) && is_array($masterValues[$key])) {
+                $masterValues[$key] = array_merge($masterValues[$key], $value);
+            }
+            else {
+                $masterValues[$key] = $value;
+            }
+        }
+        return $masterValues;
+    }
+
     public function removeValue($name, $section=0, $key=null, $removePreviousComment = true, $masterOnly = false) {
         $this->master->removeValue($name, $section, $key, $removePreviousComment);
         if ($masterOnly) {
@@ -127,13 +154,21 @@ class jIniMultiFilesModifier {
     public function getMaster() {
         return $this->master;
     }
-    
+
     /**
      * @return jIniFileModifier the second ini file
      * @since 1.2
      */
     public function getOverrider() {
         return $this->overrider;
+    }
+
+    /**
+     * says if there is a section with the given name.
+     */
+    public function isSection($name)
+    {
+        return $this->overrider->isSection($name) || $this->master->isSection($name);
     }
 }
 

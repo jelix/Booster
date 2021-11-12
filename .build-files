@@ -18,3 +18,5 @@ P /temp/booster/**
 - /Makefile
 - .gitignore
 - .git
+P /tests/**
+- /tests/**
