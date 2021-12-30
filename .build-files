@@ -16,7 +16,8 @@ P /temp/booster/**
 - /temp/booster/**
 - /.build-files
 - /Makefile
-- .gitignore
-- .git
+- /.gitignore
+- /.git
 P /tests/**
 - /tests/**
+- /.gitlab-ci.yml
