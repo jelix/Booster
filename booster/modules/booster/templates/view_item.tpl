@@ -8,19 +8,6 @@
 
 
 <div class="booster-item">
-
-{literal}
-
-<script type="text/javascript">
-//<![CDATA[
-$(document).ready(function(){
-    $(".booster-item-desc").tabs();
-});
-//]]>
-</script>
-
-{/literal}
-
 <h3>
     {$data->type_name} <a class="booster-item-name" href="{jurl 'booster~viewItem',array('name'=>$data->name,'id'=>$data->id)}">{$data->name}</a> 
     {if $data->status == 0 || !empty($item_not_moderated)}
@@ -52,30 +39,13 @@ $(document).ready(function(){
         {zone 'booster~tagsitem',array('id'=>$data->id)}
 
         <div class="booster-item-desc section">
-            {if $data->short_desc != '' and $data->short_desc_fr != ''}
-                <ul class="tabs-lang">
-                    <li><a href="#short_desc_en_{$data->id}" title="View the english description">{image $j_basepath.'booster/images/flags/gb.gif',array('alt'=>'View the english description')}</a></li>
-                    <li><a href="#short_desc_fr_{$data->id}" title="Voir la description française">{image $j_basepath.'booster/images/flags/fr.gif',array('alt'=>'Voir la description française')}</a></li>
-                </ul>
-                <div id="short_desc_en_{$data->id}" class="desc lang">
-                    <h4>Description</h4>
-                    {$data->short_desc|wiki:'wr3_to_xhtml'}
-                </div>
-                <div id="short_desc_fr_{$data->id}" class="desc lang">
-                    <h4>Description</h4>
-                    {$data->short_desc_fr|wiki:'wr3_to_xhtml'}
-                </div>
-            {elseif $data->short_desc != ''}
-                <div id="short_desc_{$data->id}" class="desc">
-                    <h4>Description</h4>
-                    {$data->short_desc|wiki:'wr3_to_xhtml'}
-                </div>
+            <div class="desc">
+            {if $j_lang == 'fr' && $data->short_desc_fr != ''}
+                {$data->short_desc_fr|wiki:'wr3_to_xhtml'}
             {else}
-                <div id="short_desc_fr_{$data->id}" class="desc">
-                    <h4>Description</h4>
-                    {$data->short_desc_fr|wiki:'wr3_to_xhtml'}
-                </div>
+                {$data->short_desc|wiki:'wr3_to_xhtml'}
             {/if}
+            </div>
         </div>
     </div>   
 

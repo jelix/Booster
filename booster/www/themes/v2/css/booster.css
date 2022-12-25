@@ -785,41 +785,6 @@ small{font-size:0.8em;}
 }
 
 
-.booster-item-desc .lang {margin-left:40px;}
-.booster-item-desc .ui-tabs-hide {display: none;}
-
-.booster-item-desc .tabs-lang{
-  float:left;
-  list-style:none;
-  margin:0;
-  border-right:1px solid #849BB2;
-}
-
-.booster-item-desc .tabs-lang li{margin:0;}
-
-.booster-item-desc .tabs-lang a{
-  position:relative;
-  left:1px;
-  display: block;
-  padding:4px 4px 3px;
-  border:1px solid #EFF3F7;
-  border-right-color:#849BB2;
-  line-height:12px;
-
-  opacity:0.6;
-  -moz-border-radius:5px 0 0 5px;
-  -webkit-border-radius:5px 0 0 5px;
-  border-radius:5px 0 0 5px;
-}
-.booster-item-desc .tabs-lang li.ui-state-hover a, .booster-item-desc .tabs-lang li.ui-state-focus a{
-  opacity:1;
-}
-.booster-item-desc .tabs-lang li.ui-state-active a{
-  border:1px solid #849BB2;
-  border-right-color:#EFF3F7;
-  opacity:1;
-}
-
 .booster-item h4{
   font-size: 1.2em;
   margin-bottom:5px;
@@ -843,9 +808,6 @@ small{font-size:0.8em;}
 
 .desc p:last-child{
   margin-bottom:0;
-}
-.booster-item-desc .desc.lang{
-  min-height:40px;
 }
 
 .booster-version-body{
