@@ -77,13 +77,13 @@
 
         <div class="footer-box">
              <p>
-                <span style="color:red">version BETA</span> - <a href="https://github.com/foxmask/Booster/issues/new">Un problème d'utilisation ? faites nous en part</a> - <a href="{jurl 'booster~default:credits'}">Crédits</a> -
+                <a href="https://github.com/foxmask/Booster/issues/new">Un problème d'utilisation ? faites nous en part</a> - <a href="{jurl 'booster~default:credits'}">Crédits</a> -
                 <a href="{jurl 'booster~rss:index', array('lang' => $j_locale)}"><img src="{$j_basepath}booster/images/rss.png" alt="Flux RSS"/></a>
             </p>
         </div>
 
         <p id="footer-legend">
-            Copyright 2006-2012 Jelix team. <br/>
+            Copyright 2006-2022 Jelix team. <br/>
             Design par Laurentj. <br/>
             <img alt="page générée par une application Jelix" src="{$j_jelixwww}design/images/jelix_powered.png">
         </p>

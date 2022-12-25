@@ -1,11 +1,11 @@
 ﻿<div id="syntax-wiki">
   <h2 id="syntax-wiki-title">Syntaxe Wiki</h2>
   <div id="syntax-wiki-content">
-    <p>Vous pouvez utilisez la syntaxe wiki pour mettre en forme vos messages&nbsp;:</p>
+    <p>Vous pouvez utiliser la syntaxe wiki pour mettre en forme vos messages&nbsp;:</p>
     <ul>
       <li><b>bloc code source</b> :  encadrer le bloc de code source par <code>&lt;code&gt;</code> et <code>&lt;/code&gt;</code> (les balises wiki ne sont pas interprétées)</li>
       <li><b>Liste</b> : chaque ligne doit débuter par une ou plusieurs <code>*</code> ou <code>-</code> (liste simple) ou <code>#</code> (liste numérotée)</li>
-      <li><b>bloc de citation</b> :  chaque ligne doit débuter par un ou plusieurs <code>&gt;</code></li>
+      <li><b>bloc de citation</b> : chaque ligne doit débuter par un ou plusieurs <code>&gt;</code></li>
       <li><b>emphase forte (gras)</b>   : <code>__</code>texte<code>__</code> (2 underscores)</li>
       <li><b>emphase simple (italique)</b> : <code>''</code>texte<code>''</code> (deux apostrophes)</li>
       <li><b>Lien</b> : <code>[</code>nom du lien<code>|</code>lien<code>]</code> ou <code>[</code> lien <code>]</code></li>
