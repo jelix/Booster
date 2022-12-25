@@ -10,6 +10,7 @@ build:
     name: "booster-jelix-org-${CI_COMMIT_SHA}"
     paths:
       - booster/var/config/
+      - booster/vendor/
   only:
     - master
   tags:
