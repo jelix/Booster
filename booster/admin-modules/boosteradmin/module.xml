@@ -7,13 +7,14 @@
         <label lang="fr_FR">BoosterAdmin</label>
         <description lang="fr_FR">Booster! Administration : module gestion complète du site Booster</description>
         <license URL="http://www.gnu.org/licenses/gpl.html">GNU Lesser General Public Licence, see LICENCE file</license>
-        <copyright>2011 FoxMaSk</copyright>
-        <creator name="FoxMaSk" email="olivier@foxmask.info" active="true"/>
-        <homepageURL>http://www.jelix.org/</homepageURL>
-        <updateURL>http://www.jelix.org/boosteradmin</updateURL>
+        <copyright>2011 FoxMaSk, 2011-2022 Laurent Jouanneau</copyright>
+        <creator name="FoxMaSk" />
+        <contributor name="Laurent Jouanneau"/>
+        <homepageURL>https://www.jelix.org/</homepageURL>
+        <updateURL>https://www.jelix.org/boosteradmin</updateURL>
     </info>
     <dependencies>
-        <jelix minversion="1.2.*" maxversion="1.6.*"/>
+        <jelix minversion="1.7.*" maxversion="1.8.*"/>
         <module name="jacl2db_admin"/>
         <module name="jauthdb_admin"/>
         <module name="master_admin"/>

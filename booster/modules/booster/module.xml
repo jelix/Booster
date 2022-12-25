@@ -7,14 +7,14 @@
         <label lang="en_US">Booster</label>
         <description lang="en_US">Jelix Booster : portal management of modules, plugins, language pack, applications made in Jelix</description>
         <license URL="http://www.gnu.org/licenses/lgpl.html"> GNU Lesser General Public Licence, see LICENCE file</license>
-        <copyright>2011 laurent</copyright>
+        <copyright>2011-2022 Laurent Jouanneau</copyright>
         <creator name="laurentj" email="laurent@jelix.org" active="true"/>
-        <contributor name="FoxMaSk" email="olivier@foxmask.info" active="true" since="2011-05-03" role="developper"/>
-        <contributor name="FlorianLB" email="" active="true" since="2011-05-03" role="developper"/>
-        <homepageURL>http://www.jelix.org</homepageURL>
+        <contributor name="FoxMaSk" since="2011-05-03" role="developper"/>
+        <contributor name="FlorianLB" email="" since="2011-05-03" role="developper"/>
+        <homepageURL>https://booster.jelix.org</homepageURL>
     </info>
     <dependencies>
-        <jelix minversion="1.3pre.*" maxversion="1.6.*"/>
+        <jelix minversion="1.7.0" maxversion="1.8.*"/>
         <module name="jacl2db"/>
         <module name="jcommunity"/>
         <module name="jtags"/>

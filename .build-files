@@ -10,7 +10,6 @@ P /booster/var/log/*.log
 P /booster/var/uploads/**
 - /booster/var/uploads/**
 + /booster/
-+ /lib/
 + /temp/booster/.dummy
 P /temp/booster/**
 - /temp/booster/**

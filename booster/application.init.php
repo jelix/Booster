@@ -11,7 +11,6 @@
 $appPath = dirname (__FILE__).'/';
 
 require (__DIR__.'/vendor/autoload.php');
-require ($appPath.'../lib/jelix/init.php');
 
 jApp::initPaths(
     $appPath,
@@ -22,3 +21,5 @@ jApp::initPaths(
     $appPath.'scripts/'
 );
 jApp::setTempBasePath(getenv('BOOSTER_JELIX_ORG_TEMP_PATH'));
+
+require (__DIR__.'/vendor/jelix_app_path.php');

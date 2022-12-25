@@ -9,7 +9,10 @@
     "php": ">=7.4",
     "jelix/composer-module-setup": "^1.1.0",
     "jelix/jcommunity-module": "~1.3.17",
-    "jelix/jtags-module": "1.0.*"
+    "jelix/jtags-module": "1.1.*",
+    "jelix/jelix": "dev-jelix-1.8.x",
+    "jelix/wikirenderer": "3.1.*",
+    "jelix/wikirenderer-plugin": "1.7.*"
   },
   "minimum-stability": "stable",
   "config": {
@@ -22,9 +25,16 @@
   },
   "extra": {
     "jelix": {
+      "target-jelix-version": "1.7",
       "app-dir" : "./",
       "var-config-dir" : "var/config/",
-      "config-file-16" : "mainconfig.ini.php"
+      "modules-dir" : [
+        "modules/",
+        "admin-modules/"
+      ],
+      "plugins-dir" : [
+        "plugins/"
+      ]
     }
   }
 }
