@@ -12,4 +12,3 @@ var/uploads/*
 www/images-items/*
 !www/images-items/default.png
 vendor/
-composer.lock

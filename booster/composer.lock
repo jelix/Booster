@@ -1,0 +1,1937 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "7d53a64b812794e7b7099e0586a4ade2",
+    "packages": [
+        {
+            "name": "defuse/php-encryption",
+            "version": "v2.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/defuse/php-encryption.git",
+                "reference": "77880488b9954b7884c25555c2a0ea9e7053f9d2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/defuse/php-encryption/zipball/77880488b9954b7884c25555c2a0ea9e7053f9d2",
+                "reference": "77880488b9954b7884c25555c2a0ea9e7053f9d2",
+                "shasum": ""
+            },
+            "require": {
+                "ext-openssl": "*",
+                "paragonie/random_compat": ">= 2",
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4|^5|^6|^7|^8|^9"
+            },
+            "bin": [
+                "bin/generate-defuse-key"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Defuse\\Crypto\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Hornby",
+                    "email": "taylor@defuse.ca",
+                    "homepage": "https://defuse.ca/"
+                },
+                {
+                    "name": "Scott Arciszewski",
+                    "email": "info@paragonie.com",
+                    "homepage": "https://paragonie.com"
+                }
+            ],
+            "description": "Secure PHP Encryption Library",
+            "keywords": [
+                "aes",
+                "authenticated encryption",
+                "cipher",
+                "crypto",
+                "cryptography",
+                "encrypt",
+                "encryption",
+                "openssl",
+                "security",
+                "symmetric key cryptography"
+            ],
+            "support": {
+                "issues": "https://github.com/defuse/php-encryption/issues",
+                "source": "https://github.com/defuse/php-encryption/tree/v2.3.1"
+            },
+            "time": "2021-04-09T23:57:26+00:00"
+        },
+        {
+            "name": "google/recaptcha",
+            "version": "1.2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/google/recaptcha.git",
+                "reference": "614f25a9038be4f3f2da7cbfd778dc5b357d2419"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/google/recaptcha/zipball/614f25a9038be4f3f2da7cbfd778dc5b357d2419",
+                "reference": "614f25a9038be4f3f2da7cbfd778dc5b357d2419",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.2.20|^2.15",
+                "php-coveralls/php-coveralls": "^2.1",
+                "phpunit/phpunit": "^4.8.36|^5.7.27|^6.59|^7.5.11"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ReCaptcha\\": "src/ReCaptcha"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Client library for reCAPTCHA, a free service that protects websites from spam and abuse.",
+            "homepage": "https://www.google.com/recaptcha/",
+            "keywords": [
+                "Abuse",
+                "captcha",
+                "recaptcha",
+                "spam"
+            ],
+            "support": {
+                "forum": "https://groups.google.com/forum/#!forum/recaptcha",
+                "issues": "https://github.com/google/recaptcha/issues",
+                "source": "https://github.com/google/recaptcha"
+            },
+            "time": "2020-03-31T17:50:54+00:00"
+        },
+        {
+            "name": "jelix/castor",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jelix/castor.git",
+                "reference": "96a6d1891a7909971d9ceddf54dd29a78915fc41"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jelix/castor/zipball/96a6d1891a7909971d9ceddf54dd29a78915fc41",
+                "reference": "96a6d1891a7909971d9ceddf54dd29a78915fc41",
+                "shasum": ""
+            },
+            "require": {
+                "jelix/simplelocalization": "1.7.*",
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "8.5.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Jelix\\Castor\\": "lib/Castor/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1"
+            ],
+            "authors": [
+                {
+                    "name": "Laurent Jouanneau",
+                    "email": "laurent@jelix.org"
+                },
+                {
+                    "name": "Loic Mathaud"
+                }
+            ],
+            "description": "A template engine using a simple syntax",
+            "homepage": "http://jelix.org",
+            "keywords": [
+                "template"
+            ],
+            "support": {
+                "issues": "https://github.com/jelix/castor/issues",
+                "source": "https://github.com/jelix/castor/tree/v1.1.1"
+            },
+            "time": "2022-03-15T15:02:51+00:00"
+        },
+        {
+            "name": "jelix/composer-module-setup",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jelix/composer-module-setup.git",
+                "reference": "d0da3b64dd5249aab80b3907ef7957ddaf3b61d3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jelix/composer-module-setup/zipball/d0da3b64dd5249aab80b3907ef7957ddaf3b61d3",
+                "reference": "d0da3b64dd5249aab80b3907ef7957ddaf3b61d3",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^2.0"
+            },
+            "require-dev": {
+                "composer/composer": "^2.0.3",
+                "jelix/file-utilities": "1.8.*",
+                "phpunit/phpunit": "9.5.*"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "Jelix\\ComposerPlugin\\ModuleSetup"
+            },
+            "autoload": {
+                "psr-4": {
+                    "Jelix\\ComposerPlugin\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Laurent Jouanneau",
+                    "email": "laurent@jelix.org"
+                }
+            ],
+            "description": "Plugin for Composer to declare Jelix modules automatically into a Jelix application",
+            "homepage": "http://jelix.org",
+            "keywords": [
+                "composer",
+                "composer-plugin",
+                "jelix"
+            ],
+            "support": {
+                "issues": "https://github.com/jelix/composer-module-setup/issues",
+                "source": "https://github.com/jelix/composer-module-setup/tree/1.1.0"
+            },
+            "time": "2022-10-12T14:08:10+00:00"
+        },
+        {
+            "name": "jelix/fakeserverconf",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jelix/FakeServerConf.git",
+                "reference": "d3e3e62a27c8146d647fb1750843b890753dd35f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jelix/FakeServerConf/zipball/d3e3e62a27c8146d647fb1750843b890753dd35f",
+                "reference": "d3e3e62a27c8146d647fb1750843b890753dd35f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Jelix\\FakeServerConf\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Laurent Jouanneau",
+                    "email": "laurent@jelix.org"
+                }
+            ],
+            "description": "Fill the $_SERVER array with various PHP server configuration for unit tests.",
+            "keywords": [
+                "_SERVER PHP configuration unit tests"
+            ],
+            "support": {
+                "issues": "https://github.com/jelix/FakeServerConf/issues",
+                "source": "https://github.com/jelix/FakeServerConf/tree/v1.0.0"
+            },
+            "time": "2015-03-05T08:52:06+00:00"
+        },
+        {
+            "name": "jelix/file-utilities",
+            "version": "v1.8.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jelix/file-utilities.git",
+                "reference": "6501a2cafc155797c03dc748bf87b116b9f63511"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jelix/file-utilities/zipball/6501a2cafc155797c03dc748bf87b116b9f63511",
+                "reference": "6501a2cafc155797c03dc748bf87b116b9f63511",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.5.30"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.8.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Jelix\\FileUtilities\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Laurent Jouanneau",
+                    "email": "laurent@jelix.org"
+                },
+                {
+                    "name": "Loic Mathaud"
+                },
+                {
+                    "name": "Christophe Thiriot"
+                },
+                {
+                    "name": "Bastien Jaillot"
+                },
+                {
+                    "name": "Julien Issler"
+                },
+                {
+                    "name": "Gérald Croes"
+                }
+            ],
+            "description": "helpers to manipulate files, path and directories",
+            "homepage": "http://jelix.org",
+            "keywords": [
+                "files",
+                "helpers"
+            ],
+            "support": {
+                "issues": "https://github.com/jelix/file-utilities/issues",
+                "source": "https://github.com/jelix/file-utilities/tree/v1.8.5"
+            },
+            "time": "2022-10-13T09:08:43+00:00"
+        },
+        {
+            "name": "jelix/inifile",
+            "version": "v3.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jelix/inifile.git",
+                "reference": "28c2db84a12acfa8368ad2289ed601bebcea7577"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jelix/inifile/zipball/28c2db84a12acfa8368ad2289ed601bebcea7577",
+                "reference": "28c2db84a12acfa8368ad2289ed601bebcea7577",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "8.5.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Jelix\\IniFile\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1"
+            ],
+            "authors": [
+                {
+                    "name": "Laurent Jouanneau",
+                    "email": "laurent@jelix.org"
+                },
+                {
+                    "name": "Loic Mathaud"
+                }
+            ],
+            "description": "classes to read and modify ini files by preserving comments and empty lines",
+            "homepage": "http://jelix.org",
+            "keywords": [
+                "files",
+                "ini"
+            ],
+            "support": {
+                "issues": "https://github.com/jelix/inifile/issues",
+                "source": "https://github.com/jelix/inifile/tree/v3.3.1"
+            },
+            "time": "2022-03-15T14:29:54+00:00"
+        },
+        {
+            "name": "jelix/jcommunity-module",
+            "version": "v1.3.17",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jelix/jcommunity-module.git",
+                "reference": "c76bb698c87d1f169353332e4456dedacde46968"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jelix/jcommunity-module/zipball/c76bb698c87d1f169353332e4456dedacde46968",
+                "reference": "c76bb698c87d1f169353332e4456dedacde46968",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6"
+            },
+            "type": "jelix-module",
+            "extra": {
+                "jelix": {
+                    "modules-dir": [
+                        "modules"
+                    ]
+                },
+                "branch-alias": {
+                    "dev-master": "1.3.x-dev",
+                    "dev-1.2.x": "1.2.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Laurent Jouanneau",
+                    "email": "laurent@jelix.org"
+                }
+            ],
+            "description": "modules to add community features to a web site made with Jelix",
+            "homepage": "https://github.com/jelix/jcommunity-module/wiki/",
+            "keywords": [
+                "Authentication",
+                "community",
+                "messaging",
+                "profile"
+            ],
+            "support": {
+                "issues": "https://github.com/jelix/jcommunity-module/issues",
+                "source": "https://github.com/jelix/jcommunity-module/tree/v1.3.17"
+            },
+            "time": "2022-11-22T16:12:15+00:00"
+        },
+        {
+            "name": "jelix/jelix",
+            "version": "dev-jelix-1.8.x",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jelix/jelix.git",
+                "reference": "25ff14b92c2d508de2d48e998ef1fd9d0a5cb322"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jelix/jelix/zipball/25ff14b92c2d508de2d48e998ef1fd9d0a5cb322",
+                "reference": "25ff14b92c2d508de2d48e998ef1fd9d0a5cb322",
+                "shasum": ""
+            },
+            "require": {
+                "defuse/php-encryption": "^2.3.1",
+                "google/recaptcha": "~1.2.4",
+                "jelix/castor": "^1.1.1",
+                "jelix/composer-module-setup": "^1.0.5",
+                "jelix/fakeserverconf": "^1.0.0",
+                "jelix/file-utilities": "^1.8.5",
+                "jelix/inifile": "^3.3.1",
+                "jelix/properties-file": "^1.2.3",
+                "jelix/simplelocalization": "^1.7.2",
+                "jelix/version": "^2.0.1",
+                "php": ">=7.4.0",
+                "phpmailer/phpmailer": "^6.6.5",
+                "psr/event-dispatcher": "~1.0.0",
+                "symfony/console": "^5.4.14"
+            },
+            "bin": [
+                "bin/create-jelix-app"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev",
+                    "dev-jelix-1.7.x": "1.7-dev",
+                    "dev-jelix-1.8.x": "1.8-dev"
+                },
+                "jelix": {
+                    "modules-dir": [
+                        "lib/jelix-modules",
+                        "lib/jelix-admin-modules"
+                    ],
+                    "plugins-dir": [
+                        "lib/jelix-plugins"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "lib/jelix/init.php"
+                ],
+                "psr-0": {
+                    "jelix\\": "lib/"
+                },
+                "psr-4": {
+                    "Jelix\\Event\\": "lib/jelix/events/",
+                    "Jelix\\Scripts\\": "lib/jelix/Scripts/",
+                    "Jelix\\DevHelper\\": "lib/jelix-scripts/DevHelper/",
+                    "Jelix\\Installer\\": "lib/jelix/installer/Installer/",
+                    "Jelix\\UnitTests\\": "lib/jelix-tests/UnitTests",
+                    "Jelix\\WebAssets\\": "lib/jelix/WebAssets",
+                    "Jelix\\Core\\Infos\\": "lib/jelix/core/Infos/",
+                    "Jelix\\Dependencies\\": "lib/jelix/Dependencies",
+                    "Jelix\\Routing\\UrlMapping\\": "lib/jelix/core/UrlMapping/"
+                },
+                "classmap": []
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Laurent Jouanneau",
+                    "email": "laurent@jelix.org"
+                },
+                {
+                    "name": "Jelix Community",
+                    "homepage": "https://github.com/jelix/jelix/graphs/contributors"
+                }
+            ],
+            "description": "Jelix PHP framework",
+            "homepage": "http://jelix.org",
+            "keywords": [
+                "framework"
+            ],
+            "support": {
+                "issues": "https://github.com/jelix/jelix/issues",
+                "source": "https://github.com/jelix/jelix/tree/jelix-1.8.x"
+            },
+            "time": "2022-12-24T16:19:37+00:00"
+        },
+        {
+            "name": "jelix/jtags-module",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jelix/jtags-module.git",
+                "reference": "eeb2f94cc1bc84cd433365d0b690af2f63644f09"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jelix/jtags-module/zipball/eeb2f94cc1bc84cd433365d0b690af2f63644f09",
+                "reference": "eeb2f94cc1bc84cd433365d0b690af2f63644f09",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4"
+            },
+            "type": "jelix-module",
+            "extra": {
+                "jelix": {
+                    "modules": [
+                        "jtags/"
+                    ]
+                },
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1-only"
+            ],
+            "authors": [
+                {
+                    "name": "Bastien Jaillot",
+                    "email": "bastnicj@gmail.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Laurent Jouanneau",
+                    "email": "laurent@jelix.org",
+                    "homepage": "https://jelix.org",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Jelix module allowing to display count and list of active users of the application",
+            "keywords": [
+                "Users",
+                "admin",
+                "jelix",
+                "module",
+                "statistics"
+            ],
+            "support": {
+                "issues": "https://github.com/jelix/jtags-module/issues",
+                "source": "https://github.com/jelix/jtags-module/tree/v1.1.0"
+            },
+            "time": "2022-12-24T14:53:19+00:00"
+        },
+        {
+            "name": "jelix/properties-file",
+            "version": "v1.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jelix/properties-file.git",
+                "reference": "b40e4b523b61b82f42d1585b64cf9f2490602e72"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jelix/properties-file/zipball/b40e4b523b61b82f42d1585b64cf9f2490602e72",
+                "reference": "b40e4b523b61b82f42d1585b64cf9f2490602e72",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": ">=5.6.0",
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "8.5.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Jelix\\PropertiesFile\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1"
+            ],
+            "authors": [
+                {
+                    "name": "Laurent Jouanneau",
+                    "email": "laurent@jelix.org"
+                }
+            ],
+            "description": "classes to read and write properties files. Format is similar to Java properties files.",
+            "homepage": "http://jelix.org",
+            "keywords": [
+                "files",
+                "properties"
+            ],
+            "support": {
+                "issues": "https://github.com/jelix/properties-file/issues",
+                "source": "https://github.com/jelix/properties-file/tree/v1.2.3"
+            },
+            "time": "2022-06-29T13:09:18+00:00"
+        },
+        {
+            "name": "jelix/simplelocalization",
+            "version": "v1.7.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jelix/simplelocalization.git",
+                "reference": "701cd7aded7ca51111b554a2e26ceb0e104ac41e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jelix/simplelocalization/zipball/701cd7aded7ca51111b554a2e26ceb0e104ac41e",
+                "reference": "701cd7aded7ca51111b554a2e26ceb0e104ac41e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.5.30"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Jelix\\SimpleLocalization\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1"
+            ],
+            "authors": [
+                {
+                    "name": "Laurent Jouanneau",
+                    "email": "laurent@jelix.org"
+                }
+            ],
+            "description": "A simple class to manipulate localized messages",
+            "homepage": "http://jelix.org",
+            "keywords": [
+                "l10n",
+                "locale",
+                "translation"
+            ],
+            "support": {
+                "issues": "https://github.com/jelix/simplelocalization/issues",
+                "source": "https://github.com/jelix/simplelocalization/tree/v1.7.2"
+            },
+            "time": "2022-10-13T08:58:35+00:00"
+        },
+        {
+            "name": "jelix/version",
+            "version": "v2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jelix/version.git",
+                "reference": "e66b39c5caf40f82b48e79f4956142f65dac4770"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jelix/version/zipball/e66b39c5caf40f82b48e79f4956142f65dac4770",
+                "reference": "e66b39c5caf40f82b48e79f4956142f65dac4770",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "8.5.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Jelix\\Version\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Laurent Jouanneau",
+                    "email": "laurent@jelix.org"
+                }
+            ],
+            "description": "Parse any version syntax, including semantic version. Compare version, using Composer version constraints syntax.",
+            "homepage": "http://jelix.org",
+            "keywords": [
+                "comparator",
+                "composer",
+                "semver",
+                "version"
+            ],
+            "support": {
+                "issues": "https://github.com/jelix/version/issues",
+                "source": "https://github.com/jelix/version/tree/v2.0.1"
+            },
+            "time": "2022-03-15T21:48:45+00:00"
+        },
+        {
+            "name": "jelix/wikirenderer",
+            "version": "v3.1.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laurentj/wikirenderer.git",
+                "reference": "eb54652ab58be1c27b1ccbd642ed4e63876dc9c2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laurentj/wikirenderer/zipball/eb54652ab58be1c27b1ccbd642ed4e63876dc9c2",
+                "reference": "eb54652ab58be1c27b1ccbd642ed4e63876dc9c2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1"
+            ],
+            "authors": [
+                {
+                    "name": "Laurent Jouanneau",
+                    "email": "ljouanneau@gmail.com",
+                    "homepage": "http://ljouanneau.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "WikiRenderer is a library to generate HTML or anything else from wiki content.",
+            "homepage": "http://wikirenderer.jelix.org",
+            "keywords": [
+                "wiki"
+            ],
+            "support": {
+                "issues": "https://github.com/laurentj/wikirenderer/issues",
+                "source": "https://github.com/laurentj/wikirenderer"
+            },
+            "time": "2016-05-28T13:01:37+00:00"
+        },
+        {
+            "name": "jelix/wikirenderer-plugin",
+            "version": "v1.7.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jelix/wikirenderer-plugin.git",
+                "reference": "75fbceb87b7f5ed7735f87ba2ee555d615fb5e91"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jelix/wikirenderer-plugin/zipball/75fbceb87b7f5ed7735f87ba2ee555d615fb5e91",
+                "reference": "75fbceb87b7f5ed7735f87ba2ee555d615fb5e91",
+                "shasum": ""
+            },
+            "require": {
+                "jelix/wikirenderer": "~3.1.8"
+            },
+            "type": "jelix-module",
+            "extra": {
+                "jelix": {
+                    "plugins-dir": [
+                        "plugins/"
+                    ]
+                },
+                "branch-alias": {
+                    "master": "1.7.x-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "lib/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1"
+            ],
+            "authors": [
+                {
+                    "name": "Laurent Jouanneau",
+                    "email": "laurent@jelix.org"
+                }
+            ],
+            "description": "a plugin for Jelix or Castor to render wiki content in a template",
+            "homepage": "http://jelix.org",
+            "keywords": [
+                "castor",
+                "jelix",
+                "jtpl",
+                "wiki"
+            ],
+            "support": {
+                "issues": "https://github.com/jelix/wikirenderer-plugin/issues",
+                "source": "https://github.com/jelix/wikirenderer-plugin/tree/v1.7.3"
+            },
+            "time": "2019-09-07T10:50:27+00:00"
+        },
+        {
+            "name": "paragonie/random_compat",
+            "version": "v9.99.100",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paragonie/random_compat.git",
+                "reference": "996434e5492cb4c3edcb9168db6fbb1359ef965a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/996434e5492cb4c3edcb9168db6fbb1359ef965a",
+                "reference": "996434e5492cb4c3edcb9168db6fbb1359ef965a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 7"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*|5.*",
+                "vimeo/psalm": "^1"
+            },
+            "suggest": {
+                "ext-libsodium": "Provides a modern crypto API that can be used to generate random bytes."
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Paragon Initiative Enterprises",
+                    "email": "security@paragonie.com",
+                    "homepage": "https://paragonie.com"
+                }
+            ],
+            "description": "PHP 5.x polyfill for random_bytes() and random_int() from PHP 7",
+            "keywords": [
+                "csprng",
+                "polyfill",
+                "pseudorandom",
+                "random"
+            ],
+            "support": {
+                "email": "info@paragonie.com",
+                "issues": "https://github.com/paragonie/random_compat/issues",
+                "source": "https://github.com/paragonie/random_compat"
+            },
+            "time": "2020-10-15T08:29:30+00:00"
+        },
+        {
+            "name": "phpmailer/phpmailer",
+            "version": "v6.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHPMailer/PHPMailer.git",
+                "reference": "49cd7ea3d2563f028d7811f06864a53b1f15ff55"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/49cd7ea3d2563f028d7811f06864a53b1f15ff55",
+                "reference": "49cd7ea3d2563f028d7811f06864a53b1f15ff55",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ctype": "*",
+                "ext-filter": "*",
+                "ext-hash": "*",
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
+                "doctrine/annotations": "^1.2.6 || ^1.13.3",
+                "php-parallel-lint/php-console-highlighter": "^1.0.0",
+                "php-parallel-lint/php-parallel-lint": "^1.3.2",
+                "phpcompatibility/php-compatibility": "^9.3.5",
+                "roave/security-advisories": "dev-latest",
+                "squizlabs/php_codesniffer": "^3.7.1",
+                "yoast/phpunit-polyfills": "^1.0.4"
+            },
+            "suggest": {
+                "ext-mbstring": "Needed to send email in multibyte encoding charset or decode encoded addresses",
+                "ext-openssl": "Needed for secure SMTP sending and DKIM signing",
+                "greew/oauth2-azure-provider": "Needed for Microsoft Azure XOAUTH2 authentication",
+                "hayageek/oauth2-yahoo": "Needed for Yahoo XOAUTH2 authentication",
+                "league/oauth2-google": "Needed for Google XOAUTH2 authentication",
+                "psr/log": "For optional PSR-3 debug logging",
+                "symfony/polyfill-mbstring": "To support UTF-8 if the Mbstring PHP extension is not enabled (^1.2)",
+                "thenetworg/oauth2-azure": "Needed for Microsoft XOAUTH2 authentication"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PHPMailer\\PHPMailer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1-only"
+            ],
+            "authors": [
+                {
+                    "name": "Marcus Bointon",
+                    "email": "phpmailer@synchromedia.co.uk"
+                },
+                {
+                    "name": "Jim Jagielski",
+                    "email": "jimjag@gmail.com"
+                },
+                {
+                    "name": "Andy Prevost",
+                    "email": "codeworxtech@users.sourceforge.net"
+                },
+                {
+                    "name": "Brent R. Matzelle"
+                }
+            ],
+            "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
+            "support": {
+                "issues": "https://github.com/PHPMailer/PHPMailer/issues",
+                "source": "https://github.com/PHPMailer/PHPMailer/tree/v6.7.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/Synchro",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-12-08T13:30:06+00:00"
+        },
+        {
+            "name": "psr/container",
+            "version": "1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/container.git",
+                "reference": "513e0666f7216c7459170d56df27dfcefe1689ea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/container/zipball/513e0666f7216c7459170d56df27dfcefe1689ea",
+                "reference": "513e0666f7216c7459170d56df27dfcefe1689ea",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Container\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https://www.php-fig.org/"
+                }
+            ],
+            "description": "Common Container Interface (PHP FIG PSR-11)",
+            "homepage": "https://github.com/php-fig/container",
+            "keywords": [
+                "PSR-11",
+                "container",
+                "container-interface",
+                "container-interop",
+                "psr"
+            ],
+            "support": {
+                "issues": "https://github.com/php-fig/container/issues",
+                "source": "https://github.com/php-fig/container/tree/1.1.2"
+            },
+            "time": "2021-11-05T16:50:12+00:00"
+        },
+        {
+            "name": "psr/event-dispatcher",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/event-dispatcher.git",
+                "reference": "dbefd12671e8a14ec7f180cab83036ed26714bb0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/event-dispatcher/zipball/dbefd12671e8a14ec7f180cab83036ed26714bb0",
+                "reference": "dbefd12671e8a14ec7f180cab83036ed26714bb0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\EventDispatcher\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Standard interfaces for event handling.",
+            "keywords": [
+                "events",
+                "psr",
+                "psr-14"
+            ],
+            "support": {
+                "issues": "https://github.com/php-fig/event-dispatcher/issues",
+                "source": "https://github.com/php-fig/event-dispatcher/tree/1.0.0"
+            },
+            "time": "2019-01-08T18:20:26+00:00"
+        },
+        {
+            "name": "symfony/console",
+            "version": "v5.4.16",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/console.git",
+                "reference": "8e9b9c8dfb33af6057c94e1b44846bee700dc5ef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/console/zipball/8e9b9c8dfb33af6057c94e1b44846bee700dc5ef",
+                "reference": "8e9b9c8dfb33af6057c94e1b44846bee700dc5ef",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "symfony/deprecation-contracts": "^2.1|^3",
+                "symfony/polyfill-mbstring": "~1.0",
+                "symfony/polyfill-php73": "^1.9",
+                "symfony/polyfill-php80": "^1.16",
+                "symfony/service-contracts": "^1.1|^2|^3",
+                "symfony/string": "^5.1|^6.0"
+            },
+            "conflict": {
+                "psr/log": ">=3",
+                "symfony/dependency-injection": "<4.4",
+                "symfony/dotenv": "<5.1",
+                "symfony/event-dispatcher": "<4.4",
+                "symfony/lock": "<4.4",
+                "symfony/process": "<4.4"
+            },
+            "provide": {
+                "psr/log-implementation": "1.0|2.0"
+            },
+            "require-dev": {
+                "psr/log": "^1|^2",
+                "symfony/config": "^4.4|^5.0|^6.0",
+                "symfony/dependency-injection": "^4.4|^5.0|^6.0",
+                "symfony/event-dispatcher": "^4.4|^5.0|^6.0",
+                "symfony/lock": "^4.4|^5.0|^6.0",
+                "symfony/process": "^4.4|^5.0|^6.0",
+                "symfony/var-dumper": "^4.4|^5.0|^6.0"
+            },
+            "suggest": {
+                "psr/log": "For using the console logger",
+                "symfony/event-dispatcher": "",
+                "symfony/lock": "",
+                "symfony/process": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Console\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Eases the creation of beautiful and testable command line interfaces",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "cli",
+                "command line",
+                "console",
+                "terminal"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/console/tree/v5.4.16"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-11-25T14:09:27+00:00"
+        },
+        {
+            "name": "symfony/deprecation-contracts",
+            "version": "v2.5.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/deprecation-contracts.git",
+                "reference": "e8b495ea28c1d97b5e0c121748d6f9b53d075c66"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/e8b495ea28c1d97b5e0c121748d6f9b53d075c66",
+                "reference": "e8b495ea28c1d97b5e0c121748d6f9b53d075c66",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "2.5-dev"
+                },
+                "thanks": {
+                    "name": "symfony/contracts",
+                    "url": "https://github.com/symfony/contracts"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "function.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "A generic function and convention to trigger deprecation notices",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/deprecation-contracts/tree/v2.5.2"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-01-02T09:53:40+00:00"
+        },
+        {
+            "name": "symfony/polyfill-ctype",
+            "version": "v1.27.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-ctype.git",
+                "reference": "5bbc823adecdae860bb64756d639ecfec17b050a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/5bbc823adecdae860bb64756d639ecfec17b050a",
+                "reference": "5bbc823adecdae860bb64756d639ecfec17b050a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "provide": {
+                "ext-ctype": "*"
+            },
+            "suggest": {
+                "ext-ctype": "For best performance"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.27-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Ctype\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gert de Pagter",
+                    "email": "BackEndTea@gmail.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill for ctype functions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "ctype",
+                "polyfill",
+                "portable"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.27.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-11-03T14:55:06+00:00"
+        },
+        {
+            "name": "symfony/polyfill-intl-grapheme",
+            "version": "v1.27.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-intl-grapheme.git",
+                "reference": "511a08c03c1960e08a883f4cffcacd219b758354"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-intl-grapheme/zipball/511a08c03c1960e08a883f4cffcacd219b758354",
+                "reference": "511a08c03c1960e08a883f4cffcacd219b758354",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "suggest": {
+                "ext-intl": "For best performance"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.27-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Intl\\Grapheme\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill for intl's grapheme_* functions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "grapheme",
+                "intl",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-intl-grapheme/tree/v1.27.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-11-03T14:55:06+00:00"
+        },
+        {
+            "name": "symfony/polyfill-intl-normalizer",
+            "version": "v1.27.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-intl-normalizer.git",
+                "reference": "19bd1e4fcd5b91116f14d8533c57831ed00571b6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-intl-normalizer/zipball/19bd1e4fcd5b91116f14d8533c57831ed00571b6",
+                "reference": "19bd1e4fcd5b91116f14d8533c57831ed00571b6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "suggest": {
+                "ext-intl": "For best performance"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.27-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Intl\\Normalizer\\": ""
+                },
+                "classmap": [
+                    "Resources/stubs"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill for intl's Normalizer class and related functions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "intl",
+                "normalizer",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-intl-normalizer/tree/v1.27.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-11-03T14:55:06+00:00"
+        },
+        {
+            "name": "symfony/polyfill-mbstring",
+            "version": "v1.27.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-mbstring.git",
+                "reference": "8ad114f6b39e2c98a8b0e3bd907732c207c2b534"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/8ad114f6b39e2c98a8b0e3bd907732c207c2b534",
+                "reference": "8ad114f6b39e2c98a8b0e3bd907732c207c2b534",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "provide": {
+                "ext-mbstring": "*"
+            },
+            "suggest": {
+                "ext-mbstring": "For best performance"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.27-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Mbstring\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill for the Mbstring extension",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "mbstring",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.27.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-11-03T14:55:06+00:00"
+        },
+        {
+            "name": "symfony/polyfill-php73",
+            "version": "v1.27.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-php73.git",
+                "reference": "9e8ecb5f92152187c4799efd3c96b78ccab18ff9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-php73/zipball/9e8ecb5f92152187c4799efd3c96b78ccab18ff9",
+                "reference": "9e8ecb5f92152187c4799efd3c96b78ccab18ff9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.27-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Php73\\": ""
+                },
+                "classmap": [
+                    "Resources/stubs"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill backporting some PHP 7.3+ features to lower PHP versions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-php73/tree/v1.27.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-11-03T14:55:06+00:00"
+        },
+        {
+            "name": "symfony/polyfill-php80",
+            "version": "v1.27.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-php80.git",
+                "reference": "7a6ff3f1959bb01aefccb463a0f2cd3d3d2fd936"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/7a6ff3f1959bb01aefccb463a0f2cd3d3d2fd936",
+                "reference": "7a6ff3f1959bb01aefccb463a0f2cd3d3d2fd936",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.27-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Php80\\": ""
+                },
+                "classmap": [
+                    "Resources/stubs"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ion Bazan",
+                    "email": "ion.bazan@gmail.com"
+                },
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill backporting some PHP 8.0+ features to lower PHP versions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-php80/tree/v1.27.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-11-03T14:55:06+00:00"
+        },
+        {
+            "name": "symfony/service-contracts",
+            "version": "v2.5.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/service-contracts.git",
+                "reference": "4b426aac47d6427cc1a1d0f7e2ac724627f5966c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/service-contracts/zipball/4b426aac47d6427cc1a1d0f7e2ac724627f5966c",
+                "reference": "4b426aac47d6427cc1a1d0f7e2ac724627f5966c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "psr/container": "^1.1",
+                "symfony/deprecation-contracts": "^2.1|^3"
+            },
+            "conflict": {
+                "ext-psr": "<1.1|>=2"
+            },
+            "suggest": {
+                "symfony/service-implementation": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "2.5-dev"
+                },
+                "thanks": {
+                    "name": "symfony/contracts",
+                    "url": "https://github.com/symfony/contracts"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Contracts\\Service\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Generic abstractions related to writing services",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "abstractions",
+                "contracts",
+                "decoupling",
+                "interfaces",
+                "interoperability",
+                "standards"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/service-contracts/tree/v2.5.2"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-05-30T19:17:29+00:00"
+        },
+        {
+            "name": "symfony/string",
+            "version": "v5.4.15",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/string.git",
+                "reference": "571334ce9f687e3e6af72db4d3b2a9431e4fd9ed"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/string/zipball/571334ce9f687e3e6af72db4d3b2a9431e4fd9ed",
+                "reference": "571334ce9f687e3e6af72db4d3b2a9431e4fd9ed",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "symfony/polyfill-ctype": "~1.8",
+                "symfony/polyfill-intl-grapheme": "~1.0",
+                "symfony/polyfill-intl-normalizer": "~1.0",
+                "symfony/polyfill-mbstring": "~1.0",
+                "symfony/polyfill-php80": "~1.15"
+            },
+            "conflict": {
+                "symfony/translation-contracts": ">=3.0"
+            },
+            "require-dev": {
+                "symfony/error-handler": "^4.4|^5.0|^6.0",
+                "symfony/http-client": "^4.4|^5.0|^6.0",
+                "symfony/translation-contracts": "^1.1|^2",
+                "symfony/var-exporter": "^4.4|^5.0|^6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "Resources/functions.php"
+                ],
+                "psr-4": {
+                    "Symfony\\Component\\String\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Provides an object-oriented API to strings and deals with bytes, UTF-8 code points and grapheme clusters in a unified way",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "grapheme",
+                "i18n",
+                "string",
+                "unicode",
+                "utf-8",
+                "utf8"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/string/tree/v5.4.15"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-10-05T15:16:54+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "jelix/jelix": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=7.4"
+    },
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
+}
