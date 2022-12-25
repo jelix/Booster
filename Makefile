@@ -41,7 +41,8 @@ build: clean _build
 
 .PHONY: _build
 _build: booster/var/config/profiles.ini.php
-	composer install --prefer-dist --no-dev --no-progress --no-suggest --no-ansi --no-interaction --working-dir=booster/
+	composer --version
+	composer install --prefer-dist --no-dev --no-progress --no-ansi --no-interaction --working-dir=booster/
 
 .PHONY: clean
 clean:

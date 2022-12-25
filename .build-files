@@ -4,6 +4,8 @@ P /booster/var/config/liveconfig.ini.php
 - /booster/var/config/liveconfig.ini.php
 P /booster/var/config/localconfig.ini.php
 - /booster/var/config/localconfig.ini.php
+P /booster/var/config/localurls.xml
+- /booster/var/config/localurls.xml
 P /booster/var/log/*.log
 - /booster/var/log/*.log
 + /booster/var/uploads/.dummy
