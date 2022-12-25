@@ -15,6 +15,7 @@
 
 require(JELIX_LIB_PATH.'auth/jIAuthDriver.iface.php');
 require(JELIX_LIB_PATH.'auth/jIAuthDriver2.iface.php');
+require(JELIX_LIB_PATH.'auth/jIAuthDriver3.iface.php');
 require(JELIX_LIB_PATH.'auth/jAuthDriverBase.class.php');
 
 /**
@@ -26,7 +27,7 @@ class jAuth {
 
     /**
      * @deprecated
-     * @see jAuth::getConfig()
+     * @see jAuth::loadConfig()
      */
     protected static function _getConfig() {
         return self::loadConfig();
@@ -324,6 +325,25 @@ class jAuth {
             return $dr->canChangePassword($login);
         }
         return true;
+    }
+
+    /**
+     * If the password cannot be changed, this method gives the reason.
+     *
+     * It may returns a reason only after a call of the canChangePassword()
+     * method.
+     *
+     * @return string
+     * @throws jException
+     * @since 1.6.37
+     */
+    public static function getReasonToForbiddenPasswordChange()
+    {
+        $dr = self::getDriver();
+        if ($dr instanceof jIAuthDriver3) {
+            return $dr->getReasonToForbiddenPasswordChange();
+        }
+        return '';
     }
 
     /**

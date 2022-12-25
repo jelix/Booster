@@ -3,10 +3,12 @@
 * @package     jelix
 * @subpackage  installer
 * @author      Laurent Jouanneau
-* @copyright   2009-2021 Laurent Jouanneau
+* @copyright   2009-2022 Laurent Jouanneau
 * @link        http://jelix.org
 * @licence     GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
 */
+
+require_once(__DIR__.'/../utils/FileUtilities/Path.php');
 
 /**
 * base class for installers
@@ -155,23 +157,16 @@ abstract class jInstallerBase {
 
     /**
      * use the given database profile. check if this is an alias and use the
-     * real db profiel if this is the case.
+     * real db profile if this is the case.
      * @param string $dbProfile the profile name
      */
     protected function useDbProfile($dbProfile) {
 
-        if ($dbProfile == '')
+        if ($dbProfile == '') {
             $dbProfile = 'default';
-
-        $this->dbProfile = $dbProfile;
-
-        // we check if it is an alias
-        if (file_exists(jApp::configPath('profiles.ini.php'))) {
-            $dbprofiles = parse_ini_file(jApp::configPath('profiles.ini.php'), true);
-            if (isset($dbprofiles['jdb'][$dbProfile]))
-                $this->dbProfile = $dbprofiles['jdb'][$dbProfile];
         }
 
+        $this->dbProfile = $dbProfile;
         $this->_dbConn = null; // we force to retrieve a db connection
     }
 
@@ -402,7 +397,7 @@ abstract class jInstallerBase {
             else if ($force) {
                 // existing section, and no content provided : we erase the section
                 // and add an alias
-                $profiles->removeValue('', 'jdb:'.$name);
+                $profiles->removeSection('jdb:'.$name);
             }
             else {
                 return false;
@@ -443,7 +438,7 @@ abstract class jInstallerBase {
 
     /**
      * declare a plugins directory
-     * @param string $path a path. it could contains aliases like 'app:', 'lib:' or 'module:'
+     * @param string $path a path. it could contain aliases like 'app:', 'lib:' or 'module:'
      * @since 1.4
      */
     function declarePluginsPath($path) {
@@ -488,15 +483,30 @@ abstract class jInstallerBase {
             $targetConfigDirName = $entryPointId;
         }
 
-        $this->copyFile($entryPointFile, jApp::wwwPath($entryPointFileName), true);
-        $this->copyFile($configurationFile, jApp::configPath($targetConfigDirName.'/'.$configurationFileName), false);
-
         if ($this->firstExec('ep:'.$entryPointFileName)) {
+
+            // copy the entrypoint and its configuration
+            $newEpPath = jApp::wwwPath($entryPointFileName);
+            $this->copyFile($entryPointFile, $newEpPath, true);
+            $this->copyFile($configurationFile, jApp::configPath($targetConfigDirName.'/'.$configurationFileName), false);
+
+            // declare to the main installer that there is a new entrypoint
             $this->newEntrypoints[$entryPointId] = array(
                 'file'=>$entryPointFileName,
                 'config'=> $targetConfigDirName.'/'.$configurationFileName,
                 'type' => $type
             );
+
+            // change the path to application.init.php into the entrypoint
+            // depending of the application, the path of www/ is not always at the same place, relatively to
+            // application.init.php
+            $appInitFile = jApp::applicationInitFile();
+            $relativePath = \Jelix\FileUtilities\Path::shortestPath(jApp::wwwPath(), dirname($appInitFile).'/');
+
+            $epCode = file_get_contents($newEpPath);
+            $epCode = preg_replace('#(require\s*\(?\s*[\'"])(.*)(application\.init\.php)([\'"])#m', '\\1'.$relativePath.'/'.basename($appInitFile).'\\4', $epCode);
+            file_put_contents($newEpPath, $epCode);
+
         }
     }
 

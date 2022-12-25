@@ -6,7 +6,7 @@
 * @subpackage core
 * @author   Laurent Jouanneau
 * @contributor Loic Mathaud, Julien Issler
-* @copyright 2005-2020 Laurent Jouanneau
+* @copyright 2005-2022 Laurent Jouanneau
 * @copyright 2007 Julien Issler
 * @link     http://www.jelix.org
 * @licence  GNU Lesser General Public Licence see LICENCE file or http://www.gnu.org/licenses/lgpl.html
@@ -16,7 +16,7 @@
  * Version number of Jelix
  * @name  JELIX_VERSION
  */
-define ('JELIX_VERSION', '1.6.35-rc.3');
+define ('JELIX_VERSION', '1.6.39-pre');
 
 /**
  * base of namespace path used in xml files of jelix
@@ -87,12 +87,29 @@ $GLOBALS['gLibPath']=array('Config'=>JELIX_LIB_PATH.'core/',
  'Auth'=>JELIX_LIB_PATH.'auth/', 'Installer'=>JELIX_LIB_PATH.'installer/',
  'KV'=>JELIX_LIB_PATH.'kvdb/');
 
+$GLOBALS['gLibClassPath']=array(
+    'jIInstallerComponent' => JELIX_LIB_PATH.'installer/jIInstallerComponent.iface.php',
+);
+
 /**
  * function used by php to try to load an unknown class
  */
-function jelix_autoload($class) {
-    if (strpos($class, 'jelix\\') === 0) {
-        $f = LIB_PATH.str_replace('\\', DIRECTORY_SEPARATOR, $class).'.php';
+function jelix_autoload($class)
+{
+    if (stripos($class, 'jelix') === 0) {
+        $class = str_replace(
+            array('Jelix', '\\'),
+            array('jelix', DIRECTORY_SEPARATOR),
+            $class);
+        if (strpos($class, '/Forms/') !== false) {
+            $f = LIB_PATH.str_replace( 'Forms', 'forms', $class).'.php';
+        }
+        else if (strpos($class, '/Core/') !== false) {
+            $f = LIB_PATH.str_replace( 'Core', 'core', $class).'.php';
+        }
+        else {
+            $f = LIB_PATH.$class.'.php';
+        }
     }
     else if(preg_match('/^j(Dao|Tpl|Event|Db|Controller|Forms|Auth|Config|Installer|KV).*/i', $class, $m)){
         $f=$GLOBALS['gLibPath'][$m[1]].$class.'.class.php';
@@ -119,6 +136,9 @@ function jelix_autoload($class) {
                 require($f);
         }
         return;
+    }
+    elseif (isset($GLOBALS['gLibClassPath'][$class])) {
+        $f = $GLOBALS['gLibClassPath'][$class];
     }else{
         $f = JELIX_LIB_UTILS_PATH.$class.'.class.php';
     }
@@ -152,16 +172,50 @@ function checkAppOpened() {
             exit(1);
         }
 
-        if (file_exists(jApp::appPath('install/closed.html'))) {
+        // note: we are not supposed to have the configuration loaded here
+        // so we cannot use the selected theme or any other configuration parameters
+        // like calculated basePath. We mimic what it is done into the configuration compiler
+        $basePath = jApp::urlBasePath();
+        if ($basePath == null) {
+            try {
+                $urlScript = $_SERVER[jConfigCompiler::findServerName()];
+                $basePath = substr($urlScript, 0, strrpos($urlScript, '/')) . '/';
+            } catch (Exception $e) {
+                $basePath = '/';
+            }
+            $themePath = 'themes/default/';
+        }
+        else {
+            $themePath = 'themes/'.jApp::config()->theme.'/';
+        }
+
+        // html file installed for the current instance of the application
+        if (file_exists(jApp::varPath($themePath.'closed.html'))) {
+            $file = jApp::varPath($themePath.'closed.html');
+        }
+        else if (file_exists(jApp::varPath('themes/closed.html'))) {
+            $file = jApp::varPath('themes/closed.html');
+        }
+        // html file provided by the application
+        elseif (file_exists(jApp::appPath('install/closed.html'))) {
             $file = jApp::appPath('install/closed.html');
         }
+        // default html file
         else {
             $file = JELIX_LIB_PATH.'installer/closed.html';
         }
 
         header("HTTP/1.1 503 Application not available");
         header('Content-type: text/html');
-        echo str_replace('%message%', $message, file_get_contents($file));
+        echo str_replace(array(
+            '%message%',
+            '%basePath%',
+            '%themePath%',
+        ), array(
+            $message,
+            $basePath,
+            $themePath
+        ), file_get_contents($file));
         exit(1);
     }
 }
