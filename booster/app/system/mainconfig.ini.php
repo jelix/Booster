@@ -209,3 +209,10 @@ booster.css[]="$theme/css/booster.css"
 booster.js[]="booster/js/booster.js"
 booster.js[]="booster/js/charCount.js"
 booster.require="jquery"
+
+jacl2_admin.css[]="$jelix/design/jacl2.css"
+jacl2_admin.js[]="$jelix/js/jacl2db_admin.js"
+jacl2_admin.require[]=jquery_ui
+
+jauthdb_admin.js[]="$jelix/js/authdb_admin.js"
+jauthdb_admin.require[]=jquery_ui
