@@ -1,12 +1,5 @@
-{meta_html csstheme 'css/reset.css'}
-{meta_html csstheme 'css/text.css'}
-{meta_html csstheme 'css/booster.css'}
-{meta_html cssthemeie 'css/ie.css'}
-{meta_html cssthemeltie7 'css/ie6.css'}
+{meta_html assets 'booster'}
 
-{meta_html js $j_jelixwww.'jquery/jquery.js'}
-{meta_html js $j_basepath.'booster/js/booster.js'}
-{meta_html js $j_basepath.'booster/js/charCount.js'}
 
 <div id="top-box">
     <div class="top-container">

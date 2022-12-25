@@ -206,7 +206,16 @@ moderators_list="laurent@jelix.org, olivier@foxmask.info"
 
 [webassets]
 useCollection=main
+
 [webassets_main]
 jforms_wikieditor_default.js[]="jelix/markitup/jquery.markitup.js"
 jforms_wikieditor_default.css[]="jelix/markitup/skins/simple/style.css"
 jforms_wikieditor_default.require=
+
+
+booster.css[]="$theme/css/reset.css"
+booster.css[]="$theme/css/text.css"
+booster.css[]="$theme/css/booster.css"
+booster.js[]="booster/js/booster.js"
+booster.js[]="booster/js/charCount.js"
+booster.require="jquery"
