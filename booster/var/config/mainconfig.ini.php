@@ -13,9 +13,9 @@ timeZone="Europe/Paris"
 
 theme=v2
 
-pluginsPath="app:plugins/,lib:jelix-plugins/"
+pluginsPath="app:plugins,lib:jelix-plugins"
 
-modulesPath="lib:jelix-admin-modules/,lib:jelix-modules/,app:modules/,app:admin-modules"
+modulesPath="lib:jelix-admin-modules,lib:jelix-modules,app:modules,app:admin-modules,app:vendor/jelix/jcommunity-module/modules"
 
 ; default domain name to use with jfullurl for example.
 ; Let it empty to use $_SERVER['SERVER_NAME'] value instead.
@@ -46,9 +46,8 @@ jcommunity.access=2
 jtags.access=2
 
 boosteradmin.access=1
-jcommunity.path="app:vendor/jelix/jcommunity-module/modules/jcommunity/"
-jcommunity.installparam="manualconfig"
-jtags.path="app:vendor/jelix/jtags-module/jtags/"
+jcommunity.installparam=manualconfig
+jtags.path="app:vendor/jelix/jtags-module/jtags"
 
 
 [coordplugins]
@@ -64,8 +63,8 @@ html=myHtmlResponse
 ;errorMessage="A technical error has occured (code: %code%). Sorry for this inconvenience."
 
 ;[compilation]
-checkCacheFiletime  = on
-force  = off
+checkCacheFiletime=on
+force=off
 
 [urlengine]
 ; name of url engine :  "simple", "basic_significant" or "significant"
@@ -121,7 +120,7 @@ simple_urlengine_https=
 index="@classic"
 
 
-adminboost="jacl2db_admin~*@classic, jauthdb_admin~*@classic, master_admin~*@classic"
+adminboost="jacl2db_admin~*@classic,jauthdb_admin~*@classic,master_admin~*@classic"
 
 adminbooster=
 [basic_significant_urlengine_entrypoints]
@@ -258,6 +257,6 @@ default.skin="jelix/markitup/skins/simple/style.css"
 [booster]
 title="Jelix Booster: Applis, Modules, Plugins, Pack de langues pour Jelix"
 last_items_created=5
-moderators_list = laurent@jelix.org, olivier@foxmask.info
+moderators_list="laurent@jelix.org, olivier@foxmask.info"
 
 [jcommunity]

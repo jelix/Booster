@@ -17,7 +17,7 @@
       "*": "dist"
     },
     "allow-plugins": {
-      "jelix/composer-module-setup": false
+      "jelix/composer-module-setup": true
     }
   },
   "extra": {
