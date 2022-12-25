@@ -1,5 +1,25 @@
 stages:
+  - build
   - deploy
+
+cache:
+  key: "$CI_COMMIT_REF_SLUG"
+  paths:
+    - booster/vendor/
+    - booster/composer.lock
+
+build:
+  stage: build
+  script:
+    - make build
+  artifacts:
+    name: "booster-jelix-org-${CI_COMMIT_SHA}"
+    paths:
+      - booster/var/config/
+  only:
+    - master
+  tags:
+    - jelix
 
 deploy:
   stage: deploy

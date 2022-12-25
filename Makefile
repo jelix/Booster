@@ -37,7 +37,11 @@ booster/var/config/profiles.ini.php:
 	@sed -i "s!__BOOSTER_JELIX_ORG_DB_PASSWD__!$(BOOSTER_JELIX_ORG_DB_PASSWD)!" booster/var/config/profiles.ini.php
 
 .PHONY: build
-build: clean booster/var/config/profiles.ini.php
+build: clean _build
+
+.PHONY: _build
+_build: booster/var/config/profiles.ini.php
+	composer install --prefer-dist --no-dev --no-progress --no-suggest --no-ansi --no-interaction --working-dir=booster/
 
 .PHONY: clean
 clean:

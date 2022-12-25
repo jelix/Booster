@@ -29,7 +29,6 @@ domainName=
 ; 1 if accessible by other modules (other modules can use it, but it is not accessible directly through the web)
 ; 2 if public (accessible through the web)
 
-; jcommunity.access=2
 jelix.access=2
 
 master_admin.access=1
@@ -47,6 +46,10 @@ jcommunity.access=2
 jtags.access=2
 
 boosteradmin.access=1
+jcommunity.path="app:vendor/jelix/jcommunity-module/modules/jcommunity/"
+jcommunity.installparam="manualconfig"
+jtags.path="app:vendor/jelix/jtags-module/jtags/"
+
 
 [coordplugins]
 ;name = file_ini_name or 1
@@ -256,3 +259,5 @@ default.skin="jelix/markitup/skins/simple/style.css"
 title="Jelix Booster: Applis, Modules, Plugins, Pack de langues pour Jelix"
 last_items_created=5
 moderators_list = laurent@jelix.org, olivier@foxmask.info
+
+[jcommunity]

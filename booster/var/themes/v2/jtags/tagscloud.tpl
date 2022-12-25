@@ -1,5 +1,4 @@
 <div id="booster_tagscloud">
-    {*<h2>{@booster~main.cloud@}</h2>*}
     <ul id="tagscloud">
         {foreach $tags as $t}
             <li>

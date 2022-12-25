@@ -10,3 +10,5 @@ var/uploads/*
 !var/uploads/.dummy
 www/images-items/*
 !www/images-items/default.png
+vendor/
+composer.lock
