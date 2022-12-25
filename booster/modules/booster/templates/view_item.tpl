@@ -81,11 +81,8 @@
             </ul>
     </div>
     {if $github}
-        {zone 'booster~item_github', array('url_repo'=>$data->url_repo)}
+        {*zone 'booster~item_github', array('url_repo'=>$data->url_repo)*}
     {/if}
-
-
-
 
     {assign $canEditVersion = false}
     {assign $editRight = false}

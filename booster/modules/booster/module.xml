@@ -20,4 +20,7 @@
         <module name="jtags"/>
 
     </dependencies>
+    <autoload>
+        <psr4 namespace="\JelixBooster" dir="lib/"/>
+    </autoload>
 </module>

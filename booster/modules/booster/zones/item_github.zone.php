@@ -2,8 +2,8 @@
 /**
 * @package   booster
 * @subpackage booster
-* @author    Florian Lonqueu-Brochard
-* @copyright 2011 Florian Lonqueu-Brochard
+* @author    Florian Lonqueu-Brochard, Laurent Jouanneau
+* @copyright 2011 Florian Lonqueu-Brochard, 2022 Laurent Jouanneau
 * @link      http://www.jelix.org
 * @license    All rights reserved
 */
@@ -14,21 +14,21 @@ class item_githubZone extends jZone {
     protected $_useCache = true;
     protected $_cacheTimeout = 3600;//1 heure
 
-    public function __construct($params=array()){
+    public function __construct($params=array())
+    {
        $params['lang'] = jApp::config()->locale;
        parent::__construct($params);
     }
 
-    protected function _prepareTpl(){
-
-    	jClasses::inc('booster~boosterGithub');
-
+    protected function _prepareTpl()
+    {
 		$url_repo = $this->param('url_repo');
 
 		$m = array();
 		preg_match('#https?://github.com/([^/]*)/([^/]*)/?(.+)?#', $url_repo, $m);
 
-        if(empty($m[1]) OR empty($m[2]) OR !empty($m[3])){//invalid github repo url
+        if(empty($m[1]) OR empty($m[2]) OR !empty($m[3])) {
+            \jLog::log('invalid github repo url '.$url_repo);
             $this->cancelZone();
             return;
         }
@@ -39,15 +39,13 @@ class item_githubZone extends jZone {
         $filtered = preg_replace('@[^a-zA-Z0-9_]@', '_', array($repo, $user));
 		$key = 'github_'.$filtered[0].'_'.$filtered[1].'_';
 
-    	//$last_commit = boosterGithub::getLastCommit($user, $repo);
-    	//jLog::dump($last_commit, 'last_commit');
-
-
     	$forks = jCache::get($key.'forks');
     	$watchers = jCache::get($key.'watchers');
     	$update = jCache::get($key.'update');
-    	if($forks === false || $watchers === false || $update === false){
-			$infos = boosterGithub::getRepoInfos($user, $repo);
+
+        $github = new \JelixBooster\BoosterGithub($user, $repo);
+    	if ($forks === false || $watchers === false || $update === false){
+			$infos = $github->getRepoInfos();
             if(!$infos){
                 $this->cancelZone();
                 return;
@@ -66,7 +64,7 @@ class item_githubZone extends jZone {
 
     	$activity = jCache::get($key.'activity');
     	if($activity === false){
-    		$activity = boosterGithub::getRepositoryActivity($user, $repo);
+    		$activity = $github->getRepositoryActivity();
             if(!$activity){
                 $this->cancelZone();
                 return;
@@ -77,8 +75,8 @@ class item_githubZone extends jZone {
 
     }
 
-    protected function cancelZone(){
+    protected function cancelZone()
+    {
         $this->_tpl->assign('not_ok', true);
-        return;
     }
 }

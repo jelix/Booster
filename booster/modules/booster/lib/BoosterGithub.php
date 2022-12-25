@@ -2,17 +2,26 @@
 /**
 * @package   booster
 * @subpackage booster
-* @author    Florian Lonqueu-Brochard
-* @copyright 2012 Florian Lonqueu-Brochard
+* @author    Florian Lonqueu-Brochard, Laurent Jouanneau
+* @copyright 2012 Florian Lonqueu-Brochard, 2022 Laurent Jouanneau
 * @link      http://www.jelix.org
 * @license   http://www.gnu.org/licenses/lgpl.html  GNU Lesser General Public Licence, see LICENCE file
 */
+
+namespace JelixBooster;
 /**
  * Class that handle the booster business stuff
  */
-class boosterGithub {
+class BoosterGithub {
 
-    protected static function getOnGitub($url){
+    protected $apiUrl;
+
+    public function __construct($user, $repository)
+    {
+        $this->apiUrl =  'https://api.github.com/repos/'.$user.'/'.$repository;
+    }
+
+    protected function getOnGitub($url){
         $ch = curl_init($url);
         curl_setopt_array ($ch, array(CURLOPT_RETURNTRANSFER => true, CURLOPT_SSL_VERIFYPEER => false, CURLINFO_HEADER_OUT => true));
         $res = curl_exec($ch);
@@ -24,23 +33,20 @@ class boosterGithub {
         return $res;
     }
 
-
-
-
-    public function getRepoInfos($user, $repository){
-  
-        $url = 'https://api.github.com/repos/'.$user.'/'.$repository.'?per_page=1';
-        $res = self::getOnGitub($url);
-        
+    public function getRepoInfos()
+    {
+        $url = $this->apiUrl.'?per_page=1';
+        $res = $this->getOnGitub($url);
+        \jLog::dump($res, 'result '.$url);
         if(!$res){
-            jLog::log('error with github.com loading data', 'error');
+            \jLog::log('error with github.com loading data', 'error');
             return false;
         }
 
-        $res= json_decode($res);
+        $res = json_decode($res);
 
         if(isset($res->message)  && $res->message == 'Not Found'){
-            jLog::log('github 404');
+            \jLog::log('github 404');
             return false;
         }
 
@@ -48,20 +54,20 @@ class boosterGithub {
     }
 
 
-    public function getLastCommit($user, $repository){
+    public function getLastCommit(){
   
-        $url = 'https://api.github.com/repos/'.$user.'/'.$repository.'/commits?per_page=1';
+        $url = $this->apiUrl.'/commits?per_page=1';
         $res = self::getOnGitub($url);
         
         if(!$res){
-            jLog::log('error with github.com loading data', 'error');
+            \jLog::log('error with github.com loading data', 'error');
             return false;
         }
 
         $res= json_decode($res);
 
         if(isset($res->message)  && $res->message == 'Not Found'){
-            jLog::log('github 404');
+            \jLog::log('github 404');
             return false;
         }
             
@@ -74,33 +80,35 @@ class boosterGithub {
      * 
      * @return int A number corresponding to the activity of the repository 
      */
-    public function getRepositoryActivity($user, $repository, $options = array()){
+    public function getRepositoryActivity($options = array())
+    {
         
         $default_options = array(
             'nb_commit' => 20
         );
         $settings = array_merge($default_options, $options);
 
-        $url = 'https://api.github.com/repos/'.$user.'/'.$repository.'/commits?per_page='.$settings['nb_commit'];
+        $url = $this->apiUrl.'/commits?per_page='.$settings['nb_commit'];
         $res = self::getOnGitub($url);
         
         if(!$res){
-            jLog::log('error with github.com loading data', 'error');
+            \jLog::log('error with github.com loading data', 'error');
             return false;
         }
 
         $res= json_decode($res);
 
         if(isset($res->message)  && $res->message == 'Not Found'){
-            jLog::log('github 404');
+            \jLog::log('github 404');
             return false;
         }
 
-        $moyenne = 0; $counter = 0;
-        $date = new jDateTime();
-        foreach($res as $item){
-            $date->setFromString($item->commit->committer->date, jDateTime::ISO8601_FORMAT);
-            $moyenne += $date->toString(jDateTime::TIMESTAMP_FORMAT);
+        $moyenne = 0;
+        $counter = 0;
+        $date = new \jDateTime();
+        foreach($res as $item) {
+            $date->setFromString($item->commit->committer->date, \jDateTime::ISO8601_FORMAT);
+            $moyenne += intval($date->toString(\jDateTime::TIMESTAMP_FORMAT));
             $counter++;
         }
         $moyenne = $moyenne/$counter;
