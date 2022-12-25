@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 set -x
@@ -11,6 +11,3 @@ if [ ! -f $APPDIR/var/config/profiles.ini.php ]; then
     echo "   ./app-ctl reset"
     echo "in order to setup databases and the app, after containers will be ready."
 fi
-
-echo "launch exec $@"
-exec "$@"

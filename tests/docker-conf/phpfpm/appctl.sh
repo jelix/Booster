@@ -8,8 +8,8 @@ MYSQL_USER=jelixwww
 MYSQL_PASSWORD=jelix
 
 
-APP_USER=usertest
-APP_GROUP=grouptest
+APP_USER=userphp
+APP_GROUP=groupphp
 
 COMMAND="$1"
 shift
@@ -125,7 +125,7 @@ function setRights() {
 function composerInstall() {
     echo "--- Install Composer packages"
     local appdir="$1"
-    if [ -d $appdir/composer.json ]; then
+    if [ -f $appdir/composer.json ]; then
       if [ -f $appdir/composer.lock ]; then
           rm -f $appdir/composer.lock
       fi
@@ -137,7 +137,7 @@ function composerInstall() {
 function composerUpdate() {
     echo "--- Update Composer packages"
     local appdir="$1"
-    if [ -d $appdir/composer.json ]; then
+    if [ -f $appdir/composer.json ]; then
       if [ -f $appdir/composer.lock ]; then
           rm -f $appdir/composer.lock
       fi
