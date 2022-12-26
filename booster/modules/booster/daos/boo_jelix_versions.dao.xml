@@ -4,7 +4,7 @@
         <primarytable name="boo_jelix_versions" realname="boo_jelix_versions" primarykey="id" />
     </datasources>
     <record>
-        <property name="id" fieldname="id" datatype="tinyint" autoincrement="true"/>
+        <property name="id" fieldname="id" datatype="smallint" autoincrement="true"/>
         <property name="version" fieldname="version" datatype="varchar" required="true" maxlength="15"/>
     </record>
     <factory>

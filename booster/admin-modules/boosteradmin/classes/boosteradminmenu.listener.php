@@ -23,7 +23,7 @@ class boosteradminmenuListener extends jEventListener{
             $item->icon = $chemin . 'icons/item.png';
             $event->add($item);
 
-            $item = new masterAdminMenuItem('items',
+            $item = new masterAdminMenuItem('itemsnew',
                         jLocale::get('boosteradmin~admin.items.not.validated'),
                         jUrl::get('boosteradmin~items:index'),
                         302,
@@ -40,12 +40,19 @@ class boosteradminmenuListener extends jEventListener{
             $item->icon = $chemin . 'icons/version.png';
             $event->add($item);
 
-            $item = new masterAdminMenuItem('versions',
+            $item = new masterAdminMenuItem('versionsnew',
                         jLocale::get('boosteradmin~admin.versions.not.validated'),
                         jUrl::get('boosteradmin~versions:index'),
                         304,
                         'booster');
             $item->icon = $chemin . 'icons/version_mod.png';
+            $event->add($item);
+
+            $item = new masterAdminMenuItem('jelixversions',
+                        jLocale::get('boosteradmin~admin.versions.jelix.label'),
+                        jUrl::get('boosteradmin~jelixversions:index'),
+                        305,
+                        'booster');
             $event->add($item);
 
         }

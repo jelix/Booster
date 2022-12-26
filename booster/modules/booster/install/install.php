@@ -14,7 +14,6 @@ class boosterModuleInstaller extends jInstallerModule {
     function install() {
         if ($this->firstDbExec()) {
             $this->execSQLScript('sql/install');
-            $this->execSQLScript('sql/data');
         }
 
         if ($this->firstExec('acl2')) {

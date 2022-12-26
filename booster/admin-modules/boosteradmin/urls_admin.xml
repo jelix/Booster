@@ -34,4 +34,16 @@
     <url pathinfo="/versions/delete/:id"    action="versions:delete" >
         <param name="id" type="numeric"/>
     </url>
+
+
+    <url pathinfo="/jelixversions/" action="jelixversions:index"/>
+    <url pathinfo="/jelixversions/view/:id" action="jelixversions:view"/>
+    <url pathinfo="/jelixversions/precreate" action="jelixversions:precreate"/>
+    <url pathinfo="/jelixversions/create" action="jelixversions:create"/>
+    <url pathinfo="/jelixversions/savecreate" action="jelixversions:savecreate"/>
+    <url pathinfo="/jelixversions/preedit/:id" action="jelixversions:preupdate"/>
+    <url pathinfo="/jelixversions/edit/:id" action="jelixversions:editupdate"/>
+    <url pathinfo="/jelixversions/save/:id" action="jelixversions:saveupdate"/>
+    <url pathinfo="/jelixversions/delete/:id" action="jelixversions:delete"/>
+
 </suburls>

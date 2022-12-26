@@ -44,5 +44,18 @@
                 <eq property="item_id" expr="$id" />
             </conditions>
         </method>
+
+        <method name="findByJelix" type="select">
+            <parameter name="jelix_id" />
+            <conditions>
+                <eq property="id_jelix_version" expr="$jelix_id" />
+            </conditions>
+        </method>
+        <method name="countByJelix" type="count">
+            <parameter name="jelix_id" />
+            <conditions>
+                <eq property="id_jelix_version" expr="$jelix_id" />
+            </conditions>
+        </method>
     </factory>
 </dao>
