@@ -85,32 +85,6 @@ class booster {
         }
 
         return true;
-/*
-        $id_booster = $form->getData('id');
-        $dt = new jDateTime();
-        $dt->now();
-
-        $dao = jDao::get('boosteradmin~boo_items_mod','booster');
-        $record = jDao::createRecord('booster~boo_items','booster');
-        $record->id             = $id_booster;
-        $record->name           = $form->getData('name');
-        $record->item_info_id   = $form->getData('item_info_id');
-        $record->short_desc     = $form->getData('short_desc');
-        $record->short_desc_fr  = $form->getData('short_desc_fr');
-        $record->type_id        = $form->getData('type_id');
-        $record->url_website    = $form->getData('url_website');
-        $record->url_repo       = $form->getData('url_repo');
-        $record->author         = $form->getData('author');
-        $record->item_by        = $form->getData('item_by');
-        $record->tags           = $form->getData("tags");
-        $record->status         = 0; //will need moderation
-        $record->created        = jDao::get('booster~boo_items','booster')->get($id_booster)->created;
-        $record->modified       = $dt->toString(jDateTime::DB_DTFORMAT);
-
-        $return = ($dao->insert($record)) ? true : false;
-
-        //$form->saveControlToDao('jelix_versions', 'booster~boo_items_jelix_versions', null, array('id_item', 'id_version'));
-*/
     }
     /**
      * function to save one Editing Item
@@ -133,25 +107,6 @@ class booster {
         }
 
         return true;
-/*
-        $dt = new jDateTime();
-        $dt->now();
-
-        $dao = jDao::get('boosteradmin~boo_versions_mod','booster');
-        $record = jDao::createRecord('boosteradmin~boo_versions_mod','booster');
-        $record->version_name   = $form->getData('version_name');
-        $record->status_version = 0; //will need moderation
-        $record->item_id        = $form->getData('item_id');
-        $record->id_jelix_version = $form->getData('id_jelix_version');
-        $record->last_changes   = $form->getData('last_changes');
-        $record->stability      = $form->getData('stability');
-        $record->filename       = $form->getData('filename');
-        $record->download_url   = $form->getData('download_url');
-        $record->created        = jDao::get('booster~boo_versions','booster')->get($form->getData('id'))->created;
-        $record->modified       = $dt->toString(jDateTime::DB_DTFORMAT);
-        $record->version_id     = $form->getData('id');
-        return ($dao->insert($record)) ? true : false;
-*/
     }
     /**
      * function that search items according to criteria in the form

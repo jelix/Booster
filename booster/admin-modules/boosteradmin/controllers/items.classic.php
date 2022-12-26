@@ -106,19 +106,7 @@ class itemsCtrl extends jController {
      * Edit the Modified Item for modetation
      */
     function editmod() {
-        /*
-        $form = jForms::create('boosteradmin~items_mod',$this->intParam('id'));
-        $form->initFromDao('boosteradmin~boo_items_mod');
-        $form->setData('id',$this->intParam('id'));
-        $tpl = new jTpl();
-        $rep = $this->getResponse('html');
-        $tpl->assign('item_by',jDao::get('jcommunity~user','hfnu')->getById(jDao::get('boosteradmin~boo_items_mod','booster')->get($this->intParam('id'))->item_by)->nickname);
-        $tpl->assign('id',$this->intParam('id'));
-        $tpl->assign('title',jLocale::get('boosteradmin~admin.item.validation.or.modification'));
-        $tpl->assign('form',$form);
-        $tpl->assign('action','boosteradmin~items:savemod');
-        $rep->body->assign('MAIN',$tpl->fetch('edit'));
-        */
+
         $id = $this->intParam('id');
         $form = jForms::create('boosteradmin~items_mod',$id);
         $form->initFromDao('booster~boo_items');
