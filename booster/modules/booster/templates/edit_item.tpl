@@ -13,7 +13,7 @@
         </tr>
         <tr>
             <td>{ctrl_label 'dev_status'}</td><td>{ctrl_control 'dev_status'}</td>
-            <td>{ctrl_label 'item_info_id'}</td><td>{ctrl_control 'item_info_id'}</td>
+            <td></td><td></td>
         </tr>
         <tr>
             <td colspan="4">{ctrl_label 'short_desc'}</td>

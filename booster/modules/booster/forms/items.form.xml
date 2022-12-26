@@ -7,11 +7,6 @@
     <label locale="booster~main.item_name"/>
 </input>
 
-<input ref="item_info_id" required="true" maxlength="100">
-    <label locale="booster~main.item_info_id"/>
-    <help locale="booster~main.item_info_id_hlp"/>
-</input>
-
 <input ref="item_composer_id" maxlength="255">
     <label locale="booster~main.item_composer_id"/>
     <help locale="booster~main.item_composer_id_hlp"/>

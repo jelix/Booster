@@ -10,7 +10,6 @@
     <record>
         <property name="id" fieldname="id" datatype="int" autoincrement="true"/>
         <property name="name" fieldname="name" datatype="varchar" required="true" maxlength="60"/>
-        <property name="item_info_id" fieldname="item_info_id" datatype="varchar" required="true" maxlength="100"/>
         <property name="item_composer_id" fieldname="item_composer_id" datatype="varchar" maxlength="255"/>
         <property name="short_desc" fieldname="short_desc" datatype="text" required="false"/>
         <property name="short_desc_fr" fieldname="short_desc_fr" datatype="text" required="false"/>

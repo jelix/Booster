@@ -22,7 +22,6 @@ class booster {
         $dao = jDao::get('booster~boo_items','booster');
         $record = jDao::createRecord('booster~boo_items','booster');
         $record->name           = $form->getData('name');
-        $record->item_info_id   = $form->getData('item_info_id');
         $record->item_composer_id = $form->getData('item_composer_id');
         $record->short_desc     = $form->getData('short_desc');
         $record->short_desc_fr  = $form->getData('short_desc_fr');
@@ -148,7 +147,6 @@ class booster {
         $q = 'SELECT items.id,
                     items.status as status,
                     items.name,
-                    items.item_info_id,
                     items.short_desc,
                     items.short_desc_fr,
                     type.id AS type_id,
