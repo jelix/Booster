@@ -45,7 +45,7 @@
                 <p class="dev-status dev-status-gone">{@booster~main.dev_status.gone@}</p>
             {/if}
             <div class="desc">
-            {if $j_lang == 'fr' && $data->short_desc_fr != ''}
+            {if ($j_lang == 'fr' && $data->short_desc_fr != '') ||$data->short_desc == ''}
                 {$data->short_desc_fr|wiki:'wr3_to_xhtml'}
             {else}
                 {$data->short_desc|wiki:'wr3_to_xhtml'}
@@ -66,13 +66,13 @@
                 </li>
 
                 
-                {if $data->url_website != null}
+                {if $data->url_website}
                     <li class="booster_url">
                         <img src="{$j_themepath}icons/world.png" alt=""/>
                         <a href="{$data->url_website}">{@booster~main.website@}</a>
                     </li>
                 {/if}
-                {if $data->url_repo != null }
+                {if $data->url_repo}
                     <li>
                         {if $github}
                             <img src="{$j_themepath}icons/github.png" alt=""/>

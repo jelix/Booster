@@ -187,6 +187,33 @@ class defaultCtrl extends jController {
         return $rep;
     }
 
+    /**
+     * @param jFormsBase $form
+     * @return boolean
+     */
+    protected function checkFilename($form)
+    {
+        // let's clean the filename
+        // remove slashes
+        $fileName = stripslashes($form->getData('filename'));
+        if ($fileName) {
+            // remove special chars
+            // see http://php.net/filter_var
+            // http://www.phpro.org/tutorials/Filtering-Data-with-PHP.html
+            $fileName = filter_var($fileName, FILTER_SANITIZE_SPECIAL_CHARS ,
+                array('flags' => FILTER_FLAG_STRIP_HIGH|FILTER_FLAG_STRIP_LOW)
+            );
+            // a filename don't have to have a slash in its name
+            if ( strpos($fileName,'/') > 0  or strpos($fileName,'\\') > 0 ) {
+                $form->setErrorOn('filename', jLocale::get('booster~main.invalid.filename'));
+                return false;
+            }
+            else {
+                $form->setData('filename',$fileName);
+            }
+        }
+        return true;
+    }
 
     /**
      * Save a Version
@@ -194,39 +221,22 @@ class defaultCtrl extends jController {
     function saveVersion() {
         $rep = $this->getResponse('redirect');
         $form = jForms::fill('booster~version');
+        $saved = false;
         if ($form->check()) {
-            // let's clean the filename
-            // remove slashes
-            $fileName = stripslashes($form->getData('filename'));
-            // remove special chars
-            // see http://php.net/filter_var
-            // http://www.phpro.org/tutorials/Filtering-Data-with-PHP.html
-            $fileName = filter_var($fileName, FILTER_SANITIZE_SPECIAL_CHARS ,
-                                array('flags' => FILTER_FLAG_STRIP_HIGH|FILTER_FLAG_STRIP_LOW)
-                    );
-            // a filename dont have to have a slash in its name
-            if ( strpos($fileName,'/') > 0  or strpos($fileName,'\\') > 0 ) {
-                $form->setErrorOn('filename', jLocale::get('booster~main.invalid.filename'));
-                $saved= false;
-            }
-            else{
-                $form->setData('filename',$fileName);
+            if ($this->checkFilename($form)) {
                 $data = jClasses::getService('booster~booster')->saveVersion($form);
                 if ($data) {
                     jMessage::add(jLocale::get('booster~main.version.saved'));
                     jEvent::notify('new_version_added', array('version_id' => $data));
                     jForms::destroy('booster~version');
                     $saved = true;
-                    $item = jDao::get('booster~boo_items','booster')->get($form->getData('item_id'));
-                    $rep->params = array('id'=> $item->id,'name'=>$item->name);
-                }
-                else {
-                    $saved = false;
+                    $item = jDao::get('booster~boo_items', 'booster')->get($form->getData('item_id'));
+                    $rep->params = array('id' => $item->id, 'name' => $item->name);
+                } else {
                     jMessage::add(jLocale::get('booster~main.version.saved.failed'));
                 }
             }
         } else {
-            $saved = false;
             jMessage::add(jLocale::get('booster~main.version.check.failed'));
         }
         $rep->params=array(
@@ -393,28 +403,15 @@ class defaultCtrl extends jController {
     function saveEditVersion() {
         $id = $this->intParam('id');
         $form = jForms::fill('booster~version',$id);
-
+        $saved = false;
         if ($form->check()) {
-            // let's clean the filename
-            // remove slashes
-            $fileName = stripslashes($form->getData('filename'));
-            // remove special chars
-            // see http://php.net/filter_var
-            // http://www.phpro.org/tutorials/Filtering-Data-with-PHP.html
-            $fileName = filter_var($fileName, FILTER_SANITIZE_SPECIAL_CHARS ,
-                                array('flags' => FILTER_FLAG_STRIP_HIGH|FILTER_FLAG_STRIP_LOW)
-                    );
-            // a filename dont have to have a slash in its name
-            if ( strpos($fileName,'/') > 0  or strpos($fileName,'\\') > 0 ) {
-                $form->setErrorOn('filename', jLocale::get('booster~main.invalid.filename'));
-                $saved = false;
-            }
-            $form->setData('filename',$fileName);
+
             $user_id = jDao::get('booster~boo_items','booster')->get($form->getData('item_id'))->item_by;
             if (!$this->userCanEditOrIsAuthor($user_id, 'version')) {
                 return $this->get403();
             }
-            else {
+
+            if ($this->checkFilename($form)) {
                 if (jClasses::getService('booster~booster')->saveEditVersion($form)) {
                     jMessage::add(jLocale::get('booster~main.version.edit.success'));
                     jEvent::notify('version_edited', array('version_id' => $id));
@@ -423,13 +420,10 @@ class defaultCtrl extends jController {
                 }
                 else {
                     jMessage::add(jLocale::get('booster~main.version.edit.failed'));
-                    $saved = false;
                 }
             }
         }
-        else{
-            $saved = false;
-        }
+
         $rep = $this->getResponse('redirect');
         $name = $saved ? jDao::get('boo_items')->get($form->getData('item_id'))->name : jDao::get('boo_versions')->get($id)->version_name ;
         $rep->params = $saved ? array('id' => $form->getData('item_id'),'name'=>$name) : array('id'=>$id,'name'=>$name);

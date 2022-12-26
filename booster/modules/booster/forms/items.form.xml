@@ -42,7 +42,7 @@
     <label locale="booster~main.item_website_url"/>
 </input>
 
-<input ref="url_repo" required="true" type="url" size="40">
+<input ref="url_repo" type="url" size="40">
     <label locale="booster~main.item_repo_url"/>
 </input>
 

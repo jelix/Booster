@@ -8,7 +8,7 @@
     <label locale="booster~main.version_name"/>
 </input>
 
-<wikieditor ref="last_changes" required="true" maxlength="255">
+<wikieditor ref="last_changes" maxlength="255">
     <label locale="booster~main.last_changes"/>
 </wikieditor>
 
@@ -25,11 +25,11 @@
     <item value="mature">mature</item>
 </menulist>
 
-<input ref="filename" required="true" maxlength="80" size="80">
+<input ref="filename" maxlength="80" size="80">
     <label locale="booster~main.filename"/>
 </input>
 
-<input ref="download_url" required="true" maxlength="255" size="80">
+<input ref="download_url" maxlength="255" size="80">
     <label locale="booster~main.download_url"/>
 </input>
 

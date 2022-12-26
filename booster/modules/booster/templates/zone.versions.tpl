@@ -24,11 +24,16 @@
                     <img src="{$j_themepath}icons/wrench_orange.png" alt=""/>
                     {@booster~main.compatible@} <span class="jelix-version">{$version->version}</span>
                 </li>
-
+                {if $version->download_url}
                 <li>
                     <img src="{$j_themepath}icons/disk.png" alt=""/>
-                    {@booster~main.download@} : <a href="{$version->download_url}">{$version->filename}</a>
+                    {if $version->filename}
+                    {@booster~main.download@} : <a href="{$version->download_url|eschtml}">{$version->filename|eschtml}</a>
+                    {else}
+                        <a href="{$version->download_url}">{@booster~main.download@}</a>
+                    {/if}
                 </li>
+                {/if}
 
                 {if $canEditVersion}
                     <li>
@@ -45,11 +50,13 @@
                 {/if}
                    
             </ul>
-
+            {if $version->last_changes}
             <div class="booster-version-body">
+
                 <h6>{@booster~main.version.changelog@}</h6>
                 <blockquote class="desc">{$version->last_changes|wiki:'wr3_to_xhtml'}</blockquote>
-            </div>
+
+            </div>{/if}
         </div>
 
     {/foreach}

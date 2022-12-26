@@ -2,8 +2,8 @@
 /**
 * @package   booster
 * @subpackage items
-* @author    Olivier Demah
-* @copyright 2011 olivier demah
+* @author    Olivier Demah, Laurent Jouanneau
+* @copyright 2011 olivier demah, 2022 Laurent Jouanneau
 * @link      http://www.jelix.org
 * @license   http://www.gnu.org/licenses/lgpl.html  GNU Lesser General Public Licence, see LICENCE file
 */
@@ -65,11 +65,13 @@ class itemsCtrl extends jController {
     function savenew() {
         $id = $this->intParam('id');
         $form = jForms::fill('boosteradmin~items_mod',$id);
+        $rep = $this->getResponse('redirect');
+
         if ($form->check()) {
             if ($form->getData('short_desc_fr') == ''  and
                 $form->getData('short_desc') == '' ) {
-                $form->setErrorOn('short_desc',jLocale::get('booster~main.desc.mandatory'));
-                $form->setErrorOn('short_desc_fr',jLocale::get('booster~main.desc.mandatory'));
+                $form->setErrorOn('short_desc', jLocale::get('booster~main.desc.mandatory'));
+                $form->setErrorOn('short_desc_fr', jLocale::get('booster~main.desc.mandatory'));
                 $rep->action='add';
                 return $rep;
             }
@@ -85,7 +87,7 @@ class itemsCtrl extends jController {
                 jMessage::add(jLocale::get('boosteradmin~admin.item_validated'));
             }
             // we just edit the new content of the item
-            // but we didnt validate it so :
+            // but we didn't validate it so :
             // save all the modification
             else {
                 jMessage::add(jLocale::get('boosteradmin~admin.item_saved_but_not_validated_yet'));
@@ -98,7 +100,7 @@ class itemsCtrl extends jController {
         else {
             jMessage::add(jLocale::get('boosteradmin~admin.invalid.data'));
         }
-        $rep = $this->getResponse('redirect');
+
         $rep->action = 'boosteradmin~items:index';
         return $rep;
     }
@@ -150,7 +152,7 @@ class itemsCtrl extends jController {
         $id = $this->intParam('id');
         $form = jForms::fill('boosteradmin~items_mod',$id);
         if ($form->check()) {
-            if ($form->getData('short_desc_fr') == ''  and $form->getData('short_desc') == '' ) {
+            if ($form->getData('short_desc_fr') == '' && $form->getData('short_desc') == '' ) {
                 $form->setErrorOn('short_desc',jLocale::get('booster~main.desc.mandatory'));
                 $form->setErrorOn('short_desc_fr',jLocale::get('booster~main.desc.mandatory'));
                 $rep->action='add';

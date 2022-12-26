@@ -152,6 +152,7 @@ class booster {
                     type.id AS type_id,
                     items.url_website,
                     items.url_repo,
+                    items.url_download,
                     items.author,
                     items.item_by,
                     items.recommendation,
