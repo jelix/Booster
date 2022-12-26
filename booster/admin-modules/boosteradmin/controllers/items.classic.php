@@ -103,7 +103,7 @@ class itemsCtrl extends jController {
         return $rep;
     }
     /**
-     * Edit the Modified Item for modetation
+     * Edit the Modified Item for moderation
      */
     function editmod() {
 

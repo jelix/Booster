@@ -27,10 +27,14 @@
     <label locale="booster~main.item_author"/>
 </input>
 
-
 <input ref="item_info_id" required="true" maxlength="100">
     <label locale="booster~main.item_info_id"/>
     <help locale="booster~main.item_info_id_hlp"/>
+</input>
+
+<input ref="item_composer_id" maxlength="255">
+    <label locale="booster~main.item_composer_id"/>
+    <help locale="booster~main.item_composer_id_hlp"/>
 </input>
 
 <input ref="tags" size="60">
@@ -45,10 +49,21 @@
     <label locale="booster~main.item_repo_url"/>
 </input>
 
+<input ref="url_download" type="url" size="60">
+    <label locale="booster~main.item_download_url"/>
+</input>
+
 <menulist ref="status" required="true">
     <label locale="booster~main.status"/>
     <item value="0" locale="booster~main.status.not_validated"/>
     <item value="1" locale="booster~main.status.validated"/>
+</menulist>
+
+<menulist ref="dev_status" required="true">
+    <label locale="booster~main.dev_status"/>
+    <item value="0" locale="booster~main.dev_status.maintained"/>
+    <item value="1" locale="booster~main.dev_status.unmaintained"/>
+    <item value="2" locale="booster~main.dev_status.gone"/>
 </menulist>
 
 <radiobuttons ref="recommendation" required="true">

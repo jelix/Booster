@@ -11,14 +11,17 @@
         <property name="id" fieldname="id" datatype="int" autoincrement="true"/>
         <property name="name" fieldname="name" datatype="varchar" required="true" maxlength="60"/>
         <property name="item_info_id" fieldname="item_info_id" datatype="varchar" required="true" maxlength="100"/>
+        <property name="item_composer_id" fieldname="item_composer_id" datatype="varchar" maxlength="255"/>
         <property name="short_desc" fieldname="short_desc" datatype="text" required="false"/>
         <property name="short_desc_fr" fieldname="short_desc_fr" datatype="text" required="false"/>
         <property name="type_id" fieldname="type_id" datatype="int" required="true"/>
         <property name="url_website" fieldname="url_website" datatype="varchar" required="true" maxlength="255"/>
         <property name="url_repo" fieldname="url_repo" datatype="varchar" required="true" maxlength="255"/>
+        <property name="url_download" fieldname="url_download" datatype="varchar" required="true" maxlength="255"/>
         <property name="author" fieldname="author" datatype="varchar" required="true" maxlength="80"/>
         <property name="item_by" fieldname="item_by" datatype="int" required="true"/>
         <property name="status" fieldname="status" datatype="int" required="true" maxlength="1"/>
+        <property name="dev_status" fieldname="dev_status" datatype="int" required="true" default="0"/>
         <property name="recommendation" fieldname="recommendation" datatype="boolean" required="true" default="false"/>
         <property name="created" fieldname="created" datatype="datetime" insertpattern="NOW()" />
         <property name="edited" fieldname="edited" datatype="datetime" updatepattern="NOW()"/>

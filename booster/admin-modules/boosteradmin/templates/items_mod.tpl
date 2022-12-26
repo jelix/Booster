@@ -39,7 +39,7 @@
 {foreach $datas_mod as $data}
     <tbody>
         <tr>
-            <td><a href="{jurl 'boosteradmin~items:editmod',array('id'=>$data->item_id)}">{$data->name}</a></td>
+            <td><a href="{jurl 'boosteradmin~items:editmod',array('id'=>$data->id)}">{$data->name}</a></td>
             <td>{$data->date|jdatetime}</td>
             <td>{zone 'booster~author', array('id' => $data->item_by)}</td>
             {*<td>{$data->nickname|eschtml}</td>*}

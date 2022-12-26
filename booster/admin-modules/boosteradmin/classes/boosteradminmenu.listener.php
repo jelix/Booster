@@ -2,8 +2,8 @@
 /**
 * @package   booster
 * @subpackage boosteradmin
-* @author    Olivier Demah
-* @copyright 2011 olivier demah
+* @author    Olivier Demah, Laurent Jouanneau
+* @copyright 2011 olivier demah, 2022 Laurent Jouanneau
 * @link      http://www.jelix.org
 * @license   http://www.gnu.org/licenses/lgpl.html  GNU Lesser General Public Licence, see LICENCE file
 */

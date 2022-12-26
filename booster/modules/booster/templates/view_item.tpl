@@ -39,6 +39,11 @@
         {zone 'booster~tagsitem',array('id'=>$data->id)}
 
         <div class="booster-item-desc section">
+            {if $data->dev_status == 1}
+                <p class="dev-status dev-status-unmaintained">{@booster~main.dev_status.unmaintained@}</p>
+            {elseif $data->dev_status == 2}
+                <p class="dev-status dev-status-gone">{@booster~main.dev_status.gone@}</p>
+            {/if}
             <div class="desc">
             {if $j_lang == 'fr' && $data->short_desc_fr != ''}
                 {$data->short_desc_fr|wiki:'wr3_to_xhtml'}
@@ -75,6 +80,18 @@
                             <img src="{$j_themepath}icons/bitbucket.png" alt=""/>
                         {/if}
                         <a href="{$data->url_repo}">{@booster~main.repository@}</a>
+                    </li>
+                {/if}
+                {if $data->url_download}
+                    <li class="booster_url">
+                        <img src="{$j_themepath}icons/world.png" alt=""/>
+                        <a href="{$data->url_download}">{@booster~main.item_download_url@}</a>
+                    </li>
+                {/if}
+
+                {if $data->item_composer_id}
+                    <li class="booster_url">
+                        <a href="https://packagist.org/packages/{$data->item_composer_id}">{@booster~main.item_composer_id.label@} {$data->item_composer_id}</a>
                     </li>
                 {/if}
 

@@ -3,8 +3,8 @@
 * @package   booster
 * @subpackage booster
 * @author    Olivier Demah
-* @contributor Florian Lonqueu-Brochard
-* @copyright 2011 olivier demah
+* @contributor Florian Lonqueu-Brochard, Laurent Jouanneau
+* @copyright 2011 olivier demah, 2022 Laurent Jouanneau
 * @link      http://www.jelix.org
 * @license   http://www.gnu.org/licenses/lgpl.html  GNU Lesser General Public Licence, see LICENCE file
 */
@@ -274,7 +274,6 @@ class defaultCtrl extends jController {
         if(!$form)
             $form = jForms::create('booster~items',$data->id);
         $form->initFromDao('booster~boo_items',null, 'booster');
-        //$form->initControlFromDao('jelix_versions', 'booster~boo_items_jelix_versions', null, array('id_item', 'id_version'));
         $form->setData('tags',$tags);
         $form->initModifiedControlsList();
         $rep = $this->getResponse('html');

@@ -5,11 +5,15 @@
     <table class="jforms-table">
         <tr>
             <td>{ctrl_label 'name'}</td><td>{ctrl_control 'name'}</td>
-            <td>{ctrl_label 'item_info_id'}</td><td>{ctrl_control 'item_info_id'}</td>
+            <td>{ctrl_label 'item_composer_id'}</td><td>{ctrl_control 'item_composer_id'}</td>
         </tr>
         <tr>
             <td>{ctrl_label 'type_id'}</td><td>{ctrl_control 'type_id'}</td>
             <td>{ctrl_label 'tags'}</td><td>{ctrl_control 'tags'}</td>
+        </tr>
+        <tr>
+            <td>{ctrl_label 'dev_status'}</td><td>{ctrl_control 'dev_status'}</td>
+            <td>{ctrl_label 'item_info_id'}</td><td>{ctrl_control 'item_info_id'}</td>
         </tr>
         <tr>
             <td colspan="4">{ctrl_label 'short_desc'}</td>
@@ -32,6 +36,9 @@
         </tr>
         <tr>
             <td>{ctrl_label 'url_website'}</td><td colspan="3">{ctrl_control 'url_website'}</td>
+        </tr>
+        <tr>
+            <td>{ctrl_label 'url_download'}</td><td colspan="3">{ctrl_control 'url_download'}</td>
         </tr>
         <tr>
             <td class="valign-middle">{@booster~main.image.current@}</td><td>{zone 'booster~itemimage', array('id' => $id)}</td>

@@ -2,8 +2,8 @@
 /**
 * @package   booster
 * @subpackage booster
-* @author    Olivier Demah, Florian Lonqueu-Brochard
-* @copyright 2011 Olivier Demah, Florian Lonqueu-Brochard
+* @author    Olivier Demah, Florian Lonqueu-Brochard, Laurent Jouanneau
+* @copyright 2011 Olivier Demah, Florian Lonqueu-Brochard, 2022 Laurent Jouanneau
 * @link      http://www.jelix.org
 * @license   http://www.gnu.org/licenses/lgpl.html  GNU Lesser General Public Licence, see LICENCE file
 */
@@ -23,11 +23,14 @@ class booster {
         $record = jDao::createRecord('booster~boo_items','booster');
         $record->name           = $form->getData('name');
         $record->item_info_id   = $form->getData('item_info_id');
+        $record->item_composer_id = $form->getData('item_composer_id');
         $record->short_desc     = $form->getData('short_desc');
         $record->short_desc_fr  = $form->getData('short_desc_fr');
         $record->type_id        = $form->getData('type_id');
         $record->url_website    = $form->getData('url_website');
         $record->url_repo       = $form->getData('url_repo');
+        $record->url_download   = $form->getData('url_download');
+        $record->dev_status     = $form->getData('dev_status');
         $record->author         = $form->getData('author');
         $record->item_by        = $form->getData('item_by');
         $record->status         = 0; //will need moderation
@@ -39,7 +42,6 @@ class booster {
         }
 
         if ($id_booster != 0) {
-            $tagStr ='';
             $tagStr = str_replace('.',' ',$form->getData("tags"));
             $tags = explode(",", $tagStr);
 

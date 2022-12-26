@@ -1,7 +1,5 @@
 <h1>{$title}</h1>
-<h2>{@boosteradmin~admin.item_by@} {$item_by}</h2>
-
-<p><a href="{jurl 'booster~default:viewItem', array('id' => $id, 'name' => $name)}">{$name}</a>
+<h2><a href="{jurl 'booster~default:viewItem', array('id' => $id, 'name' => $name)}">{$name}</a></h2>
 
 <ul class="modifs">
 {foreach $modified as $mod}

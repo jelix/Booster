@@ -16,7 +16,7 @@
     <url pathinfo="/items/delete/:id"       action="items:delete" >
         <param name="id" type="numeric"/>
     </url>  
-    <url pathinfo="/items/deleteimage/:id/:submitAction"    action="items:deleteImage" >
+    <url pathinfo="/items/deleteimage/:id/:submitAction" action="items:deleteImage" >
         <param name="id" type="numeric"/>
     </url>
 
