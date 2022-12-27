@@ -27,7 +27,6 @@ class myHtmlResponse extends jResponseHtml {
     protected function doAfterActions() {
         $this->body->assignIfNone('MAIN','<p>no content</p>');
         $this->body->assignIfNone('MENU','');
-        $this->body->assign('SEARCH',jZone::get('booster~search'));
         $title = jApp::config()->booster['title'];
         if ($this->title)
             $this->title = $this->title .' | '. $title;

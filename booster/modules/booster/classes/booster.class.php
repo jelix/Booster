@@ -111,35 +111,33 @@ class booster {
     }
     /**
      * function that search items according to criteria in the form
+     *
+     * @param jFormsBase $form
      * @return array    items corresponding to the search
-     * @TODO search with/by JelixVersions
      */
-    function search() {
-
-        $form = jForms::fill('booster~search');
-
-        // we have uncheck every checkboxes and empty every fields
-        // so let's get all the records
-        if ($form->getData('name') == '' and
-            $form->getData('types') == '' and
-            $form->getData('author_by') == '' and
-            $form->getData('jelix_versions') == '' and
-            $form->getData('tags') == '' and
-            $form->getData('recommendation') == ''
-            )
-            return jDao::get('booster~boo_items','booster')->findAllValidated();
-
+    function search($form)
+    {
         $name           = $form->getData('name');
         $types          = $form->getData('types');
         $author         = $form->getData('author_by');
         $jelix_versions = $form->getData('jelix_versions');
         $tags           = $form->getData('tags');
         $reco           = $form->getData('recommendation');
+        $devStatus           = $form->getData('dev_status');
 
-        $q      = '';
-        $from   = '';
-        $where  = '';
-        $orderby = '';
+        // we have uncheck every checkboxes and empty every fields
+        // so let's get all the records
+        if ($name === '' &&
+            $types === '' &&
+            $author === '' &&
+            $jelix_versions === '' &&
+            $tags === '' &&
+            $reco === '' &&
+            $devStatus === ''
+            ) {
+            return jDao::get('booster~boo_items', 'booster')->findAllValidated();
+        }
+
         $cond   = '';
 
         $c = jDb::getConnection('booster');
@@ -147,6 +145,7 @@ class booster {
         $q = 'SELECT items.id,
                     items.status as status,
                     items.name,
+                    items.item_composer_id,
                     items.short_desc,
                     items.short_desc_fr,
                     type.id AS type_id,
@@ -156,6 +155,7 @@ class booster {
                     items.author,
                     items.item_by,
                     items.recommendation,
+                    items.dev_status,
                     type.type_name,
                     versions.id AS version_id,
                     versions.version_name,
@@ -167,42 +167,52 @@ class booster {
                     versions.created,
                     versions.edited,
                     versions.modified,
-                    versions.id_jelix_version';
+                    versions.id_jelix_version,
+                    jelix_versions.version as version_jelix
+                    ';
+
 
         //tables
         $from = '
                 FROM '.
                 $c->prefixTable('boo_items').' AS items
-                 LEFT JOIN ' .$c->prefixTable('boo_versions').' AS versions ON ( items.id=versions.item_id )
-                 LEFT JOIN ' . $c->prefixTable('boo_jelix_versions'). ' AS jelix_versions ON (versions.id_jelix_version=jelix_versions.id ), '.
-                $c->prefixTable('boo_type').' AS type ';
-                //.', '.$c->prefixTable('community_users'). ' AS usr ';
+                INNER JOIN ' . $c->prefixTable('boo_type').' AS type ON ( items.type_id = type.id)
+                LEFT JOIN ' . $c->prefixTable('boo_versions').' AS versions ON ( items.id=versions.item_id )
+                LEFT JOIN ' . $c->prefixTable('boo_jelix_versions'). ' AS jelix_versions ON (versions.id_jelix_version=jelix_versions.id )';
+
         //where conditions
         $where = "
-                WHERE items.type_id=type.id
-                    AND items.status = 1
+                WHERE
+                    items.status = 1
                     AND (versions.status = 1 OR versions.status IS NULL)" ;
-        //Types
-        if(!empty($types)) {
-            $cond .= $this->buildCond($types,'type_id');
-        }
-        //Name
-        if($name != '') {
-            $cond .= "
-                    AND name LIKE '%$name%' ";
-        }
-        //Author
-        if($author != '') {
-            $cond .= "
-                    AND ( author LIKE '%$author%' ) ";
-                    //AND ( author ='$author' ) OR nickname ='$author' ) ";
-        }
-        //version
-        if(!empty($jelix_versions)) {
-            $cond .= $this->buildCond($jelix_versions,'id_jelix_version');
+
+        if($types !== '') {
+            $cond .= ' AND type_id = '.intval($types);
         }
 
-        if(!empty($reco)){
+        //Name
+        if($name !== '') {
+            $val = $c->quote('%'.$name.'%');
+            $cond .= " AND (name LIKE ".$val." or item_composer_id LIKE ".$val.")";
+        }
+        //Author
+        if($author !== '') {
+            $cond .= " AND  author LIKE ".$c->quote('%'.$author.'%')." ) ";
+        }
+
+        //version
+        if ($jelix_versions !== '') {
+            $cond .= ' AND id_jelix_version = '.intval($jelix_versions);
+        }
+
+        if ($devStatus !== '') {
+            $cond .= ' AND dev_status = '.intval($devStatus);
+        }
+        else {
+            $cond .= ' AND (dev_status = 0 OR  dev_status = 1)';
+        }
+
+        if ($reco !== '') {
             $cond .= ' AND items.recommendation = 1 ';
         }
 
@@ -229,8 +239,9 @@ class booster {
             }
         }
         // no tag !
-        else
+        else {
             $results = $items;
+        }
         return $results;
     }
 

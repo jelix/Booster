@@ -45,7 +45,7 @@
     <div class="top-container">
         <div id="content-header">
             <div id="submenubar" {ifuserconnected}class="no-center"{/ifuserconnected}>
-                {$SEARCH}
+                {zone 'booster~search'}
                 {ifuserconnected}
                     <a class="jforms-submit" href="{jurl 'booster~default:_add'}">{@booster~main.add.an.item@}</a>
                 {/ifuserconnected}

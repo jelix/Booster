@@ -723,11 +723,37 @@ small{font-size:0.8em;}
 }
 #search-trigger img{vertical-align:middle;display:inline-block;zoom:1;margin-right:5px;}
 #jforms_booster_search .jforms-label{font-weight:bold;}
-#advanced-search{display:none; text-align:left;}
-#advanced-search div{margin-top:5px;}
-#advanced-search span:first-child, #advanced-search div > label {margin-right:10px;}
 
+#advanced-search {
+    display:flex;
+    text-align:left;
+    height:0;
+    opacity: 0;
+    overflow: hidden;
+    transition: height 1s, opacity 1s;
+    margin-top:1em;
+}
 
+#advanced-search.opened
+{
+    display:flex;
+    height: 8em;
+    opacity: 1;
+}
+
+#advanced-search div {
+    /*argin-top:5px;*/
+    display: block;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
+    align-self: auto;
+}
+#advanced-search span:first-child,
+#advanced-search div > label
+{
+    margin-right:10px;
+}
 
 /* Items */
 

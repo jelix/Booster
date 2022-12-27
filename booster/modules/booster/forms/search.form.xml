@@ -1,24 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<form xmlns="http://jelix.org/ns/forms/1.1">
-    
-    <checkboxes ref="types">
+<form xmlns="http://jelix.org/ns/forms/1.1" allowAnyOrigin="true">
+
+    <menulist ref="types">
         <datasource dao="booster~boo_type" method="findAll" labelproperty="type_name" valueproperty="id" profile="booster"/>
         <label locale="booster~main.item_type"/>
-    </checkboxes>
+        <emptyitem locale="booster~main.any.type"/>
+    </menulist>
 
-    <checkboxes ref="jelix_versions">
+    <menulist ref="jelix_versions">
         <datasource dao="boo_jelix_versions" method="findAll" labelproperty="version" valueproperty="id" profile="booster"/>
         <label locale="booster~main.jelix.versions"/>
-    </checkboxes>
-    
+        <emptyitem locale="booster~main.any.jelix.version"/>
+    </menulist>
+
+    <menulist ref="dev_status">
+        <label locale="booster~main.dev_status"/>
+        <emptyitem locale="booster~main.dev_status.maintained.unmaintened"/>
+        <item value="0" locale="booster~main.dev_status.maintained"/>
+        <item value="1" locale="booster~main.dev_status.unmaintained"/>
+        <item value="2" locale="booster~main.dev_status.gone"/>
+    </menulist>
+
     <input ref="name" size="12">
         <label locale="booster~main.item_name"/>
     </input>
-    
+
     <input ref="tags" size="12">
         <label locale="booster~main.tags"/>
     </input>
-    
+
     <input ref="author_by" size="12">
         <label locale="booster~main.author"/>
     </input>
@@ -26,7 +36,7 @@
     <checkbox ref="recommendation">
         <label locale="booster~main.recommended"/>
     </checkbox>
-    
+
     <submit ref="_submit">
         <label locale="booster~main.go.search"/>
     </submit>

@@ -44,7 +44,7 @@ class defaultCtrl extends jController {
         if( $this->param('search')) {
             $form = jForms::fill('booster~search');
             if ($form->check()) {
-                $results = jClasses::getService('booster~booster')->search();
+                $results = jClasses::getService('booster~booster')->search($form);
                 $tpl->assign('search_results', $results);
                 $rep->body->assign('is_search', true);
             }
