@@ -15,6 +15,13 @@ namespace JelixBooster;
  * Class that handle the booster business stuff
  */
 class Booster {
+
+    const TYPE_APPLICATION = 1;
+    const TYPE_MODULE = 2;
+    const TYPE_PLUGIN = 3;
+    const TYPE_LANGPACK = 4;
+    const TYPE_LIBRARY = 5;
+
     /**
      * function to save one Item
      *

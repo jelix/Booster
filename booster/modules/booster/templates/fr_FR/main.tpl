@@ -27,9 +27,9 @@
                 <a href="{jurl 'booster~default:index'}">Jelix BOOSTER</a>, le portail des ressources produites par la communauté
             </p>
             <ul>
-                {*<li {if $tout}class="selected"{/if}><a href="{jurl 'booster~default:index'}">Tout</a></li>*}
-                <li {if $applis}class="selected"{/if}><a href="{jurl 'booster~default:applis'}">Applications</a></li>
                 <li {if $modules}class="selected"{/if}><a href="{jurl 'booster~default:modules'}">Modules</a></li>
+                <li {if $libraries}class="selected"{/if}><a href="{jurl 'booster~default:libraries'}">Bibliothèques</a></li>
+                <li {if $applis}class="selected"{/if}><a href="{jurl 'booster~default:applis'}">Applications</a></li>
                 <li {if $plugins}class="selected"{/if}><a href="{jurl 'booster~default:plugins'}">Plugins</a></li>
                 <li {if $packlang}class="selected"{/if}><a href="{jurl 'booster~default:packlang'}">Pack de Langues</a></li>
                 {ifuserconnected}

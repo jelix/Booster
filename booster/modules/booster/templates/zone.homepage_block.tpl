@@ -31,8 +31,9 @@
                         <a href="{jurl 'booster~default:plugins'}">
                     {elseif $type == 4}
                         <a href="{jurl 'booster~default:packlang'}">
+                    {elseif $type == 5}
+                        <a href="{jurl 'booster~default:libraries'}">
                     {/if}
-
                     {jlocale 'booster~main.see.list.type.id.'.$type}</a>
                 </p>
             {else}

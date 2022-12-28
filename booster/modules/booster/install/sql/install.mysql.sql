@@ -46,8 +46,9 @@ CREATE TABLE %%PREFIX%%boo_type (
 INSERT INTO %%PREFIX%%boo_type (`id`, `type_name`) VALUES
 (1, 'Application'),
 (2, 'Module'),
-(3, 'Plugins'),
-(4, 'PackLang');
+(3, 'Plugin'),
+(4, 'LangPack');
+(5, 'Library');
 
 --
 -- Structure de la table `boo_versions`

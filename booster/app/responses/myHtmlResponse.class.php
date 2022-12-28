@@ -39,6 +39,7 @@ class myHtmlResponse extends jResponseHtml {
         $this->body->assign('modules', false);
         $this->body->assign('plugins', false);
         $this->body->assign('packlang', false);
+        $this->body->assign('libraries', false);
         $this->body->assign('your_ressources', false);
 
         $gJCoord = jApp::coord();
@@ -56,6 +57,8 @@ class myHtmlResponse extends jResponseHtml {
                         $this->body->assign('plugins'   ,true);
                     } elseif($gJCoord->request->params['action'] == 'default:packlang' ) {
                         $this->body->assign('packlang'  ,true);
+                    } elseif($gJCoord->request->params['action'] == 'default:libraries' ) {
+                        $this->body->assign('libraries'  ,true);
                     } elseif($gJCoord->request->params['action'] == 'default:yourressources' ) {
                         $this->body->assign('your_ressources'  ,true);
                     }

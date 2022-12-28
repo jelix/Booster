@@ -47,6 +47,7 @@
     <url pathinfo="/modules" action="default:modules"/>
     <url pathinfo="/plugins" action="default:plugins"/>
     <url pathinfo="/packlang" action="default:packlang"/>
+    <url pathinfo="/libraries" action="default:libraries"/>
 
     <url pathinfo="/applications/:offset" action="default:applis">
         <param name="offset"  type="number"/>

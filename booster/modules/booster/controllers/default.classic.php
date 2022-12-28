@@ -22,6 +22,7 @@ class defaultCtrl extends jController {
         'modules' => array('auth.required'=>false),
         'plugins' => array('auth.required'=>false),
         'packlang' => array('auth.required'=>false),
+        'libraries' => array('auth.required'=>false),
         'credits' => array('auth.required'=>false),
         'recommendation' => array( 'jacl2.right'=>'booster.recommendation')
     );
@@ -484,7 +485,7 @@ class defaultCtrl extends jController {
     function applis () {
         return $this->displayList(
             'applis',
-            1
+            \JelixBooster\Booster::TYPE_APPLICATION
         );
     }
 
@@ -495,7 +496,7 @@ class defaultCtrl extends jController {
     {
         return $this->displayList(
             'modules',
-            2
+            \JelixBooster\Booster::TYPE_MODULE
         );
     }
 
@@ -506,7 +507,7 @@ class defaultCtrl extends jController {
     {
         return $this->displayList(
             'plugins',
-            3
+            \JelixBooster\Booster::TYPE_PLUGIN
         );
     }
 
@@ -517,7 +518,18 @@ class defaultCtrl extends jController {
     {
         return $this->displayList(
             'packlang',
-            4
+            \JelixBooster\Booster::TYPE_LANGPACK
+        );
+    }
+
+    /**
+     * Display the list of libraries
+     */
+    function libraries ()
+    {
+        return $this->displayList(
+            'libraries',
+            \JelixBooster\Booster::TYPE_LIBRARY
         );
     }
 
