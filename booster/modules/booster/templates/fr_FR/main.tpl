@@ -33,7 +33,7 @@
                 <li {if $plugins}class="selected"{/if}><a href="{jurl 'booster~default:plugins'}">Plugins</a></li>
                 <li {if $packlang}class="selected"{/if}><a href="{jurl 'booster~default:packlang'}">Pack de Langues</a></li>
                 {ifuserconnected}
-                    <li {if $your_ressources}class="selected"{/if}><a href="{jurl 'booster~default:yourressources'}">{@booster~main.your.ressources@}</a></li>
+                    <li {if $your_ressources}class="selected"{/if}><a href="{jurl 'booster~default:yourprojects'}">{@booster~main.your.projects@}</a></li>
                 {/ifuserconnected}
             </ul>
 

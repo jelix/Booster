@@ -61,7 +61,7 @@
         <param name="offset"  type="number"/>
     </url>
 
-    <url pathinfo="/yourressources" action="default:yourressources"/>
+    <url pathinfo="/yourprojects" action="default:yourprojects"/>
 
     <url pathinfo="/credits" action="default:credits"/>
 

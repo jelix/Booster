@@ -514,9 +514,9 @@ class defaultCtrl extends jController {
     /**
      * Display the resources of the current user
      */
-    function yourressources () {
+    function yourprojects () {
         $rep = $this->getResponse('html');
-        $rep->title = jLocale::get('booster~main.your.ressources');
+        $rep->title = jLocale::get('booster~main.your.projects');
         $datas = jDao::get('booster~boo_items','booster')->findAllReportedBy(jAuth::getUserSession ()->id);
         $tpl = new jTpl();
         if(jAuth::isConnected()) {
