@@ -11,13 +11,15 @@
         {/foreach}
     {/if}
 {else}
-    
+    <h1>{@booster~main.projects.recommended@}</h1>
+    {zone 'booster~recommended_projects'}
+    <h1>{@booster~main.last.updated@}</h1>
     <div id="homepage-wrapper">
-        {zone 'booster~homepage_block', array('type'=>1)}
-        {zone 'booster~homepage_block', array('type'=>2)}
-        <div class="clear"></div>
-        {zone 'booster~homepage_block', array('type'=>3)}
-        {zone 'booster~homepage_block', array('type'=>4)}
+        {zone 'booster~homepage_block', array('type'=> 2)}
+        {zone 'booster~homepage_block', array('type'=> 5)}
+        {zone 'booster~homepage_block', array('type'=> 3)}
+        {zone 'booster~homepage_block', array('type'=> 1)}
+        {zone 'booster~homepage_block', array('type'=> 4)}
     </div>
 
 {/if}

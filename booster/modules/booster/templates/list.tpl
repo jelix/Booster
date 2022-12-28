@@ -1,6 +1,6 @@
     
     
-<h2>{@booster~main.items.list@}</h2>
+<h2>{$title}</h2>
 
 {if $datas->rowCount() > 0}
     {assign $show_all_versions = false}

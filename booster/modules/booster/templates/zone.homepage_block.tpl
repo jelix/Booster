@@ -1,9 +1,4 @@
 <div class="homepage-block block-type-{$type} content-box">
-    <div class="wrapper">
-        <ul class="tabs">
-            <li class="selected section">{@booster~main.last.created@}</li>
-        </ul>
-
         <h2>{jlocale 'booster~main.type.id.'.$type}</h2>
 
         <div class="content">
@@ -15,7 +10,7 @@
                     <strong><a href="{jurl 'booster~default:viewItem', array('id' => $item->id, 'name' => $item->name)}">{$item->name}</a></strong>
                     {@booster~main.by@}
                     {$item->author}
-                    <span class="date"> - {$item->created |date_format:'%d/%m %H:%M'}</span>
+                    <span class="date"> - {$item->created |jdatetime:'db_datetime':'lang_date'}</span>
                 </li>
             {/foreach}
             </ul>
@@ -40,5 +35,4 @@
                 {@booster~main.not.items.type@}
             {/if}
         </div>
-    </div>
 </div>

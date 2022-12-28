@@ -20,11 +20,11 @@
 <div id="header">
     <div class="top-container">
         <h1 id="logo">
-            <a href="/" title="Page d'accueil du site"><img src="/images/logo_jelix_moyen4.png" alt="Jelix" /></a>
+            <a href="/" title="Page d'accueil du site"><img src="/images/logo_jelix_moyen4.png" alt="Jelix" /> Booster</a>
         </h1>
         <div id="topmenubar">
             <p>
-                <a href="{jurl 'booster~default:index'}">Jelix BOOSTER</a>, le portail des ressources produites par la communauté
+                Tous les composants pour booster vos projets Jelix
             </p>
             <ul>
                 <li {if $modules}class="selected"{/if}><a href="{jurl 'booster~default:modules'}">Modules</a></li>

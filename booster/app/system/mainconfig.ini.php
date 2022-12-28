@@ -201,7 +201,7 @@ default.engine.name=wr3
 default.wiki.rules=wr3_to_xhtml
 
 [booster]
-title="Jelix Booster: Applis, Modules, Plugins, Pack de langues pour Jelix"
+title="Jelix Booster: the components to boost your projects"
 last_items_created=5
 moderators_list="laurent@jelix.org, olivier@foxmask.info"
 

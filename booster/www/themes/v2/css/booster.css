@@ -174,7 +174,12 @@ code.returnvalue {}
 
 
 #logo { margin:3px 0; padding:0; font-size:1.2em; float:left; width:140px; text-align:left; text-shadow: #aaa 0px 0px 5px;}
-#logo a { color:#0594c8; text-decoration:none; }
+#logo a {
+    color:white;
+    text-decoration:none;
+    letter-spacing: 0.8em;
+    font-weight: bold;
+}
 #logo img { vertical-align:bottom; }
 
 
@@ -186,7 +191,10 @@ code.returnvalue {}
     font-size: 0.9em;
     text-align:center;
 }
-
+#topmenubar p {
+    font-size: 1.7em;
+    color: #002830;
+}
 #topmenubar li {
     display:inline;
     padding:5px 10px 10px 10px;
@@ -649,25 +657,28 @@ small{font-size:0.8em;}
 
 
 /* homepage block */
-#homepage-wrapper{overflow:hidden;}
+#homepage-wrapper{
+    display: grid;
+
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+
+}
 .homepage-block{
-    width:48.5%;
-    margin:0 0 15px 1.5%;
-    float:left;
+    margin:5px;
     position:relative;
-    clear:none;
-    padding:0;
-    /*border:1px solid #A9BDD1;*/
+    padding:0.4em 1em 1em 1em;
 }
-.homepage-block .wrapper{
-  padding:0.4em 1em 1em 1em;
+
+.homepage-block h2{
+    margin:0 0 10px;
+    color: #C03033;
 }
-.homepage-block h2{margin:0 0 10px;  color: #C03033;}
-.homepage-block .content{
+.homepage-block .content {
     min-height:5em;
 }
-.block-type-1, .block-type-3{margin-left:0;}
 .browse-list{text-align:right;margin-bottom:0;}
+
 .homepage-block .content li{
   margin:0 0 3px 5px;
   list-style:none;
@@ -675,18 +686,32 @@ small{font-size:0.8em;}
   background: url("../icons/bullet_black.png") no-repeat left center;
 }
 
-.homepage-block .tabs{
-    list-style-type: none;
-    margin:0;
-    float:right;
-}
-.homepage-block .tabs li{
-    text-decoration: none;
-    display:inline-block;
-    padding:5px 10px;
+
+#recommended-block {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: normal;
+    align-items: stretch;
+    align-content: stretch;
 }
 
-/* search */
+#recommended-block > div {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
+    align-self: auto;
+    min-width: 10em;
+    margin:1em;
+    text-align:center;
+}
+#recommended-block .content-box strong {
+    font-size:1.1em;
+}
+#recommended-block .content-box a {
+    color: #c03033;
+}
+    /* search */
 
 #submenubar{
   overflow:hidden;
@@ -1097,5 +1122,10 @@ small{font-size:0.8em;}
     #footer .top-container {
         display:flex;
         flex-direction: column;
+    }
+    #homepage-wrapper{
+        grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr;
+
     }
 }

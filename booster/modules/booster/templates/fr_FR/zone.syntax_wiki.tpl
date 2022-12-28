@@ -29,22 +29,4 @@
       <li><b>acronyme</b> : <code>??</code>acronyme<code>|</code>signification<code>??</code></li>
     </ul>
   </div>
-{*
-  <script type="text/javascript">
-  {literal}
-//<![CDATA[
-      $(document).ready(function(){
-          $('#syntax-wiki-content').hide();
-
-          $('#syntax-wiki-title').bind('click keypress', function(event){
-              if(event.type == 'click' || (event.type == 'keypress' && event.which == 13)){
-                  $('#syntax-wiki-content').slideToggle();
-              }
-          })
-          .attr('tabindex', 0);
-      });
-//]]>
-  {/literal}
-  </script>
-*}
 </div>

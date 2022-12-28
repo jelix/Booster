@@ -143,5 +143,15 @@
             </values>
         </method>
 
+        <method name="findRecommended" type="select">
+            <conditions>
+                <eq property="status" value="1" />
+                <eq property="recommendation" value="1" />
+                <lt property="dev_status" value="1" />
+            </conditions>
+            <order>
+                <orderitem property="date_version" way="desc" />
+            </order>
+        </method>
     </factory>
 </dao>

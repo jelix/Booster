@@ -60,27 +60,5 @@
         </div>
 
     {/foreach}
-
-{*
-    {if $versions->rowCount() >= 1}
-        <script type="text/javascript">
-        {literal}
-    //<![CDATA[
-            $(document).ready(function(){
-                $otherVersions = $('.booster_version:not(.last-version)');
-                $otherVersions.find('.body').hide();
-
-                $otherVersions.find('h4').bind('click keypress', function(event){
-                    if(event.type == 'click' || (event.type == 'keypress' && event.which == 13)){
-                        $(this).next('.body').slideToggle();
-                    }
-                })
-                .attr('tabindex', 0);
-            });
-    //]]>
-        {/literal}
-        </script>
-    {/if}
-*}
 {/if}
 </div>

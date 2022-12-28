@@ -472,6 +472,7 @@ class defaultCtrl extends jController {
         else {
             $tpl->assign('current_user','');
         }
+        $tpl->assign('title', $rep->title);
         $tpl->assign('datas', $datas);
         $tpl->assign('item_not_moderated','');
         $this->setPagination($tpl, 'booster~default:'.$typeName, $typeId, $this->param('offset'));
