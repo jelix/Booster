@@ -94,7 +94,8 @@ class itemsCtrl extends jController {
             }
             $form->saveToDao('booster~boo_items');
             jClasses::getService("jtags~tags")->saveTagsBySubject(explode(',', $form->getData('tags')), 'booscope', $id);
-            jClasses::getService("booster~booster")->saveImage($id, $form);
+            $booster = new \JelixBooster\Booster();
+            $booster->saveImage($id, $form);
             jForms::destroy('boosteradmin~items_mod',$id);
         }
         else {
@@ -170,8 +171,10 @@ class itemsCtrl extends jController {
             jDao::get('boosteradmin~boo_items_modifs','booster')->deleteByItemId($id);
             jMessage::add(jLocale::get('boosteradmin~admin.item_validated'));
 
-            if($form->getData('image') != '')
-                jClasses::getService("booster~booster")->saveImage($id, $form);
+            if($form->getData('image') != '') {
+                $booster = new \JelixBooster\Booster();
+                $booster->saveImage($id, $form);
+            }
 
             jForms::destroy('boosteradmin~items_mod',$id);
             $rep->action = 'boosteradmin~items:index';

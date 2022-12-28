@@ -29,6 +29,16 @@ class defaultCtrl extends jController {
     protected static $per_page = 10;
 
     /**
+     * @var \JelixBooster\Booster
+     */
+    protected $booster;
+
+    public function __construct($request)
+    {
+        parent::__construct($request);
+        $this->booster = new \JelixBooster\Booster();
+    }
+    /**
      *Main Page
      */
     function index() {
@@ -44,7 +54,7 @@ class defaultCtrl extends jController {
         if ($this->param('search')) {
             $form = jForms::fill('booster~search');
             if ($form && $form->check()) {
-                $results = jClasses::getService('booster~booster')->search($form);
+                $results = $this->booster->search($form);
                 $tpl->assign('search_results', $results);
                 $rep->body->assign('is_search', true);
             }
@@ -118,9 +128,9 @@ class defaultCtrl extends jController {
                 return $this->redirect('booster~default:add');
             }
 
-            $data = jClasses::getService('booster~booster')->saveItem();
+            $data = $this->booster->saveItem($form);
             if (!empty($data)) {
-                if(!jClasses::getService("booster~booster")->saveImage($data['id'], $form)){
+                if(!$this->booster->saveImage($data['id'], $form)){
                     jMessage::add(jLocale::get('booster~main.item.saved.failed'));
                 }
                 else{
@@ -200,7 +210,7 @@ class defaultCtrl extends jController {
         $form = jForms::fill('booster~version');
         if ($form->check()) {
             if ($this->checkFilename($form)) {
-                $data = jClasses::getService('booster~booster')->saveVersion($form);
+                $data = $this->booster->saveVersion($form);
                 if ($data) {
                     jMessage::add(jLocale::get('booster~main.version.saved'));
                     jEvent::notify('new_version_added', array('version_id' => $data));
@@ -239,7 +249,7 @@ class defaultCtrl extends jController {
         }
         //if this item is not moderated
         //we'll just display a page with the item + a message to inform the user
-        if ( jClasses::getService('booster~booster')->isModerated($id,'items') === false ) {
+        if ( $this->booster->isModerated($id,'items') === false ) {
             $rep = $this->getResponse('html');
             $tpl = new jTpl();
 
@@ -296,9 +306,9 @@ class defaultCtrl extends jController {
                 $form->setErrorOn('short_desc',jLocale::get('booster~main.desc.mandatory'));
                 $form->setErrorOn('short_desc_fr',jLocale::get('booster~main.desc.mandatory'));
             }
-            else if (jClasses::getService('booster~booster')->saveEditItem($form)) {
+            else if ($this->booster->saveEditItem($form)) {
                 if ($form->getData('image') != '' &&
-                    jClasses::getService("booster~booster")->saveImage($id, $form)
+                    $this->booster->saveImage($id, $form)
                 ) {
                     jMessage::add(jLocale::get('booster~main.item.edit.success'));
                     jEvent::notify('item_edited', array('item_id' => $id));
@@ -336,7 +346,7 @@ class defaultCtrl extends jController {
         }
         //if this item is not moderated
         //we'll just display a page with the item + a message to inform the user
-        if ( jClasses::getService('booster~booster')->isModerated($id,'versions') === false ) {
+        if ($this->booster->isModerated($id,'versions') === false ) {
             $rep = $this->getResponse('html');
             $tpl = new jTpl();
 
@@ -386,7 +396,7 @@ class defaultCtrl extends jController {
             }
 
             if ($this->checkFilename($form)) {
-                if (jClasses::getService('booster~booster')->saveEditVersion($form)) {
+                if ($this->booster->saveEditVersion($form)) {
                     jMessage::add(jLocale::get('booster~main.version.edit.success'));
                     jEvent::notify('version_edited', array('version_id' => $id));
                     jForms::destroy('booster~version');

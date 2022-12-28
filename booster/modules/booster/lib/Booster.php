@@ -7,20 +7,25 @@
 * @link      http://www.jelix.org
 * @license   http://www.gnu.org/licenses/lgpl.html  GNU Lesser General Public Licence, see LICENCE file
 */
+
+namespace JelixBooster;
+
+
 /**
  * Class that handle the booster business stuff
  */
-class booster {
+class Booster {
     /**
      * function to save one Item
+     *
+     * @param \jFormsBase $form
      */
-    function saveItem() {
+    function saveItem($form) {
         $data = array();
         $id_booster = 0;
 
-        $form = jForms::fill('booster~items');
-        $dao = jDao::get('booster~boo_items','booster');
-        $record = jDao::createRecord('booster~boo_items','booster');
+        $dao = \jDao::get('booster~boo_items','booster');
+        $record = \jDao::createRecord('booster~boo_items','booster');
         $record->name           = $form->getData('name');
         $record->item_composer_id = $form->getData('item_composer_id');
         $record->short_desc     = $form->getData('short_desc');
@@ -44,7 +49,7 @@ class booster {
             $tagStr = str_replace('.',' ',$form->getData("tags"));
             $tags = explode(",", $tagStr);
 
-            jClasses::getService("jtags~tags")->saveTagsBySubject($tags, 'booscope', $id_booster);
+            \jClasses::getService("jtags~tags")->saveTagsBySubject($tags, 'booscope', $id_booster);
         }
 
         return $data;
@@ -55,8 +60,8 @@ class booster {
      * @return boolean
      */
     function saveVersion($form) {
-        $dao = jDao::get('booster~boo_versions','booster');
-        $record = jDao::createRecord('booster~boo_versions','booster');
+        $dao = \jDao::get('booster~boo_versions','booster');
+        $record = \jDao::createRecord('booster~boo_versions','booster');
         $record->version_name   = $form->getData('version_name');
         $record->status         = 0; //will need moderation
         $record->id_jelix_version = $form->getData('id_jelix_version');
@@ -72,12 +77,12 @@ class booster {
      * to the dedicated "waiting table"
      */
     function saveEditItem($form) {
-        $dao_modif = jDao::get('boosteradmin~boo_items_modifs');
+        $dao_modif = \jDao::get('boosteradmin~boo_items_modifs');
         foreach($form->getModifiedControls() as $field => $old_value){
             if($field == '_submit')
                 continue;
 
-            $record = jDao::createRecord('boosteradmin~boo_items_modifs');
+            $record = \jDao::createRecord('boosteradmin~boo_items_modifs');
             $record->field = $field;
             $record->item_id = $form->getData('id');
             $record->old_value = $old_value;
@@ -94,12 +99,12 @@ class booster {
      * @return boolean
      */
     function saveEditVersion($form) {
-        $dao_modif = jDao::get('boosteradmin~boo_versions_modifs');
+        $dao_modif = \jDao::get('boosteradmin~boo_versions_modifs');
         foreach ($form->getModifiedControls() as $field => $old_value) {
             if($field == '_submit')
                 continue;
 
-            $record = jDao::createRecord('boosteradmin~boo_versions_modifs');
+            $record = \jDao::createRecord('boosteradmin~boo_versions_modifs');
             $record->field = $field;
             $record->version_id = $form->getData('id');
             $record->old_value = $old_value;
@@ -112,7 +117,7 @@ class booster {
     /**
      * function that search items according to criteria in the form
      *
-     * @param jFormsBase $form
+     * @param \jFormsBase $form
      * @return array    items corresponding to the search
      */
     function search($form)
@@ -135,12 +140,12 @@ class booster {
             !$reco &&
             $devStatus === ''
             ) {
-            return jDao::get('booster~boo_items', 'booster')->findAllValidated();
+            return \jDao::get('booster~boo_items', 'booster')->findAllValidated();
         }
 
         $cond   = '';
 
-        $c = jDb::getConnection('booster');
+        $c = \jDb::getConnection('booster');
         //columns
         $q = 'SELECT items.id,
                     items.status as status,
@@ -230,7 +235,7 @@ class booster {
         // tags ?
         if( !empty($tags)) {
             //get tags
-            $srvTags = jClasses::getService("jtags~tags");
+            $srvTags = \jClasses::getService("jtags~tags");
             $subjects = $srvTags->getSubjectsByTags($tags, "booscope");
             foreach($subjects as $id){
                 // get records of this tags
@@ -255,62 +260,32 @@ class booster {
         if ($source != 'items' and $source != 'versions') return false;
 
         if($source == 'items'){
-            $cnx = jDb::getConnection();
+            $cnx = \jDb::getConnection();
             $rs = $cnx->limitQuery('SELECT 1 FROM boo_items_modifs WHERE item_id = '.$cnx->quote($id), 0,1);
             return $rs->fetch() == false;
         }
 
         if($source == 'versions'){
-            $cnx = jDb::getConnection();
+            $cnx = \jDb::getConnection();
             $rs = $cnx->limitQuery('SELECT 1 FROM boo_versions_modifs WHERE version_id = '.$cnx->quote($id), 0,1);
             return $rs->fetch() == false;
         }
     }
-
-    /**
-     * build the Where conditions from :
-     * @params $vars array to read to build the condition
-     * @param $column name of the column for the where condition
-     * @return string $cond return the built condition
-     */
-    private function buildCond($vars,$column) {
-        $i = 0;
-        $cond = "";
-        if (count($vars) == 1)
-            $cond .= "
-                    AND  ";
-        else
-            $cond .= "
-                    AND  ( ";
-
-        foreach($vars as $str) {
-            $i++;
-            $cond .= $column ." = '".$str."' ";
-            if (count($vars) > 1 and count($vars) > $i )
-                $cond .= " OR ";
-        }
-
-        if (count($vars) > 1)
-            $cond .= " ) ";
-
-        return $cond;
-    }
-
 
     public function saveImage($id, &$form){
         if($form->getData('image') == '')
             return true;
 
         $image_name = md5('id:'.$id).'.png';
-        if(!$form->saveFile('image', jApp::varPath('uploads/images-items/'), $image_name))
+        if(!$form->saveFile('image', \jApp::varPath('uploads/images-items/'), $image_name))
             return false;
 
-        jImageModifier::transformImage(jApp::varPath('uploads/images-items/'.$image_name),
-                                        jApp::wwwPath('images-items/'),
+        \jImageModifier::transformImage(\jApp::varPath('uploads/images-items/'.$image_name),
+                                        \jApp::wwwPath('images-items/'),
                                         $image_name,
                                         array('maxwidth' => 60, 'maxheight' => 60, 'omo' => false)
                                         );
-        @unlink(jApp::varPath('uploads/images-items/'.$image_name));
+        @unlink(\jApp::varPath('uploads/images-items/'.$image_name));
     }
 
 }
