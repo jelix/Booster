@@ -18,14 +18,5 @@
         {zone 'booster~homepage_block', array('type'=>3)}
         {zone 'booster~homepage_block', array('type'=>4)}
     </div>
-    {*
-    
-    <h2>{@booster~main.last.items.created@}</h2>
-    
-    {foreach $datas as $data}
-        {include 'booster~view_item'}
-    {/foreach}
-    
-    *}
 
 {/if}

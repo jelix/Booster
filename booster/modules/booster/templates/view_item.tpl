@@ -125,7 +125,7 @@
                     </li>
                     <li>
                         <img src="{$j_themepath}icons/version_add.png" alt=""/>
-                        <a href="{jurl 'booster~default:_addVersion',array('id'=>$data->id,'name'=>$data->name)}">{@booster~main.add.a.version@}</a>
+                        <a href="{jurl 'booster~default:addVersion',array('id'=>$data->id,'name'=>$data->name)}">{@booster~main.add.a.version@}</a>
                     </li>
                 {/if}
 

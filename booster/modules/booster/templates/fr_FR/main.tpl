@@ -47,7 +47,7 @@
             <div id="submenubar" {ifuserconnected}class="no-center"{/ifuserconnected}>
                 {zone 'booster~search'}
                 {ifuserconnected}
-                    <a class="jforms-submit" href="{jurl 'booster~default:_add'}">{@booster~main.add.an.item@}</a>
+                    <a class="jforms-submit" href="{jurl 'booster~default:add'}">{@booster~main.add.an.item@}</a>
                 {/ifuserconnected}
             </div>
         </div>
