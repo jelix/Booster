@@ -54,6 +54,7 @@
         <method name="findLastCreated" type="select">
             <conditions>
                 <eq property="status" value="1" />
+                <lt property="dev_status" value="2" />
             </conditions>
             <parameter name="number" />
             <order>
@@ -98,6 +99,7 @@
             <conditions>
                 <eq property="type_id" expr="$type_id" />
                 <eq property="status" expr="1" />
+                <lt property="dev_status" value="2" />
             </conditions>
             <order>
                 <orderitem property="date_version" way="desc" />
@@ -111,6 +113,7 @@
             <conditions>
                 <eq property="status" value="1" />
                 <eq property="type_id" expr="$type_id" />
+                <lt property="dev_status" value="2" />
             </conditions>
             <order>
                 <orderitem property="date_version" way="desc" />
