@@ -44,7 +44,7 @@
 <div id="main-content">
     <div class="top-container">
         <div id="content-header">
-            <div id="submenubar" {ifuserconnected}class="no-center"{/ifuserconnected}>
+            <div id="submenubar">
                 {zone 'booster~search'}
                 {ifuserconnected}
                     <a class="jforms-submit" href="{jurl 'booster~default:add'}">{@booster~main.add.an.item@}</a>
@@ -71,8 +71,7 @@
     <div class="top-container">
 
         <div class="footer-box">
-            <p><img alt="Jelix" src="/images/logo_jelix_moyen5.png"><br>
-                est sponsorisé par <a href="http://innophi.com">Innophi</a>.</p>
+            <p><img alt="Jelix" src="/images/logo_jelix_moyen5.png"></p>
         </div>
 
         <div class="footer-box">
@@ -82,10 +81,10 @@
             </p>
         </div>
 
-        <p id="footer-legend">
+        <div id="footer-legend">
             Copyright 2006-2022 Jelix team. <br/>
             Design par Laurentj. <br/>
             <img alt="page générée par une application Jelix" src="{$j_jelixwww}design/images/jelix_powered.png">
-        </p>
+        </div>
     </div>
 </div>

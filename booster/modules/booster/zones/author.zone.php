@@ -14,11 +14,9 @@ class authorZone extends jZone {
     {
         $user = jDao::get('jcommunity~user', 'hfnu')->getById((int) $this->param('id'));
         if ($user) {
-            return '<li>
-                    <img src="'.jApp::urlBasePath().'themes/'.jApp::config()->theme.'icons/user_gray.png" alt=""/>
+            return '<div class="section">
                     '.htmlspecialchars(jLocale::get('booster~main.item_by')).' '.
-                    htmlspecialchars($user->nickname). '
-                </li>';
+                    htmlspecialchars($user->nickname). '</div>';
         }
         return '';
     }

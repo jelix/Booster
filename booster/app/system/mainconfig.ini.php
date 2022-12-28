@@ -83,6 +83,9 @@ basePath=
 entrypointExtension=.php
 
 notFoundAct=
+
+assetsRevision=autoconfig
+
 [fileLogger]
 default=messages.log
 error=errors.log
