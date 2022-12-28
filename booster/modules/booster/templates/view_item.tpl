@@ -152,6 +152,6 @@
     {/if}
 
 
-    {zone "booster~versions",array('id'=>$data->id, 'canEditVersion' => $canEditVersion)}
+    {zone "booster~versions", array('id'=>$data->id, 'canEditVersion' => $canEditVersion, 'show_all_versions'=>$show_all_versions)}
 
 </div>

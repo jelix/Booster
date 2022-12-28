@@ -5,6 +5,7 @@
             <p><a href="{jurl 'booster~default:index'}">{@main.return.to.index@}</a></p>
         </div>
     {else}
+        {assign $show_all_versions = false}
         {foreach $search_results as $data}
             {include 'booster~view_item'}
         {/foreach}

@@ -3,7 +3,7 @@
 <h2>{@booster~main.last.items.created@}</h2>
 
 {if $datas->rowCount() > 0}
-
+    {assign $show_all_versions = false}
     {foreach $datas as $data}
         {include 'booster~view_item'}
     {/foreach}

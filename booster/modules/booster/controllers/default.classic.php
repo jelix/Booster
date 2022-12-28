@@ -79,6 +79,7 @@ class defaultCtrl extends jController {
         $rep = $this->getResponse('html');
         $tpl->assign('data',$data);
         $tpl->assign('is_admin', jAcl2::check('booster.admin.index'));
+        $tpl->assign('show_all_versions', true);
         $rep->title = $data->name;
         $rep->body->assign('MAIN',$tpl->fetch('view_item'));
         return $rep;
@@ -251,6 +252,7 @@ class defaultCtrl extends jController {
 
             $tpl->assign('data',$data);
             $tpl->assign('item_not_moderated',1);
+            $tpl->assign('show_all_versions', true);
             $rep->body->assign('MAIN',$tpl->fetch('view_item'));
             //$rep->body->assign('MENU',$tpl->fetch('menu'));
             return $rep;
@@ -347,6 +349,7 @@ class defaultCtrl extends jController {
             $data = jDao::get('booster~boo_items','booster')->get($data->item_id);
             $tpl->assign('data',$data);
             $tpl->assign('item_not_moderated',1);
+            $tpl->assign('show_all_versions', true);
             $rep->body->assign('MAIN',$tpl->fetch('view_item'));
             return $rep;
         }
