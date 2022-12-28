@@ -131,12 +131,10 @@
 
                 {if $recommendation}
                     <li>
-                        <form action="{formurl 'booster~default:recommendation'}" method="POST">
+                        <form action="{formurl 'booster~default:recommendation', array('id'=>$data->id, 'name'=>$data->name)}" method="POST">
                             <div>
                                  <img src="{$j_themepath}icons/reco.png" alt=""/>
                                 {formurlparam}
-                                <input type="hidden" name="id" value="{$data->id}"/>
-                                <input type="hidden" name="name" value="{$data->name}"/>
                                 {if $data->recommendation}
                                     <input type="hidden" name="state" value="0"/>
                                     <input type="submit" class="link" value="{@booster~main.reco.item.cancel@}"/>

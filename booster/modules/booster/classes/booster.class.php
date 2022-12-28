@@ -122,8 +122,8 @@ class booster {
         $author         = $form->getData('author_by');
         $jelix_versions = $form->getData('jelix_versions');
         $tags           = $form->getData('tags');
-        $reco           = $form->getData('recommendation');
-        $devStatus           = $form->getData('dev_status');
+        $reco           = $form->getData('recommendation') == '1';
+        $devStatus      = $form->getData('dev_status');
 
         // we have uncheck every checkboxes and empty every fields
         // so let's get all the records
@@ -132,7 +132,7 @@ class booster {
             $author === '' &&
             $jelix_versions === '' &&
             $tags === '' &&
-            $reco === '' &&
+            !$reco &&
             $devStatus === ''
             ) {
             return jDao::get('booster~boo_items', 'booster')->findAllValidated();
@@ -212,7 +212,7 @@ class booster {
             $cond .= ' AND (dev_status = 0 OR  dev_status = 1)';
         }
 
-        if ($reco !== '') {
+        if ($reco) {
             $cond .= ' AND items.recommendation = 1 ';
         }
 
