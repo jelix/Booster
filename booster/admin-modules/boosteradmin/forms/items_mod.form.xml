@@ -14,11 +14,17 @@
                 labelproperty="type_name" valueproperty="id"/>
     <label locale="booster~main.item_type"/>
 </menulist>
-
+    <input ref="slogan" maxlength="255" size="70">
+        <label locale="booster~main.slogan"/>
+        <help locale="booster~main.slogan_hlp"/>
+    </input>
 <wikieditor ref="short_desc">
     <label locale="booster~main.short_desc"/>
 </wikieditor>
-
+    <input ref="slogan_fr" maxlength="255" size="70">
+        <label locale="booster~main.slogan_fr"/>
+        <help locale="booster~main.slogan_hlp"/>
+    </input>
 <wikieditor ref="short_desc_fr">
     <label locale="booster~main.short_desc_fr"/>
 </wikieditor>

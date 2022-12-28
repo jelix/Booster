@@ -35,7 +35,8 @@ class Booster {
         $record = \jDao::createRecord('booster~boo_items','booster');
         $record->name           = $form->getData('name');
         $record->item_composer_id = $form->getData('item_composer_id');
-        $record->short_desc     = $form->getData('short_desc');
+        $record->slogan     = $form->getData('slogan');
+        $record->slogan_fr     = $form->getData('slogan_fr');
         $record->short_desc_fr  = $form->getData('short_desc_fr');
         $record->type_id        = $form->getData('type_id');
         $record->url_website    = $form->getData('url_website');
@@ -158,6 +159,8 @@ class Booster {
                     items.status as status,
                     items.name,
                     items.item_composer_id,
+                    items.slogan,
+                    items.slogan_fr,
                     items.short_desc,
                     items.short_desc_fr,
                     type.id AS type_id,
@@ -263,9 +266,8 @@ class Booster {
      * @param int $id the id of the Item
      * @return boolean
      */
-    function isModerated($id,$source) {
-        if ($source != 'items' and $source != 'versions') return false;
-
+    function isModerated($id,$source)
+    {
         if($source == 'items'){
             $cnx = \jDb::getConnection();
             $rs = $cnx->limitQuery('SELECT 1 FROM boo_items_modifs WHERE item_id = '.$cnx->quote($id), 0,1);
@@ -277,6 +279,7 @@ class Booster {
             $rs = $cnx->limitQuery('SELECT 1 FROM boo_versions_modifs WHERE version_id = '.$cnx->quote($id), 0,1);
             return $rs->fetch() == false;
         }
+        return false;
     }
 
     public function saveImage($id, &$form){

@@ -39,7 +39,7 @@ case $COMMAND in
     shell-root)
        docker exec -it $IMAGE_PHP  /bin/bash  -l;;
     mysql)
-      docker exec -it $IMAGE_MYSQL mysql -u jelixwww -pjelix jelix_www
+      docker exec -it $IMAGE_MYSQL mysql -u jelixwww -pjelix jelix_booster
       ;;
     mysql-exec)
       docker exec -it $IMAGE_MYSQL /usr/bin/mysql-exec.sh $@

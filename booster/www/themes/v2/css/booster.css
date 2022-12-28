@@ -705,9 +705,6 @@ small{font-size:0.8em;}
     margin:1em;
     text-align:center;
 }
-#recommended-block .content-box strong {
-    font-size:1.1em;
-}
 #recommended-block .content-box a {
     color: #c03033;
 }

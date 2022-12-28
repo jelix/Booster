@@ -11,6 +11,8 @@
         <property name="id" fieldname="id" datatype="int" autoincrement="true"/>
         <property name="name" fieldname="name" datatype="varchar" required="true" maxlength="60"/>
         <property name="item_composer_id" fieldname="item_composer_id" datatype="varchar" maxlength="255"/>
+        <property name="slogan" fieldname="slogan" datatype="varchar" maxlength="255"/>
+        <property name="slogan_fr" fieldname="slogan_fr" datatype="varchar" maxlength="255"/>
         <property name="short_desc" fieldname="short_desc" datatype="text"/>
         <property name="short_desc_fr" fieldname="short_desc_fr" datatype="text"/>
         <property name="type_id" fieldname="type_id" datatype="int" required="true"/>

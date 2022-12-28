@@ -16,12 +16,19 @@
             <td></td><td></td>
         </tr>
         <tr>
+            <td>{ctrl_label 'slogan'}</td>
+            <td colspan="3">{ctrl_control 'slogan'}</td>
+        </tr>
+        <tr>
             <td colspan="4">{ctrl_label 'short_desc'}</td>
         </tr>
         <tr>
             <td colspan="4">{ctrl_control 'short_desc'}</td>
         </tr>
-        
+        <tr>
+            <td>{ctrl_label 'slogan_fr'}</td>
+            <td colspan="3">{ctrl_control 'slogan_fr'}</td>
+        </tr>
         <tr>
             <td colspan="4">{ctrl_label 'short_desc_fr'}</td>
         </tr>

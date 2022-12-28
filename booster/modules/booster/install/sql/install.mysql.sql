@@ -6,6 +6,8 @@ CREATE TABLE %%PREFIX%%boo_items (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(60) NOT NULL,
   `item_composer_id` varchar(255) default NULL,
+  `slogan` varchar(255) default NULL,
+  `slogan_fr` varchar(255) default NULL,
   `short_desc` text default NULL,
   `short_desc_fr` text default NULL,
   `type_id` int(12) NOT NULL,
