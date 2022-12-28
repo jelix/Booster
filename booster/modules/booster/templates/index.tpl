@@ -13,6 +13,12 @@
 {else}
     <h1>{@booster~main.projects.recommended@}</h1>
     {zone 'booster~recommended_projects'}
+
+    <div class="content-box">
+        {zone 'jtags~tagscloud', array('maxcount'=>30)}
+    </div>
+
+
     <h1>{@booster~main.last.updated@}</h1>
     <div id="homepage-wrapper">
         {zone 'booster~homepage_block', array('type'=> 2)}
