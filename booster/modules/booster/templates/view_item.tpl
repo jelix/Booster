@@ -60,12 +60,8 @@
                     <img src="{$j_themepath}icons/user_edit.png" alt=""/>
                     {@booster~main.author@} {$data->author}
                 </li>
-                <li>
-                    <img src="{$j_themepath}icons/user_gray.png" alt=""/>
-                    {@booster~main.item_by@} {zone 'booster~author', array('id'=>$data->item_by)}
-                </li>
+                {zone 'booster~author', array('id'=>$data->item_by)}
 
-                
                 {if $data->url_website}
                     <li class="booster_url">
                         <img src="{$j_themepath}icons/world.png" alt=""/>

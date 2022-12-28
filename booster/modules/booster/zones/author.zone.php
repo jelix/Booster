@@ -12,6 +12,14 @@ class authorZone extends jZone {
 
     protected function _createContent()
     {
-        return htmlspecialchars(jDao::get('jcommunity~user', 'hfnu')->getById((int) $this->param('id'))->nickname);
+        $user = jDao::get('jcommunity~user', 'hfnu')->getById((int) $this->param('id'));
+        if ($user) {
+            return '<li>
+                    <img src="'.jApp::urlBasePath().'themes/'.jApp::config()->theme.'icons/user_gray.png" alt=""/>
+                    '.htmlspecialchars(jLocale::get('booster~main.item_by')).' '.
+                    htmlspecialchars($user->nickname). '
+                </li>';
+        }
+        return '';
     }
 }
