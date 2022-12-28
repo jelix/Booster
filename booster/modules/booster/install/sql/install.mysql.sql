@@ -49,7 +49,7 @@ INSERT INTO %%PREFIX%%boo_type (`id`, `type_name`) VALUES
 (1, 'Application'),
 (2, 'Module'),
 (3, 'Plugin'),
-(4, 'LangPack');
+(4, 'LangPack'),
 (5, 'Library');
 
 --
@@ -97,9 +97,12 @@ INSERT INTO %%PREFIX%%boo_jelix_versions (`id`, `version`) VALUES
 (1, 'Jelix 1.1'),
 (2, 'Jelix 1.2'),
 (3, 'Jelix 1.3'),
-(4, 'trunk');
-
-
+(4, 'Jelix dev'),
+(5, 'Jelix 1.4'),
+(6, 'Jelix 1.5'),
+(7, 'Jelix 1.6'),
+(8, 'Jelix 1.7'),
+(9, 'Jelix 1.8');
 
 --
 -- Structure de la table `boo_items_modifs`

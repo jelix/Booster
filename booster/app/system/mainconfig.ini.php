@@ -20,7 +20,8 @@ domainName=
 
 
 [modules]
-jcommunity.installparam=manualconfig
+jcommunity.installparam[manualconfig]=on
+jcommunity.installparam[eps]="[index]"
 
 jelix.enabled=on
 master_admin.enabled=on
@@ -28,6 +29,8 @@ jacl2db_admin.enabled=on
 jauthdb_admin.enabled=on
 jacl2.enabled=on
 jacl2db.enabled=on
+jacl2db.installparam[defaultgroups]=on
+jacl2db.installparam[defaultuser]=on
 jauth.enabled=off
 jauthdb.enabled=off
 jcommunity.enabled=on

@@ -9,7 +9,7 @@ class boosterModuleUpgrader_libraries extends \Jelix\Installer\Module\Installer 
         $db = $helpers->database()->dbConnection();
 
         $db->exec('INSERT INTO '.$db->prefixTable('boo_type').' (`id`, `type_name`) 
-            VALUES (5, \'Library\')');
+        VALUES (5, \'Library\')');
 
         $db->exec('UPDATE '.$db->prefixTable('boo_type').' SET type_name=\'Plugin\' WHERE id = 3');
         $db->exec('UPDATE '.$db->prefixTable('boo_type').' SET type_name=\'LangPack\' WHERE id = 4');
