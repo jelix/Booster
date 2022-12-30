@@ -1,0 +1,21 @@
+<?php
+class boosterModuleUpgrader_imageversion extends \Jelix\Installer\Module\Installer {
+ 
+    public $targetVersions = array('1.3.0');
+    public $date = '2022-12-30';
+ 
+    function install(\Jelix\Installer\Module\API\InstallHelpers $helpers) {
+
+        $db = $helpers->database()->dbConnection();
+
+        $db->exec('ALTER TABLE boo_items ADD COLUMN `image` varchar(255) default NULL');
+        foreach($db->query('Select id from boo_items') as $rec) {
+            $image = md5('id:'.$rec->id).'.png';
+            if (file_exists(\jApp::wwwPath('images-items/'.$image))) {
+                $db->exec('UPDATE boo_items SET image='.$db->quote($image).' WHERE id='.$rec->id);
+            }
+        }
+
+
+    }
+}

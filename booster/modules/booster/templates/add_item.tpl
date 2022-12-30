@@ -1,6 +1,8 @@
 <div id="article">
     <h1>{@booster~main.add.an.item@}</h1>
-    {form $form, 'booster~default:saveItem'}
+    {form $form, 'booster~default:saveItem', array(), 'html', array(
+    'widgetsAttributes' => [ 'image' => [ 'baseURI'=> $j_basepath.'images-items/']]
+    )}
     <table class="jforms-table">
         <tr>
             <td>{ctrl_label 'name'}</td><td>{ctrl_control 'name'}</td>

@@ -23,13 +23,12 @@ class Booster {
     const TYPE_LIBRARY = 5;
 
     /**
-     * function to save one Item
+     * save a new Item
      *
      * @param \jFormsBase $form
      */
     function saveItem($form) {
         $data = array();
-        $id_booster = 0;
 
         $dao = \jDao::get('booster~boo_items','booster');
         $record = \jDao::createRecord('booster~boo_items','booster');
@@ -51,20 +50,21 @@ class Booster {
             $id_booster = $record->id;
             $data['id']     = $id_booster;
             $data['name']   = $form->getData('name');
-        }
 
-        if ($id_booster != 0) {
             $tagStr = str_replace('.',' ',$form->getData("tags"));
             $tags = explode(",", $tagStr);
 
             \jClasses::getService("jtags~tags")->saveTagsBySubject($tags, 'booscope', $id_booster);
+
+            $record->image = $this->saveImage($id_booster, $form, false);
+            $dao->update($record);
         }
 
         return $data;
     }
     /**
-     * function to save one Version
-     * @param object $form
+     * save a new Version
+     * @param \jFormsBase $form
      * @return boolean
      */
     function saveVersion($form) {
@@ -80,19 +80,24 @@ class Booster {
         $record->download_url   = $form->getData('download_url');
         return ($dao->insert($record)) ? true : false;
     }
+
     /**
      * function to save one Editing Item
      * to the dedicated "waiting table"
+     *
+     * @param \jFormsBase $form
      */
     function saveEditItem($form) {
         $dao_modif = \jDao::get('boosteradmin~boo_items_modifs');
+        $id = $form->getData('id');
+        $this->saveImage($id, $form, false);
         foreach($form->getModifiedControls() as $field => $old_value){
             if($field == '_submit')
                 continue;
 
             $record = \jDao::createRecord('boosteradmin~boo_items_modifs');
             $record->field = $field;
-            $record->item_id = $form->getData('id');
+            $record->item_id = $id;
             $record->old_value = $old_value;
             $record->new_value = $form->getData($field);
             $dao_modif->insert($record);
@@ -103,7 +108,7 @@ class Booster {
     /**
      * function to save one Editing Item
      * to the dedicated waiting table
-     * @param object $form
+     * @param \jFormsBase $form
      * @return boolean
      */
     function saveEditVersion($form) {
@@ -167,6 +172,7 @@ class Booster {
                     items.url_website,
                     items.url_repo,
                     items.url_download,
+                    items.image,
                     items.author,
                     items.item_by,
                     items.recommendation,
@@ -282,20 +288,37 @@ class Booster {
         return false;
     }
 
-    public function saveImage($id, &$form){
-        if($form->getData('image') == '')
-            return true;
 
-        $image_name = md5('id:'.$id).'.png';
-        if(!$form->saveFile('image', \jApp::varPath('uploads/images-items/'), $image_name))
-            return false;
+    public function getImageFileName($id, $originalFileName)
+    {
+        if (preg_match('/\\.(\w+)$/', $originalFileName, $m)) {
+            $ext = $m[1];
+        }
+        else {
+            $ext = 'png';
+        }
+        return md5('id:'.$id).'.'.$ext;
+    }
 
-        \jImageModifier::transformImage(\jApp::varPath('uploads/images-items/'.$image_name),
-                                        \jApp::wwwPath('images-items/'),
-                                        $image_name,
-                                        array('maxwidth' => 60, 'maxheight' => 60, 'omo' => false)
-                                        );
-        @unlink(\jApp::varPath('uploads/images-items/'.$image_name));
+    /**
+     * @param string $id
+     * @param \jFormsBase $form
+     * @return string
+     */
+    public function saveImage($id, $form, $fromModeration = true)
+    {
+        if ($form->getData('image') == '') {
+            return '';
+        }
+        $directory = \jApp::wwwPath('images-items/');
+        $image_name = $this->getImageFileName($id, $form->getData('image'));
+        /** @var \jFormsControlImageUpload $control */
+        $control = $form->getControl('image');
+        $image_name = $control->getUniqueFileName($directory, $image_name);
+        if ($form->saveFile('image', $directory, $image_name, $fromModeration)) {
+            return $image_name;
+        }
+        return '';
     }
 
 }

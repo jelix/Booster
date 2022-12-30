@@ -59,7 +59,7 @@ enable_after_logout_override=on
 ;============ Parameters for the persistance of the authentification
 
 ; enable the persistance of the authentification between two sessions
-persistant_enable=off
+persistant_enable=on
 
 
 ; the name of the cookie which is used to store data for the authentification

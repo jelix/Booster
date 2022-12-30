@@ -1029,6 +1029,10 @@ small{font-size:0.8em;}
   padding:5px 10px;
     min-width:10em;
 }
+.booster-item-image > img {
+    max-width: 120px;
+    max-height: 120px;
+}
 .booster-item-image ul {
   list-style: none;
 }

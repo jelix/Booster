@@ -458,19 +458,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jelix/jelix.git",
-                "reference": "08e423b8cd96f8aca2e8575dec635b708b0fb7e9"
+                "reference": "e25ec42bf65b3f032553f6072d482cf3670bb503"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jelix/jelix/zipball/08e423b8cd96f8aca2e8575dec635b708b0fb7e9",
-                "reference": "08e423b8cd96f8aca2e8575dec635b708b0fb7e9",
+                "url": "https://api.github.com/repos/jelix/jelix/zipball/e25ec42bf65b3f032553f6072d482cf3670bb503",
+                "reference": "e25ec42bf65b3f032553f6072d482cf3670bb503",
                 "shasum": ""
             },
             "require": {
                 "defuse/php-encryption": "^2.3.1",
                 "google/recaptcha": "~1.2.4",
                 "jelix/castor": "^1.1.1",
-                "jelix/composer-module-setup": "^1.0.5",
+                "jelix/composer-module-setup": "^1.1.0",
                 "jelix/fakeserverconf": "^1.0.0",
                 "jelix/file-utilities": "^1.8.5",
                 "jelix/inifile": "^3.3.1",
@@ -545,7 +545,7 @@
                 "issues": "https://github.com/jelix/jelix/issues",
                 "source": "https://github.com/jelix/jelix/tree/jelix-1.8.x"
             },
-            "time": "2022-12-26T09:59:24+00:00"
+            "time": "2022-12-30T22:57:02+00:00"
         },
         {
             "name": "jelix/jtags-module",

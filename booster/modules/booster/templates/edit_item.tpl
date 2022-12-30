@@ -1,7 +1,9 @@
 <div id="article">
     <h1>{jlocale 'booster~main.item.edit', array($form->getData('name'))}</h1>
     <p>{@booster~main.edit.explain.moderation@}</p>
-    {form $form, $action, array('id'=>$id)}
+    {form $form, $action, array('id'=>$id), 'html', array(
+    'widgetsAttributes' => [ 'image' => [ 'baseURI'=> $j_basepath.'images-items/']]
+    )}
     <table class="jforms-table">
         <tr>
             <td>{ctrl_label 'name'}</td><td>{ctrl_control 'name'}</td>
@@ -48,10 +50,7 @@
             <td>{ctrl_label 'url_download'}</td><td colspan="3">{ctrl_control 'url_download'}</td>
         </tr>
         <tr>
-            <td class="valign-middle">{@booster~main.image.current@}</td><td>{zone 'booster~itemimage', array('id' => $id)}</td>
-        </tr>
-        <tr>
-            <td>{@booster~main.image.replace.by@}</td><td colspan="3">{ctrl_control 'image'}</td>
+            <td>{ctrl_label 'image'}</td><td colspan="3">{ctrl_control 'image'}</td>
         </tr>
     </table>
     <div>

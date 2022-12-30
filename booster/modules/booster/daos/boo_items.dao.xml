@@ -19,6 +19,7 @@
         <property name="url_website" fieldname="url_website" datatype="varchar" maxlength="255"/>
         <property name="url_repo" fieldname="url_repo" datatype="varchar" maxlength="255"/>
         <property name="url_download" fieldname="url_download" datatype="varchar" maxlength="255"/>
+        <property name="image" fieldname="image" datatype="varchar" maxlength="255"/>
         <property name="author" fieldname="author" datatype="varchar" required="true" maxlength="80"/>
         <property name="item_by" fieldname="item_by" datatype="int" required="true"/>
         <property name="status" fieldname="status" datatype="int" required="true" default="0"/>

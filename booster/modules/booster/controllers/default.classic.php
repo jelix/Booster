@@ -131,15 +131,10 @@ class defaultCtrl extends jController {
 
             $data = $this->booster->saveItem($form);
             if (!empty($data)) {
-                if(!$this->booster->saveImage($data['id'], $form)){
-                    jMessage::add(jLocale::get('booster~main.item.saved.failed'));
-                }
-                else{
-                    jMessage::add(jLocale::get('booster~main.item.saved'));
-                    $saved = true;
-                    jEvent::notify('new_item_added', array('item_id' => $data['id']));
-                    jForms::destroy('booster~items');
-                }
+                jMessage::add(jLocale::get('booster~main.item.saved'));
+                $saved = true;
+                jEvent::notify('new_item_added', array('item_id' => $data['id']));
+                jForms::destroy('booster~items');
             }
             else {
                 jMessage::add(jLocale::get('booster~main.item.saved.failed'));
@@ -308,17 +303,10 @@ class defaultCtrl extends jController {
                 $form->setErrorOn('short_desc_fr',jLocale::get('booster~main.desc.mandatory'));
             }
             else if ($this->booster->saveEditItem($form)) {
-                if ($form->getData('image') != '' &&
-                    $this->booster->saveImage($id, $form)
-                ) {
-                    jMessage::add(jLocale::get('booster~main.item.edit.success'));
-                    jEvent::notify('item_edited', array('item_id' => $id));
-                    $saved = true;
-                    jForms::destroy('booster~items',$id);
-                }
-                else {
-                    jMessage::add(jLocale::get('booster~main.item.editimage.failed'));
-                }
+                jMessage::add(jLocale::get('booster~main.item.edit.success'));
+                jEvent::notify('item_edited', array('item_id' => $id));
+                $saved = true;
+                jForms::destroy('booster~items',$id);
             }
             else {
                 jMessage::add(jLocale::get('booster~main.item.edit.failed'));

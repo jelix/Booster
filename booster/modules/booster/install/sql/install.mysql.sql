@@ -14,6 +14,7 @@ CREATE TABLE %%PREFIX%%boo_items (
   `url_website` varchar(255) default NULL,
   `url_repo` varchar(255) default NULL,
   `url_download` varchar(255) default NULL,
+  `image` varchar(255) default NULL,
   `author` varchar(80) NOT NULL,
   `item_by` int(12) NOT NULL,
   `status` int(1) NOT NULL default 0,

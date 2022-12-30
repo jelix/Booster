@@ -44,8 +44,11 @@
     <div class="wrapper-section">
 
         <div class="booster-item-image">
-            {zone 'booster~itemimage', array('id'=>$data->id)}
-
+            {if $data->image}
+                <img src="{$j_basepath}images-items/{$data->image}" alt="logo"/>
+            {else}
+                <img src="{$j_basepath}images-items/default.png" alt=""/>
+            {/if}
             <ul>
                 {if $data->url_website}
                     <li class="booster_url">

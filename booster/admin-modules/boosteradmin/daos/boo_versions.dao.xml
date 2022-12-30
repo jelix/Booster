@@ -38,6 +38,13 @@
             </order>
         </method>
 
+        <method name="findByItem" type="select">
+            <parameter name="item_id"/>
+            <conditions logic="and">
+                <eq property="item_id" expr="$item_id"/>
+            </conditions>
+        </method>
+
         <method name="deleteByItem" type="delete">
             <parameter name="id" />
             <conditions>

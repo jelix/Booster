@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="boosteradmin@jelix.org" name="boosteradmin" createdate="2011-05-15">
-        <version date="2011-05-15">0.1pre</version>
+        <version date="2022-12-30">1.3.0</version>
         <label lang="en_US">BoosterAdmin</label>
         <description lang="en_US">Booster! Admin : manage the complet Booster WebSite</description>
         <label lang="fr_FR">BoosterAdmin</label>

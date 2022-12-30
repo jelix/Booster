@@ -92,10 +92,12 @@ class itemsCtrl extends jController {
             else {
                 jMessage::add(jLocale::get('boosteradmin~admin.item_saved_but_not_validated_yet'));
             }
-            $form->saveToDao('booster~boo_items');
-            jClasses::getService("jtags~tags")->saveTagsBySubject(explode(',', $form->getData('tags')), 'booscope', $id);
             $booster = new \JelixBooster\Booster();
             $booster->saveImage($id, $form);
+
+            $form->saveToDao('booster~boo_items');
+            jClasses::getService("jtags~tags")->saveTagsBySubject(explode(',', $form->getData('tags')), 'booscope', $id);
+
             jForms::destroy('boosteradmin~items_mod',$id);
         }
         else {
@@ -120,8 +122,19 @@ class itemsCtrl extends jController {
 
         $modified = jDao::get('boosteradmin~boo_items_modifs')->findByItemId($id);
         $modified_fields = array();
-        foreach($modified as $m){
-            $form->setData($m->field, $m->new_value);
+        foreach($modified as $m) {
+            if ($m->field == 'image') {
+                /** @var jFormsControlImageUpload $ctrlImage */
+                $ctrlImage = $form->getControl('image');
+                // we copy the image into the temporary directory, so jForms::saveFile will work as usual.
+                $source = \jApp::wwwPath('images-items/'.$m->new_value);
+                $target = $ctrlImage->getTempFile($m->new_value);
+                copy($source, $target);
+                $ctrlImage->setNewFile($m->new_value);
+            }
+            else {
+                $form->setData($m->field, $m->new_value);
+            }
 
             if($m->field == 'type_id') {
                 $dao_type = jDao::get('booster~boo_type');
@@ -160,21 +173,17 @@ class itemsCtrl extends jController {
                 return $rep;
             }
 
-            $tagStr ='';
             $tagStr = str_replace('.',' ',$form->getData("tags"));
             $tags = explode(",", $tagStr);
             jClasses::getService("jtags~tags")->saveTagsBySubject($tags, 'booscope', $id);
 
-            $form->saveToDao('booster~boo_items');
+            $booster = new \JelixBooster\Booster();
+            $booster->saveImage($id, $form);
 
+            $form->saveToDao('booster~boo_items');
 
             jDao::get('boosteradmin~boo_items_modifs','booster')->deleteByItemId($id);
             jMessage::add(jLocale::get('boosteradmin~admin.item_validated'));
-
-            if($form->getData('image') != '') {
-                $booster = new \JelixBooster\Booster();
-                $booster->saveImage($id, $form);
-            }
 
             jForms::destroy('boosteradmin~items_mod',$id);
             $rep->action = 'boosteradmin~items:index';
@@ -187,31 +196,29 @@ class itemsCtrl extends jController {
         return $rep;
     }
 
-    function delete() {
-        $rep = $this->getResponse('redirect');
-        $rep->action = 'boosteradmin~items:indexAll';
+    function delete()
+    {
         $id = $this->intParam('id');
-        if (jDao::get('booster~boo_items')->delete($id)){
-            jMessage::add(jLocale::get('boosteradmin~admin.item.deleted'));
+        $dao = jDao::get('booster~boo_items');
+        $rec = $dao->get($id);
+        if ($rec) {
+            if ($rec->image) {
+                unlink(\jApp::wwwPath('images-items/'.$rec->image));
+            }
             jDao::get('boosteradmin~boo_items_modifs')->deleteByItemId($id);
-            jDao::get('boosteradmin~boo_versions')->deleteByItem($id);
-            //TODO versions modifs
+            $versionsDao = jDao::get('boosteradmin~boo_versions');
+            $versionsModifDao = jDao::get('boosteradmin~boo_versions_modifs');
+            foreach($versionsDao->findByItem($id) as $version) {
+                $versionsModifDao->deleteByVersionId($version->version_id);
+            }
+
+            $dao->delete($id);
+            jMessage::add(jLocale::get('boosteradmin~admin.item.deleted'));
         }
-        else
+        else {
             jMessage::add(jLocale::get('boosteradmin~admin.item.not.deleted'));
-        return $rep;
+        }
+        return $this->redirect('boosteradmin~items:indexAll');
     }
-
-    function deleteImage() {
-        $rep = $this->getResponse('redirect');
-        $id = $this->intParam('id');
-
-        @unlink(jApp::wwwPath('images-items/'.md5('id:'.$id).'.png'));
-
-        $rep->action = strpos($this->param('submitAction'), 'savenew') !== false ? 'boosteradmin~items:editnew' : 'boosteradmin~items:editmod';
-        $rep->params = array('id' => $id);
-        return $rep;
-    }
-
 
 }
