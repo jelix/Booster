@@ -1,7 +1,7 @@
 <h1>{$title}</h1>
 <h2>{@boosteradmin~admin.item_by@} {$item_by}</h2>
 
-<p><a href="{jurl 'booster~default:viewItem', array('id' => $item_id, 'name' => $item_name)}">{$item_name}</a>
+<p><a href="{jurl 'booster~default:viewItem', array('id' => $item_id, 'name' => $item_name)}">{$item_name|eschtml}</a>
 
 <ul class="modifs">
 {foreach $modified as $mod}
@@ -11,7 +11,7 @@
             {if empty($mod->old_value)}
                 " "
             {else}
-                {$mod->old_value} 
+                {$mod->old_value|eschtml}
             {/if}
         </span>
         => 
@@ -19,7 +19,7 @@
             {if empty($mod->new_value)}
                 " "
             {else}
-                {$mod->new_value} 
+                {$mod->new_value|eschtml}
             {/if}
         </span>
     </li>

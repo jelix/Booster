@@ -13,7 +13,7 @@
         {/if}
 
         <div class="booster-version section {if $count == 0}last-version {assign $count= 1}{/if}">
-            <h5 class="booster-version-title">{$version->version_name} <small>({$version->stability})</small></h5>
+            <h5 class="booster-version-title">{$version->version_name|eschtml} <small>({$version->stability})</small></h5>
             <ul class="inline-list">
                 <li>
                     <img src="{$j_themepath}icons/date.png" alt=""/>
@@ -31,7 +31,7 @@
                     {if $version->filename}
                     {@booster~main.download@} : <a href="{$version->download_url|eschtml}">{$version->filename|eschtml}</a>
                     {else}
-                        <a href="{$version->download_url}">{@booster~main.download@}</a>
+                        <a href="{$version->download_url|eschtml}">{@booster~main.download@}</a>
                     {/if}
                 </li>
                 {/if}

@@ -3,7 +3,7 @@
         <ul>
             {foreach $tags as $t}
                 <li>
-                    <a href="{jurl 'booster~default:cloud',array('tag'=>$t)}" title="{jlocale 'booster~main.show.all.items.with.tag', array($t)}">{$t}</a>
+                    <a href="{jurl 'booster~default:cloud',array('tag'=>$t)}" title="{jlocale 'booster~main.show.all.items.with.tag', array($t)}">{$t|eschtml}</a>
                 </li>
             {/foreach}
         </ul>

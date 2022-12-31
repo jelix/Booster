@@ -70,6 +70,6 @@
     </image>
 
 <submit ref="_submit">
-    <label>Ok</label>
+    <label locale="jelix~ui.buttons.save"/>
 </submit>
 </form>

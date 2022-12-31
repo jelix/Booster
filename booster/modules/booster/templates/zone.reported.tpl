@@ -4,7 +4,7 @@
         {foreach $items as $item}
             <li>
                 <a href="{jurl 'booster~default:viewItem', array('id' => $item->id, "name" => $item->name)}">
-                    {$item->name}</a> {if $item->status == 0}({@main.status.not_validated@}){/if}
+                    {$item->name|eschtml}</a> {if $item->status == 0}({@main.status.not_validated@}){/if}
             </li>
         {/foreach}
         {if $more}<li><a href="{jurl 'booster~default:yourprojects'}">...</a></li>{/if}

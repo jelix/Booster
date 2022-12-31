@@ -5,13 +5,11 @@
 {assign $github = strpos($data->url_repo , '//github.com') !== false}
 {assign $bitbucket = strpos($data->url_repo , '//bitbucket.org') !== false}
 
-
-
 <div class="booster-item">
     <div class="booster-item-header">
 
 <h3>
-    {$data->type_name} <a class="booster-item-name" href="{jurl 'booster~viewItem',array('name'=>$data->name,'id'=>$data->id)}">{$data->name}</a> 
+    {$data->type_name} <a class="booster-item-name" href="{jurl 'booster~viewItem',array('name'=>$data->name,'id'=>$data->id)}">{$data->name|eschtml}</a>
     {if $data->status == 0 || !empty($item_not_moderated)}
         <small>({@booster~main.not.moderated@})</small>
     {/if}
@@ -20,7 +18,7 @@
     {/if}
     
 </h3>
-        <div class="booster-item-author">{@booster~main.by@} {$data->author}</div>
+        <div class="booster-item-author">{@booster~main.by@} {$data->author|eschtml}</div>
     </div>
     {if $data->dev_status == 1}
         <p class="dev-status dev-status-unmaintained booster-item-warning">
@@ -53,7 +51,7 @@
                 {if $data->url_website}
                     <li class="booster_url">
                         <img src="{$j_themepath}icons/world.png" alt=""/>
-                        <a href="{$data->url_website}">{@booster~main.website@}</a>
+                        <a href="{$data->url_website|eschtml}">{@booster~main.website@}</a>
                     </li>
                 {/if}
                 {if $data->url_repo}
@@ -65,20 +63,20 @@
                             {else}
                             <img src="{$j_themepath}icons/page_white_text.png" alt=""/>
                         {/if}
-                        <a href="{$data->url_repo}">{@booster~main.source.code@}</a>
+                        <a href="{$data->url_repo|eschtml}">{@booster~main.source.code@}</a>
                     </li>
                 {/if}
                 {if $data->url_download}
                     <li class="booster_url">
                         <img src="{$j_themepath}icons/arrow_down.png" alt=""/>
-                        <a href="{$data->url_download}">{@booster~main.download.link@}</a>
+                        <a href="{$data->url_download|eschtml}">{@booster~main.download.link@}</a>
                     </li>
                 {/if}
 
                 {if $data->item_composer_id}
                     <li class="booster_url">
                         <img src="{$j_themepath}icons/box.png" title="{@booster~main.item_composer_id.label@}"  alt="{@booster~main.item_composer_id.label@}"/>
-                        <a href="https://packagist.org/packages/{$data->item_composer_id}">{$data->item_composer_id}</a>
+                        <a href="https://packagist.org/packages/{$data->item_composer_id|eschtml}">{$data->item_composer_id|eschtml}</a>
                     </li>
                 {/if}
             </ul>

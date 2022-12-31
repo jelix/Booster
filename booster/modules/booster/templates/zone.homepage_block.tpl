@@ -7,10 +7,10 @@
             {foreach $results as $item}
 
                 <li>
-                    <strong><a href="{jurl 'booster~default:viewItem', array('id' => $item->id, 'name' => $item->name)}">{$item->name}</a></strong>
+                    <strong><a href="{jurl 'booster~default:viewItem', array('id' => $item->id, 'name' => $item->name)}">{$item->name|eschtml}</a></strong>
                     {@booster~main.by@}
-                    {$item->author}
-                    <span class="date"> - {$item->created |jdatetime:'db_datetime':'lang_date'}</span>
+                    {$item->author|eschtml}
+                    <span class="date"> - {$item->created|jdatetime:'db_datetime':'lang_date'}</span>
                 </li>
             {/foreach}
             </ul>

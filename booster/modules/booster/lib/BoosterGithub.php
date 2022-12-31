@@ -37,7 +37,6 @@ class BoosterGithub {
     {
         $url = $this->apiUrl.'?per_page=1';
         $res = $this->getOnGitub($url);
-        \jLog::dump($res, 'result '.$url);
         if(!$res){
             \jLog::log('error with github.com loading data', 'error');
             return false;

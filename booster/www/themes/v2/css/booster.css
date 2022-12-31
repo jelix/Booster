@@ -986,8 +986,10 @@ small{font-size:0.8em;}
 /*#syntax-wiki-content{display:none;}*/
 
 #jforms_booster_items_short_desc_fr, #jforms_booster_items_short_desc, #jforms_booster_version_last_changes{height:auto;}
-.jforms-table td{
-  padding:2px 0;
+.jforms-table td,
+.jforms-table th
+{
+  padding:0.2em 0.5em;
 }
 
 .jelix-msg li{
