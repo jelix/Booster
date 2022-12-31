@@ -8,5 +8,10 @@
         <property name="version" fieldname="version" datatype="varchar" required="true" maxlength="15"/>
     </record>
     <factory>
+        <method name="findAll" type="select">
+            <order>
+                <orderitem property="id" way="desc" />
+            </order>
+        </method>
     </factory>
 </dao>

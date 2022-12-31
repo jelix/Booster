@@ -246,7 +246,7 @@ class jelixversionsCtrl extends jControllerDaoCrud {
      */
     protected function _delete($id, $resp) {
 
-        $countJelix = jDao::get('boosteradmin~boo_versions')->countByJelix($id);
+        $countJelix = jDao::get('boosteradmin~boo_versions')->countExactJelixVersion($id);
         if ($countJelix > 0) {
             jMessage::add('Impossible de supprimer cette version de Jelix, des composants la référence', 'error');
             return false;

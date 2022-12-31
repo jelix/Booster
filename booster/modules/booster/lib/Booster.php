@@ -73,7 +73,19 @@ class Booster {
         $record->version_name   = $form->getData('version_name');
         $record->version_date   = $form->getData('version_date');
         $record->status         = 0; //will need moderation
-        $record->id_jelix_version = $form->getData('id_jelix_version');
+
+        $jelixVersionMin = $form->getData('id_jelix_version');
+        $jelixVersionMax = $form->getData('id_jelix_version_max');
+
+        if ($jelixVersionMin <= $jelixVersionMax) {
+            $record->id_jelix_version = $jelixVersionMin;
+            $record->id_jelix_version_max = $jelixVersionMax;
+        }
+        else {
+            $record->id_jelix_version = $jelixVersionMax;
+            $record->id_jelix_version_max = $jelixVersionMin;
+        }
+
         $record->item_id        = $form->getData('item_id');
         $record->last_changes   = $form->getData('last_changes');
         $record->stability      = $form->getData('stability');
@@ -191,7 +203,9 @@ class Booster {
                     versions.edited,
                     versions.modified,
                     versions.id_jelix_version,
-                    jelix_versions.version as version_jelix
+                    versions.id_jelix_version_max,
+                    jelix_version_min.version as version_jelix_min,
+                    jelix_version_max.version as version_jelix_max
                     ';
 
 
@@ -201,7 +215,8 @@ class Booster {
                 $c->prefixTable('boo_items').' AS items
                 INNER JOIN ' . $c->prefixTable('boo_type').' AS type ON ( items.type_id = type.id)
                 LEFT JOIN ' . $c->prefixTable('boo_versions').' AS versions ON ( items.id=versions.item_id )
-                LEFT JOIN ' . $c->prefixTable('boo_jelix_versions'). ' AS jelix_versions ON (versions.id_jelix_version=jelix_versions.id )';
+                LEFT JOIN ' . $c->prefixTable('boo_jelix_versions'). ' AS jelix_version_min ON (versions.id_jelix_version=jelix_version_min.id )
+                LEFT JOIN ' . $c->prefixTable('boo_jelix_versions'). ' AS jelix_version_max ON (versions.id_jelix_version_max=jelix_version_max.id )';
 
         //where conditions
         $where = "
@@ -225,7 +240,8 @@ class Booster {
 
         //version
         if ($jelix_versions !== '') {
-            $cond .= ' AND id_jelix_version = '.intval($jelix_versions);
+            $cond .= ' AND id_jelix_version <= '.intval($jelix_versions);
+            $cond .= ' AND id_jelix_version_max >= '.intval($jelix_versions);
         }
 
         if ($devStatus !== '') {

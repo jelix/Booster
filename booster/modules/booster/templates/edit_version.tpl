@@ -16,6 +16,9 @@
             <td>{ctrl_label 'id_jelix_version'}</td><td>{ctrl_control 'id_jelix_version'}</td>
         </tr>
         <tr>
+            <td>{ctrl_label 'id_jelix_version_max'}</td><td>{ctrl_control 'id_jelix_version_max'}</td>
+        </tr>
+        <tr>
             <td>{ctrl_label 'filename'}</td><td>{ctrl_control 'filename'}</td>
         </tr>
         <tr>

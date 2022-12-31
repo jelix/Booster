@@ -2,14 +2,12 @@
 <dao xmlns="http://jelix.org/ns/dao/1.0">
     <datasources>
         <primarytable name="versions" realname="boo_versions" primarykey="id" />
-
-
-        
     </datasources>
     <record>
         <property name="version_id" fieldname="id" datatype="int" autoincrement="true"/>
         <property name="item_id" fieldname="item_id" datatype="int" required="true"/>
         <property name="id_jelix_version" fieldname="id_jelix_version" datatype="int" required="true"/>
+        <property name="id_jelix_version_max" fieldname="id_jelix_version_max" datatype="int" required="true"/>
         <property name="version_name" fieldname="version_name" datatype="varchar" required="true" maxlength="80"/>
         <property name="last_changes" fieldname="last_changes" datatype="varchar" maxlength="255"/>
         <property name="stability" fieldname="stability" datatype="enum" required="true" default="stable"/>
@@ -56,14 +54,24 @@
         <method name="findByJelix" type="select">
             <parameter name="jelix_id" />
             <conditions>
-                <eq property="id_jelix_version" expr="$jelix_id" />
+                <gteq property="id_jelix_version" expr="$jelix_id" />
+                <lteq property="id_jelix_version_max" expr="$jelix_id" />
             </conditions>
         </method>
         <method name="countByJelix" type="count">
             <parameter name="jelix_id" />
             <conditions>
-                <eq property="id_jelix_version" expr="$jelix_id" />
+                <gteq property="id_jelix_version" expr="$jelix_id" />
+                <lteq property="id_jelix_version_max" expr="$jelix_id" />
             </conditions>
         </method>
+        <method name="countExactJelixVersion" type="count">
+            <parameter name="jelix_id" />
+            <conditions logic="or">
+                <eq property="id_jelix_version" expr="$jelix_id" />
+                <eq property="id_jelix_version_max" expr="$jelix_id" />
+            </conditions>
+        </method>
+
     </factory>
 </dao>

@@ -3,13 +3,16 @@
     <datasources>
         <primarytable name="versions" realname="boo_versions"
                             primarykey="id" />
-        <foreigntable name="jelix_versions" realname="boo_jelix_versions"
+        <foreigntable name="jelix_version_min" realname="boo_jelix_versions"
                             primarykey="id" onforeignkey="id_jelix_version" />
+        <foreigntable name="jelix_version_max" realname="boo_jelix_versions"
+                            primarykey="id" onforeignkey="id_jelix_version_max" />
     </datasources>
     <record>
         <property name="id" fieldname="id" datatype="int" autoincrement="true"/>
         <property name="item_id" fieldname="item_id" datatype="int" required="true"/>
         <property name="id_jelix_version" fieldname="id_jelix_version" datatype="int" required="true"/>
+        <property name="id_jelix_version_max" fieldname="id_jelix_version_max" datatype="int" required="true"/>
         <property name="version_name" fieldname="version_name" datatype="varchar" required="true" maxlength="80"/>
         <property name="last_changes" fieldname="last_changes" datatype="varchar"  maxlength="255"/>
         <property name="stability" fieldname="stability" datatype="enum" required="true" default="stable"/>
@@ -20,7 +23,9 @@
         <property name="edited" fieldname="edited" datatype="datetime" updatepattern="NOW()"/>
         <property name="modified" fieldname="modified" datatype="datetime" updatepattern="NOW()"/>
         <property name="version_date" fieldname="version_date" datatype="datetime" />
-        <property name="version" fieldname="version" datatype="varchar" table="jelix_versions" required="true" maxlength="15"/>
+
+        <property name="version_min" fieldname="version" datatype="varchar" table="jelix_version_min" required="true" maxlength="15"/>
+        <property name="version_max" fieldname="version" datatype="varchar" table="jelix_version_max" required="true" maxlength="15"/>
 
 
     </record>

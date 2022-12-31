@@ -19,6 +19,11 @@
     <label locale="booster~main.jelix.versions"/>
 </menulist>
 
+    <menulist ref="id_jelix_version_max" required="true">
+        <datasource dao="booster~boo_jelix_versions" method="findAll" labelproperty="version" valueproperty="id" profile="booster"/>
+        <label locale="booster~main.jelix.version.max"/>
+    </menulist>
+
 <menulist ref="stability" required="true">
     <label locale="booster~main.stability"/>
     <item value="pre-alpha">pre-alpha</item>

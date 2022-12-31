@@ -77,7 +77,7 @@ class versionsCtrl extends jController {
                 jMessage::add(jLocale::get('boosteradmin~admin.version_validated'));
             }
             // we just edit the new content of the version
-            // but we didnt validate it so :
+            // but we didn't validate it so :
             // save all the modification
             else {
                 jMessage::add(jLocale::get('boosteradmin~admin.version_saved_but_not_validated_yet'));
@@ -143,6 +143,14 @@ class versionsCtrl extends jController {
         $id = $this->intParam('id');
         $form = jForms::fill('boosteradmin~versions_mod', $id);
         if ($form->check()) {
+            $jelixVersionMin = $form->getData('id_jelix_version');
+            $jelixVersionMax = $form->getData('id_jelix_version_max');
+
+            if ($jelixVersionMin > $jelixVersionMax) {
+                $form->setData('id_jelix_version', $jelixVersionMax);
+                $form->setData('id_jelix_version_max', $jelixVersionMin);
+            }
+
             $form->saveToDao('boosteradmin~boo_versions');
             jDao::get('boosteradmin~boo_versions_modifs','booster')->deleteByVersionId($id);
             jMessage::add(jLocale::get('boosteradmin~admin.version_validated'));

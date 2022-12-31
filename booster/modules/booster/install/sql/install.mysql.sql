@@ -61,6 +61,7 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%boo_versions (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `item_id` int(12) NOT NULL,
   `id_jelix_version` int(12) NOT NULL,
+  `id_jelix_version_max` int(12) NOT NULL,
   `status` int(1) NOT NULL,
   `version_name` varchar(80) NOT NULL,
   `version_date` datetime default NULL,
@@ -78,6 +79,7 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%boo_versions (
   KEY `edited` (`edited`),
   KEY `modified` (`modified`),
   KEY `id_jelix_version` (`id_jelix_version`)
+  KEY `id_jelix_version_max` (`id_jelix_version_max`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 
@@ -99,7 +101,6 @@ INSERT INTO %%PREFIX%%boo_jelix_versions (`id`, `version`) VALUES
 (1, 'Jelix 1.1'),
 (2, 'Jelix 1.2'),
 (3, 'Jelix 1.3'),
-(4, 'Jelix dev'),
 (5, 'Jelix 1.4'),
 (6, 'Jelix 1.5'),
 (7, 'Jelix 1.6'),

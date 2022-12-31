@@ -22,7 +22,8 @@
                 
                 <li class="compatibility">
                     <img src="{$j_themepath}icons/wrench_orange.png" alt=""/>
-                    {@booster~main.compatible@} <span class="jelix-version">{$version->version}</span>
+                    {@booster~main.compatible@} <span class="jelix-version">{$version->version_min}</span>
+                    {if $version->version_max != $version->version_min} {@booster~main.to@} <span class="jelix-version">{$version->version_max}</span>{/if}
                 </li>
                 {if $version->download_url}
                 <li>
