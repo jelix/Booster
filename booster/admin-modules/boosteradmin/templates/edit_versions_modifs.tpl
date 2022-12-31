@@ -28,7 +28,6 @@
 
 
 {form $form, $action, array('id'=>$id)}
-    {formsubmit '_submit'}
     <table class="jforms-table">
 
       {formcontrols}

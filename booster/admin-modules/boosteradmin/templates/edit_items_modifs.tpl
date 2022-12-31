@@ -28,7 +28,6 @@
 {form $form, $action, array('id'=>$id), 'html', array(
     'widgetsAttributes' => [ 'image' => [ 'baseURI'=> $j_basepath.'images-items/', 'showModeForNewImage'=>'URL']]
 )}
-    {formsubmit '_submit'}
     <table class="jforms-table">
 
       {formcontrols}

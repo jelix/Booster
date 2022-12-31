@@ -82,4 +82,7 @@
     <label locale="boosteradmin~admin.form.save"/>
 </submit>
 
+    <submit ref="_validate">
+        <label locale="boosteradmin~admin.form.validate"/>
+    </submit>
 </form>
