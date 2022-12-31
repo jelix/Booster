@@ -71,6 +71,7 @@ class Booster {
         $dao = \jDao::get('booster~boo_versions','booster');
         $record = \jDao::createRecord('booster~boo_versions','booster');
         $record->version_name   = $form->getData('version_name');
+        $record->version_date   = $form->getData('version_date');
         $record->status         = 0; //will need moderation
         $record->id_jelix_version = $form->getData('id_jelix_version');
         $record->item_id        = $form->getData('item_id');
@@ -180,6 +181,7 @@ class Booster {
                     type.type_name,
                     versions.id AS version_id,
                     versions.version_name,
+                    versions.version_date,
                     versions.last_changes,
                     versions.stability,
                     versions.filename,

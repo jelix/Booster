@@ -7,7 +7,9 @@
 <input ref="version_name" required="true" maxlength="60">
     <label locale="booster~main.version_name"/>
 </input>
-
+    <date ref="version_date" required="true">
+        <label locale="booster~main.version_date"/>
+    </date>
 <wikieditor ref="last_changes" maxlength="255">
     <label locale="booster~main.last_changes"/>
 </wikieditor>

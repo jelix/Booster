@@ -63,6 +63,7 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%boo_versions (
   `id_jelix_version` int(12) NOT NULL,
   `status` int(1) NOT NULL,
   `version_name` varchar(80) NOT NULL,
+  `version_date` datetime default NULL,
   `last_changes` varchar(255) default NULL,
   `stability` enum('pre-alpha','alpha','stable','mature') NOT NULL DEFAULT 'stable',
   `filename` varchar(80) default NULL,

@@ -16,6 +16,7 @@ class boosterModuleUpgrader_imageversion extends \Jelix\Installer\Module\Install
             }
         }
 
-
+        $db->exec('ALTER TABLE boo_versions ADD COLUMN `version_date` datetime default NULL');
+        $db->exec('UPDATE boo_versions SET version_date = created');
     }
 }

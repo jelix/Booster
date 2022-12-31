@@ -17,7 +17,7 @@
             <ul class="inline-list">
                 <li>
                     <img src="{$j_themepath}icons/date.png" alt=""/>
-                    {@booster~main.created@} {$version->created|date_format:'%d/%m/%y %H:%M'}
+                    {@booster~main.version_date_on@} {$version->version_date|jdatetime:'db_date':'lang_date'}
                 </li>
                 
                 <li class="compatibility">
