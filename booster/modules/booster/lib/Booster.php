@@ -36,6 +36,7 @@ class Booster {
         $record->item_composer_id = $form->getData('item_composer_id');
         $record->slogan     = $form->getData('slogan');
         $record->slogan_fr     = $form->getData('slogan_fr');
+        $record->short_desc  = $form->getData('short_desc');
         $record->short_desc_fr  = $form->getData('short_desc_fr');
         $record->type_id        = $form->getData('type_id');
         $record->url_website    = $form->getData('url_website');
