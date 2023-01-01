@@ -60,8 +60,8 @@ INSERT INTO %%PREFIX%%boo_type (`id`, `type_name`) VALUES
 CREATE TABLE IF NOT EXISTS %%PREFIX%%boo_versions (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `item_id` int(12) NOT NULL,
-  `id_jelix_version` int(12) NOT NULL,
-  `id_jelix_version_max` int(12) NOT NULL,
+  `id_jelix_version` int(12) default NULL,
+  `id_jelix_version_max` int(12) default NULL,
   `status` int(1) NOT NULL,
   `version_name` varchar(80) NOT NULL,
   `version_date` datetime default NULL,

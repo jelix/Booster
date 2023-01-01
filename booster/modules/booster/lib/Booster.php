@@ -78,11 +78,21 @@ class Booster {
         $jelixVersionMin = $form->getData('id_jelix_version');
         $jelixVersionMax = $form->getData('id_jelix_version_max');
 
-        if ($jelixVersionMin <= $jelixVersionMax) {
+        if ($jelixVersionMin) {
             $record->id_jelix_version = $jelixVersionMin;
+        }
+        else {
+            $record->id_jelix_version = null;
+        }
+
+        if ($jelixVersionMax) {
             $record->id_jelix_version_max = $jelixVersionMax;
         }
         else {
+            $record->id_jelix_version_max = null;
+        }
+
+        if ($jelixVersionMin && $jelixVersionMax &&  $jelixVersionMin > $jelixVersionMax) {
             $record->id_jelix_version = $jelixVersionMax;
             $record->id_jelix_version_max = $jelixVersionMin;
         }
@@ -205,10 +215,9 @@ class Booster {
                     versions.modified,
                     versions.id_jelix_version,
                     versions.id_jelix_version_max,
-                    jelix_version_min.version as version_jelix_min,
-                    jelix_version_max.version as version_jelix_max
+                    jelix_version_min.version as version_min,
+                    jelix_version_max.version as version_max
                     ';
-
 
         //tables
         $from = '

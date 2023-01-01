@@ -19,12 +19,22 @@
                     <img src="{$j_themepath}icons/date.png" alt=""/>
                     {@booster~main.version_date_on@} {$version->version_date|jdatetime:'db_date':'lang_date'}
                 </li>
-                
+
+                {if $version->version_min || $version->version_max}
                 <li class="compatibility">
                     <img src="{$j_themepath}icons/wrench_orange.png" alt=""/>
-                    {@booster~main.compatible@} <span class="jelix-version">{$version->version_min}</span>
-                    {if $version->version_max != $version->version_min} {@booster~main.to@} <span class="jelix-version">{$version->version_max}</span>{/if}
+                    {@booster~main.compatible@}
+                    {if $version->version_min}
+                    <span class="jelix-version">{$version->version_min}</span>
+                        {if $version->version_max && $version->version_max != $version->version_min}
+                            {@booster~main.to@} <span class="jelix-version">{$version->version_max}</span>
+                        {/if}
+                    {elseif $version->version_max}
+                        <span class="jelix-version">{$version->version_max}</span>
+                    {/if}
                 </li>
+                {/if}
+
                 {if $version->download_url}
                 <li>
                     <img src="{$j_themepath}icons/disk.png" alt=""/>

@@ -14,12 +14,12 @@
     <label locale="booster~main.last_changes"/>
 </wikieditor>
 
-<menulist ref="id_jelix_version" required="true">
+<menulist ref="id_jelix_version">
     <datasource dao="booster~boo_jelix_versions" method="findAll" labelproperty="version" valueproperty="id" profile="booster"/>
     <label locale="booster~main.jelix.versions"/>
 </menulist>
 
-    <menulist ref="id_jelix_version_max" required="true">
+    <menulist ref="id_jelix_version_max">
         <datasource dao="booster~boo_jelix_versions" method="findAll" labelproperty="version" valueproperty="id" profile="booster"/>
         <label locale="booster~main.jelix.version.max"/>
     </menulist>

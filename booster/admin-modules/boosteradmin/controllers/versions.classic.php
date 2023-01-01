@@ -146,7 +146,7 @@ class versionsCtrl extends jController {
             $jelixVersionMin = $form->getData('id_jelix_version');
             $jelixVersionMax = $form->getData('id_jelix_version_max');
 
-            if ($jelixVersionMin > $jelixVersionMax) {
+            if ($jelixVersionMin && $jelixVersionMax &&  $jelixVersionMin > $jelixVersionMax) {
                 $form->setData('id_jelix_version', $jelixVersionMax);
                 $form->setData('id_jelix_version_max', $jelixVersionMin);
             }
