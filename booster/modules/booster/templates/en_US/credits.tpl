@@ -6,13 +6,13 @@
         <div class="content">
             <ul>
                 <li>
-                    <a href="http://florianlb.fr/">FlorianLB</a>
+                    <a href="https://ljouanneau.com/">Laurent Jouanneau</a> (Maintainer)
                 </li>
                 <li>
-                    <a href="http://www.foxmask.info">FoxMaSk</a>
+                    <a href="https://florianlb.fr/">FlorianLB</a> (Creator)
                 </li>
                 <li>
-                    <a href="http://ljouanneau.com/">Laurent Jouanneau</a>
+                    <a href="https://foxmask.org/">FoxMaSk</a> (Creator)
                 </li>
             </ul>
         </div>

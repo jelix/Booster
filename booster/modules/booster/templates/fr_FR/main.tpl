@@ -82,7 +82,7 @@
         </div>
 
         <div id="footer-legend">
-            Copyright 2006-2022 Jelix team. <br/>
+            Copyright 2006-2023 Jelix team. <br/>
             Design par Laurentj. <br/>
             <img alt="page générée par une application Jelix" src="{$j_jelixwww}design/images/jelix_powered.png">
         </div>

@@ -8,9 +8,9 @@
         <description lang="en_US">Jelix Booster : portal management of modules, plugins, language pack, applications made in Jelix</description>
         <license URL="http://www.gnu.org/licenses/lgpl.html"> GNU Lesser General Public Licence, see LICENCE file</license>
         <copyright>2011-2023 Laurent Jouanneau</copyright>
-        <creator name="laurentj" email="laurent@jelix.org" active="true"/>
-        <contributor name="FoxMaSk" since="2011-05-03" role="developper"/>
-        <contributor name="FlorianLB" email="" since="2011-05-03" role="developper"/>
+        <creator name="FoxMaSk" since="2011-05-03" until="2013-02-17"/>
+        <contributor name="laurentj" email="laurent@jelix.org" active="true" since="2011-06-04"/>
+        <contributor name="FlorianLB" since="2011-05-15" until="2012-05-04"/>
         <homepageURL>https://booster.jelix.org</homepageURL>
     </info>
     <dependencies>
