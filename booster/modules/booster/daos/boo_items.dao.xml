@@ -27,8 +27,7 @@
         <property name="recommendation" fieldname="recommendation" datatype="boolean" required="true" default="false"/>
         <property name="created" fieldname="created" datatype="datetime" insertpattern="NOW()" />
         <property name="edited" fieldname="edited" datatype="datetime" updatepattern="NOW()"/>
-        <property name="modified" fieldname="modified" datatype="datetime" updatepattern="NOW()"/>
-        <property name="date_version" fieldname="date_version" datatype="datetime" insertpattern="NOW()" />
+        <property name="modified" fieldname="modified" datatype="datetime"/>
 
         <!--property name="nickname" fieldname="nickname" table="usr" datatype="varchar" required="true" maxlength="80"/>
         <property name="user_id" fieldname="id" table="usr" datatype="int"/-->
@@ -41,7 +40,7 @@
                 <eq property="status" value="1" />
             </conditions>
             <order>
-                <orderitem property="created" way="desc" />
+                <orderitem property="modified" way="desc" />
             </order>
         </method>
 
@@ -61,7 +60,7 @@
             </conditions>
             <parameter name="number" />
             <order>
-                <orderitem property="date_version" way="desc" />
+                <orderitem property="modified" way="desc" />
             </order>
             <limit offset="0" count="$number"/>
         </method>
@@ -72,7 +71,7 @@
                 <eq property="item_by" expr="$user_id" />
             </conditions>
             <order>
-                <orderitem property="date_version" way="desc" />
+                <orderitem property="modified" way="desc" />
             </order>
         </method>
 
@@ -83,7 +82,7 @@
                 <eq property="status" expr="1" />
             </conditions>
             <order>
-                <orderitem property="date_version" way="desc" />
+                <orderitem property="modified" way="desc" />
             </order>
         </method>
 
@@ -105,7 +104,7 @@
                 <lt property="dev_status" value="2" />
             </conditions>
             <order>
-                <orderitem property="date_version" way="desc" />
+                <orderitem property="modified" way="desc" />
             </order>
             <limit offset="$offset" count="$count"/>
         </method>
@@ -119,7 +118,7 @@
                 <lt property="dev_status" value="2" />
             </conditions>
             <order>
-                <orderitem property="date_version" way="desc" />
+                <orderitem property="modified" way="desc" />
             </order>
             <limit offset="0" count="$number"/>
         </method>
@@ -153,7 +152,7 @@
                 <lt property="dev_status" value="1" />
             </conditions>
             <order>
-                <orderitem property="date_version" way="desc" />
+                <orderitem property="modified" way="desc" />
             </order>
         </method>
     </factory>

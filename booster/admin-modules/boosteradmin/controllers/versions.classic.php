@@ -34,7 +34,7 @@ class versionsCtrl extends jController {
         return $rep;
     }
     /**
-     * Index page that list all the validated items
+     * Index page that list all the validated versions
      */
     function indexAll() {
         $tpl = new jTpl();
@@ -48,7 +48,7 @@ class versionsCtrl extends jController {
      */
     function editnew() {
         $form = jForms::create('boosteradmin~versions_mod',$this->intParam('id'));
-        $form->initFromDao('boosteradmin~boo_versions');
+        $form->initFromDao('booster~boo_versions');
         $form->setData('id',$this->intParam('id'));
         $rep = $this->getResponse('html');
         $tpl = new jTpl();
@@ -68,12 +68,12 @@ class versionsCtrl extends jController {
         if ($form->check()) {
             // we validate the new item
             // then remove the data from the "waiting table" (items_mod)
-            if ($form->getData('status_version')==1) {
+            if ($form->getData('status')==1) {
                 jMessage::add(jLocale::get('boosteradmin~admin.version_validated'));
             }
             //validator submit via the "Validate" button so we automaticaly validate the version
             elseif($form->getData('_validate')){
-                $form->setData('status_version', 1);
+                $form->setData('status', 1);
                 jMessage::add(jLocale::get('boosteradmin~admin.version_validated'));
             }
             // we just edit the new content of the version
@@ -82,13 +82,12 @@ class versionsCtrl extends jController {
             else {
                 jMessage::add(jLocale::get('boosteradmin~admin.version_saved_but_not_validated_yet'));
             }
-            $form->saveToDao('boosteradmin~boo_versions');
-            //update the date_version
+            $form->saveToDao('booster~boo_versions');
+            //update the modified date of the project
             $daoItem = jDao::get('booster~boo_items');
             $rec = $daoItem->get($form->getData('item_id'));
-            $rec->date_version = date("Y-m-d H:i:s");
+            $rec->modified = date("Y-m-d H:i:s");
             $daoItem->update($rec);
-
         }
         else {
             jMessage::add(jLocale::get('boosteradmin~admin.invalid.data'));
@@ -98,13 +97,13 @@ class versionsCtrl extends jController {
         return $rep;
     }
     /**
-     * Edit the Modified Version for modetation
+     * Edit the Modified Version for moderation
      */
     function editmod() {
         $id = $this->intParam('id');
-        $form = jForms::create('boosteradmin~versions_mod',$id);
-        $form->initFromDao('boosteradmin~boo_versions');
-        $form->setData('id',$id);
+        $form = jForms::create('boosteradmin~versions_mod', $id);
+        $form->initFromDao('booster~boo_versions');
+        $form->setData('id', $id);
 
         $modified = jDao::get('boosteradmin~boo_versions_modifs')->findByVersionId($id);
         $modified_fields = array();
@@ -117,9 +116,12 @@ class versionsCtrl extends jController {
         $rep = $this->getResponse('html');
 
         $item_by = 'undefined';
-        $item = jDao::get('booster~boo_items','booster')->get($id);
-        if ($item !== false){ jLog::dump(jDao::get('jcommunity~user','hfnu')->getById($item->item_by));
-            $item_by = jDao::get('jcommunity~user','hfnu')->getById($item->item_by)->nickname;
+        $item = jDao::get('booster~boo_items','booster')->get($form->getData('item_id'));
+        if ($item !== false) {
+            $publisher = jDao::get('jcommunity~user','hfnu')->getById($item->item_by);
+            if ($publisher) {
+                $item_by = $publisher->nickname;
+            }
             $tpl->assign('item_id', $item->id);
             $tpl->assign('item_name', $item->name);
         }
@@ -135,6 +137,7 @@ class versionsCtrl extends jController {
         $rep->body->assign('MAIN',$tpl->fetch('edit_versions_modifs'));
         return $rep;
     }
+
     /**
      * Save the Modified Versions
      */
@@ -151,7 +154,13 @@ class versionsCtrl extends jController {
                 $form->setData('id_jelix_version_max', $jelixVersionMin);
             }
 
-            $form->saveToDao('boosteradmin~boo_versions');
+            $form->saveToDao('booster~boo_versions');
+            //update the modified date of the project
+            $daoItem = jDao::get('booster~boo_items');
+            $rec = $daoItem->get($form->getData('item_id'));
+            $rec->modified = date("Y-m-d H:i:s");
+            $daoItem->update($rec);
+
             jDao::get('boosteradmin~boo_versions_modifs','booster')->deleteByVersionId($id);
             jMessage::add(jLocale::get('boosteradmin~admin.version_validated'));
             $rep->action = 'boosteradmin~versions:index';

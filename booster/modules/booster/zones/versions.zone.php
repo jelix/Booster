@@ -15,7 +15,7 @@ class versionsZone extends jZone {
 
         $item_id = (int) $this->param('id');
         if($this->param('show_all_versions')){
-            $datas = jDao::get('booster~boo_versions','booster')->findAllValidated($item_id);
+            $datas = jDao::get('booster~boo_versions','booster')->findAllValidatedByItem($item_id);
         }
         else{
             $datas = jDao::get('booster~boo_versions','booster')->findLastValidated($item_id);

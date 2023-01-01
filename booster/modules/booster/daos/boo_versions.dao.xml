@@ -42,6 +42,14 @@
             <limit offset="0" count="1"/>
         </method>
         <method name="findAllValidated" type="select">
+            <conditions>
+                <eq property="status" value="1" />
+            </conditions>
+            <order>
+                <orderitem property="edited" way="desc" />
+            </order>
+        </method>
+        <method name="findAllValidatedByItem" type="select">
             <parameter name="item_id"/>
             <conditions logic="and">
                 <eq property="item_id" expr="$item_id"/>
@@ -58,6 +66,45 @@
             <order>
                 <orderitem property="edited" way="desc" />
             </order>
+        </method>
+
+        <method name="findByItem" type="select">
+            <parameter name="item_id"/>
+            <conditions logic="and">
+                <eq property="item_id" expr="$item_id"/>
+            </conditions>
+        </method>
+
+        <method name="deleteByItem" type="delete">
+            <parameter name="id" />
+            <conditions>
+                <eq property="item_id" expr="$id" />
+            </conditions>
+        </method>
+
+
+
+        <method name="findByJelix" type="select">
+            <parameter name="jelix_id" />
+            <conditions>
+                <gteq property="id_jelix_version" expr="$jelix_id" />
+                <lteq property="id_jelix_version_max" expr="$jelix_id" />
+            </conditions>
+        </method>
+        <method name="countByJelix" type="count">
+            <parameter name="jelix_id" />
+            <conditions>
+                <gteq property="id_jelix_version" expr="$jelix_id" />
+                <lteq property="id_jelix_version_max" expr="$jelix_id" />
+            </conditions>
+        </method>
+
+        <method name="countExactJelixVersion" type="count">
+            <parameter name="jelix_id" />
+            <conditions logic="or">
+                <eq property="id_jelix_version" expr="$jelix_id" />
+                <eq property="id_jelix_version_max" expr="$jelix_id" />
+            </conditions>
         </method>
     </factory>
 </dao>

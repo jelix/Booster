@@ -23,15 +23,13 @@ CREATE TABLE %%PREFIX%%boo_items (
   `created` datetime NOT NULL,
   `edited` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
-  `date_version` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `item_by` (`item_by`),
   KEY `type_id` (`type_id`),
   KEY `status` (`status`),
   KEY `created` (`created`),
   KEY `edited` (`edited`),
-  KEY `modified` (`modified`),
-  KEY `date_version` (`date_version`)
+  KEY `modified` (`modified`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 ALTER TABLE  %%PREFIX%%boo_items ADD UNIQUE (`name`);

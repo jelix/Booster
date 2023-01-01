@@ -95,7 +95,11 @@ class itemsCtrl extends jController {
             $booster = new \JelixBooster\Booster();
             $booster->saveImage($id, $form);
 
-            $form->saveToDao('booster~boo_items');
+            $result = $form->prepareDaoFromControls('booster~boo_items');
+            $rec = $result['daorec'];
+            $rec->modified = date('Y-m-d H:i:s');
+            $result['dao']->insert($rec);
+
             jClasses::getService("jtags~tags")->saveTagsBySubject(explode(',', $form->getData('tags')), 'booscope', $id);
 
             jForms::destroy('boosteradmin~items_mod',$id);
@@ -180,7 +184,10 @@ class itemsCtrl extends jController {
             $booster = new \JelixBooster\Booster();
             $booster->saveImage($id, $form);
 
-            $form->saveToDao('booster~boo_items');
+            $result = $form->prepareDaoFromControls('booster~boo_items');
+            $rec = $result['daorec'];
+            $rec->modified = date('Y-m-d H:i:s');
+            $result['dao']->update($rec);
 
             jDao::get('boosteradmin~boo_items_modifs','booster')->deleteByItemId($id);
             jMessage::add(jLocale::get('boosteradmin~admin.item_validated'));
@@ -206,10 +213,10 @@ class itemsCtrl extends jController {
                 unlink(\jApp::wwwPath('images-items/'.$rec->image));
             }
             jDao::get('boosteradmin~boo_items_modifs')->deleteByItemId($id);
-            $versionsDao = jDao::get('boosteradmin~boo_versions');
+            $versionsDao = jDao::get('booster~boo_versions');
             $versionsModifDao = jDao::get('boosteradmin~boo_versions_modifs');
             foreach($versionsDao->findByItem($id) as $version) {
-                $versionsModifDao->deleteByVersionId($version->version_id);
+                $versionsModifDao->deleteByVersionId($version->id);
             }
 
             $dao->delete($id);
