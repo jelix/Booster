@@ -50,6 +50,8 @@ defaultJformsBuilder=html
 [responses]
 html=myHtmlResponse
 
+rss2.0="jfeeds~jResponseRss20"
+atom1.0="jfeeds~jResponseAtom10"
 [error_handling]
 ;errorMessage="A technical error has occured (code: %code%). Sorry for this inconvenience."
 
@@ -214,7 +216,7 @@ booster.css[]="$theme/css/text.css"
 booster.css[]="$theme/css/booster.css"
 booster.js[]="booster/js/booster.js"
 booster.js[]="booster/js/charCount.js"
-booster.require="jquery"
+booster.require=jquery
 
 jacl2_admin.css[]="$jelix/design/jacl2.css"
 jacl2_admin.js[]="$jelix/js/jacl2db_admin.js"

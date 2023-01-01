@@ -1,25 +1,26 @@
+<?xml version="1.0"?>
 <urls xmlns="http://jelix.org/ns/urls/1.0">
     <classicentrypoint name="index" default="true" noentrypoint="true">
-        <url pathinfo="/"         module="booster"     include="urls.xml"/>
-        <url pathinfo="/auth"         module="jcommunity"  include="urls_auth.xml"/>
-        <url pathinfo="/profile"      module="jcommunity"  include="urls_account.xml"/>
-        <url pathinfo="/registration" module="jcommunity"  include="urls_registration.xml"/>
+        <url pathinfo="/" module="booster" include="urls.xml"/>
+        <url pathinfo="/auth" module="jcommunity" include="urls_auth.xml"/>
+        <url pathinfo="/profile" module="jcommunity" include="urls_account.xml"/>
+        <url pathinfo="/registration" module="jcommunity" include="urls_registration.xml"/>
         <url pathinfo="/fr" module="booster" action="default:index">
-            <static name="lang" value="fr_FR" />
+            <static name="lang" value="fr_FR"/>
         </url>
         <url pathinfo="/en" module="booster" action="default:index">
-            <static name="lang" value="en_US" />
+            <static name="lang" value="en_US"/>
         </url>
         <url pathinfo="/tag/:tag" module="booster" action="default:cloud">
-            <param name="tag" type="string" escape="true" />
+            <param name="tag" type="string" escape="true"/>
         </url>
     </classicentrypoint>
 
     <classicentrypoint name="adminboost" default="false" noentrypoint="false">
-        <url pathinfo="/" module="master_admin" action="default:index"  optionalTrailingSlash="true"/>
-        <url pathinfo="/admin/auth"    module="jauthdb_admin" include="urls.xml"/>
-        <url pathinfo="/admin/acl"     module="jacl2db_admin" include="urls.xml"/>
-        <url pathinfo="/admin/booster" module="boosteradmin"  include="urls_admin.xml"/>
+        <url pathinfo="/" module="master_admin" action="default:index" optionalTrailingSlash="true"/>
+        <url pathinfo="/admin/auth" module="jauthdb_admin" include="urls.xml"/>
+        <url pathinfo="/admin/acl" module="jacl2db_admin" include="urls.xml"/>
+        <url pathinfo="/admin/booster" module="boosteradmin" include="urls_admin.xml"/>
         <url pathinfo="/admin/registration" module="jcommunity" include="urls_registration_admin.xml"/>
     </classicentrypoint>
 

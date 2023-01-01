@@ -18,6 +18,7 @@
         <module name="jacl2db"/>
         <module name="jcommunity"/>
         <module name="jtags"/>
+        <module name="jfeeds"/>
 
     </dependencies>
     <autoload>

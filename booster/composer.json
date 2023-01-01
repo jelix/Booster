@@ -12,7 +12,8 @@
     "jelix/jtags-module": "1.1.*",
     "jelix/jelix": "dev-jelix-1.8.x",
     "jelix/wikirenderer": "3.1.*",
-    "jelix/wikirenderer-plugin": "1.7.*"
+    "jelix/wikirenderer-plugin": "1.7.*",
+    "jelix/feeds-module" : "1.7.*"
   },
   "minimum-stability": "stable",
   "config": {
