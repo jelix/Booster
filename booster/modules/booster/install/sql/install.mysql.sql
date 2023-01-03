@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS %%PREFIX%%boo_versions (
   KEY `created` (`created`),
   KEY `edited` (`edited`),
   KEY `modified` (`modified`),
-  KEY `id_jelix_version` (`id_jelix_version`)
+  KEY `id_jelix_version` (`id_jelix_version`),
   KEY `id_jelix_version_max` (`id_jelix_version_max`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
