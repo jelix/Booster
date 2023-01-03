@@ -41,6 +41,7 @@ jelix.installparam[wwwfiles]=vhost
 jcommunity.dbprofile=hfnu
 jauthdb_admin.dbprofile=hfnu
 
+jfeeds.enabled=on
 [coordplugins]
 ;name = file_ini_name or 1
 
@@ -208,7 +209,7 @@ default.wiki.rules=wr3_to_xhtml
 [booster]
 title="Jelix Booster: the components to boost your projects"
 last_items_created=5
-moderators_list="laurent@jelix.org, olivier@foxmask.info"
+moderators_list="laurent@jelix.org"
 
 [webassets_common]
 booster.css[]="$theme/css/reset.css"
