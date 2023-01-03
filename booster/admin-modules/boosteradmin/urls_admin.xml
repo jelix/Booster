@@ -1,21 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <suburls xmlns="http://jelix.org/ns/suburls/1.0">
     <!-- items -->
-    <url pathinfo="/items"                  action="items:index" />
-    <url pathinfo="/items/validated"        action="items:indexAll" />
-    <url pathinfo="/items/editnew/:id"      action="items:editnew" >
-        <param name="id" type="numeric"/>
-    </url>
-    <url pathinfo="/items/savenew/:id"          action="items:savenew" >
-        <param name="id" type="numeric"/>
-    </url>
-    <url pathinfo="/items/editmod/:id"      action="items:editmod" >
-        <param name="id" type="numeric"/>
-    </url>
-    <url pathinfo="/items/savemod"          action="items:savemod" />
+    <url pathinfo="/items/"        action="items:index" />
+    <url pathinfo="/items/view/:id" action="items:view"/>
+    <url pathinfo="/items/precreate" action="items:precreate"/>
+    <url pathinfo="/items/create" action="items:create"/>
+    <url pathinfo="/items/savecreate" action="items:savecreate"/>
+    <url pathinfo="/items/preedit/:id" action="items:preupdate"/>
+    <url pathinfo="/items/edit/:id" action="items:editupdate"/>
+    <url pathinfo="/items/save/:id" action="items:saveupdate"/>
     <url pathinfo="/items/delete/:id"       action="items:delete" >
         <param name="id" type="numeric"/>
-    </url>  
+    </url>
+
+    <url pathinfo="/items/review"                  action="itemsreview:index" />
+    <url pathinfo="/items/review/editnew/:id"      action="itemsreview:editnew" >
+        <param name="id" type="numeric"/>
+    </url>
+    <url pathinfo="/items/review/savenew/:id"          action="itemsreview:savenew" >
+        <param name="id" type="numeric"/>
+    </url>
+    <url pathinfo="/items/review/editmod/:id"      action="itemsreview:editmod" >
+        <param name="id" type="numeric"/>
+    </url>
+    <url pathinfo="/items/review/savemod"          action="itemsreview:savemod" />
 
     <!-- versions-->
     <url pathinfo="/versions"               action="versions:index" />

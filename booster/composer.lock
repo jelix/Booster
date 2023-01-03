@@ -856,12 +856,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jelix/jelix.git",
-                "reference": "e25ec42bf65b3f032553f6072d482cf3670bb503"
+                "reference": "05c7ba194c0616ac7db3d3baa5a86155850b3153"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jelix/jelix/zipball/e25ec42bf65b3f032553f6072d482cf3670bb503",
-                "reference": "e25ec42bf65b3f032553f6072d482cf3670bb503",
+                "url": "https://api.github.com/repos/jelix/jelix/zipball/05c7ba194c0616ac7db3d3baa5a86155850b3153",
+                "reference": "05c7ba194c0616ac7db3d3baa5a86155850b3153",
                 "shasum": ""
             },
             "require": {
@@ -943,7 +943,7 @@
                 "issues": "https://github.com/jelix/jelix/issues",
                 "source": "https://github.com/jelix/jelix/tree/jelix-1.8.x"
             },
-            "time": "2022-12-30T22:57:02+00:00"
+            "time": "2023-01-03T22:45:43+00:00"
         },
         {
             "name": "jelix/jtags-module",

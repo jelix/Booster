@@ -14,7 +14,7 @@
 {foreach $datas as $data}
         <tr class="{cycle array('even','odd')}">
             <td>{$data->type_name}</td>
-            <td><a href="{jurl 'boosteradmin~items:editnew',array('id'=>$data->id)}">{$data->name|eschtml}</a></td>
+            <td><a href="{jurl 'boosteradmin~itemsreview:editnew',array('id'=>$data->id)}">{$data->name|eschtml}</a></td>
             <td>{$data->created|jdatetime}</td>
             <td>{zone 'booster~author', array('id' => $data->item_by)}</td>
             <td><a href="{jurl 'boosteradmin~items:delete',array('id'=>$data->id)}"

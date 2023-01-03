@@ -92,7 +92,6 @@ function resetMysql() {
 function launchInstaller() {
     echo "--- Launch app installer in $1"
     local appdir="$1"
-    ls -al /srv/booster.jelix.org/temp/booster
     su $APP_USER -c "php $appdir/install/installer.php --verbose"
 }
 

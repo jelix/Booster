@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form xmlns="http://jelix.org/ns/forms/1.1">
+
+    <menulist ref="type_id">
+        <datasource dao="booster~boo_type" method="findAll"
+                    labelproperty="type_name" valueproperty="id"/>
+        <label locale="booster~main.item_type"/>
+    </menulist>
+
+    <menulist ref="status">
+        <label locale="booster~main.status"/>
+        <item value="0" locale="booster~main.status.not_validated"/>
+        <item value="1" locale="booster~main.status.validated"/>
+    </menulist>
+
+    <menulist ref="dev_status">
+        <label locale="booster~main.dev_status"/>
+        <item value="0" locale="booster~main.dev_status.maintained"/>
+        <item value="1" locale="booster~main.dev_status.unmaintained"/>
+        <item value="2" locale="booster~main.dev_status.gone"/>
+    </menulist>
+
+    <menulist ref="recommendation">
+        <label locale="booster~main.reco"/>
+        <item value="0" locale="jelix~ui.buttons.no"/>
+        <item value="1" locale="jelix~ui.buttons.yes"/>
+    </menulist>
+
+    <submit ref="_submitFilter">
+        <label locale="jelix~ui.buttons.search"/>
+    </submit>
+
+</form>

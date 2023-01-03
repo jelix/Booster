@@ -17,7 +17,7 @@ class boosteradminmenuListener extends jEventListener{
 
             $item = new masterAdminMenuItem('items',
                         jLocale::get('boosteradmin~admin.items.validated'),
-                        jUrl::get('boosteradmin~items:indexAll'),
+                        jUrl::get('boosteradmin~items:index'),
                         301,
                         'booster');
             $item->icon = $chemin . 'icons/item.png';
@@ -25,7 +25,7 @@ class boosteradminmenuListener extends jEventListener{
 
             $item = new masterAdminMenuItem('itemsnew',
                         jLocale::get('boosteradmin~admin.items.not.validated'),
-                        jUrl::get('boosteradmin~items:index'),
+                        jUrl::get('boosteradmin~itemsreview:index'),
                         302,
                         'booster');
             $item->icon = $chemin . 'icons/item_mod.png';

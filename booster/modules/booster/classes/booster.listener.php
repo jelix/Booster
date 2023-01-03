@@ -16,7 +16,7 @@ class boosterListener extends jEventListener{
             $notify  = jDao::get('booster~boo_items','booster')->findAllNotModerated();
             $nbRec = $notify->rowCount();
             if ($nbRec > 0 ) {
-                $link = '<a href="'.jUrl::get('boosteradmin~items:index').'">';
+                $link = '<a href="'.jUrl::get('boosteradmin~itemsreview:index').'">';
                 if($nbRec == 1)
                     $link .= jLocale::get('boosteradmin~admin.new.item');
                 else
@@ -41,7 +41,7 @@ class boosterListener extends jEventListener{
             $itemModified = $conn->query('SELECT DISTINCT(item_id) FROM boo_items_modifs');
             $nbRec = $itemModified->rowCount();
             if ($nbRec > 0 ) {
-                $link = '<a href="'.jUrl::get('boosteradmin~items:index').'">';
+                $link = '<a href="'.jUrl::get('boosteradmin~itemsreview:index').'">';
                 if($nbRec == 1)
                     $link .= jLocale::get('boosteradmin~admin.notification.item');
                 else

@@ -27,7 +27,7 @@ class modNotificationListener extends jEventListener{
         //$item_id = $event->getParam('item_id');
         $this->mail->Subject = 'Un élément a été ajouté';
         $this->mail->Body = '<p>Il y a un nouvel élément à valider sur Booster (ajout).</p>';
-        $this->mail->Body .= '<p><a href="'.jUrl::getFull('boosteradmin~items:index').'">Validation des nouveaux éléments</a></p>';
+        $this->mail->Body .= '<p><a href="'.jUrl::getFull('boosteradmin~itemsreview:index').'">Validation des nouveaux éléments</a></p>';
 
         $this->finishAndSend();
     }
@@ -45,7 +45,7 @@ class modNotificationListener extends jEventListener{
         //$item_id = $event->getParam('item_id');
         $this->mail->Subject = 'Un élément a été modifié';
         $this->mail->Body = '<p>Il y a un élément à valider sur Booster (modification).</p>';
-        $this->mail->Body .= '<p><a href="'.jUrl::getFull('boosteradmin~items:index').'">Validation des éléments modifiés</a></p>';
+        $this->mail->Body .= '<p><a href="'.jUrl::getFull('boosteradmin~itemsreview:index').'">Validation des éléments modifiés</a></p>';
 
         $this->finishAndSend();
     }
