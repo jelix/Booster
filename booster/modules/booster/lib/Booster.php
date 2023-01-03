@@ -335,16 +335,13 @@ class Booster {
      */
     public function saveImage($id, $form, $fromModeration = true)
     {
-        if ($form->getData('image') == '') {
-            return '';
-        }
         $directory = \jApp::wwwPath('images-items/');
         $image_name = $this->getImageFileName($id, $form->getData('image'));
         /** @var \jFormsControlImageUpload $control */
         $control = $form->getControl('image');
         $image_name = $control->getUniqueFileName($directory, $image_name);
         if ($form->saveFile('image', $directory, $image_name, $fromModeration)) {
-            return $image_name;
+            return $form->getData('image');
         }
         return '';
     }
