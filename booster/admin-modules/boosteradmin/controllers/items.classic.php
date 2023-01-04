@@ -89,7 +89,8 @@ class itemsCtrl extends jControllerDaoCrudFilter
 
     protected function _view($form, $resp, $tpl)
     {
-        // FIXME : display versions
+        $versions = jDao::get('booster~boo_versions')->findByItem($form->getData('id'));
+        $tpl->assign('versions', $versions);
     }
 
     function _delete($id, $resp)
@@ -109,6 +110,166 @@ class itemsCtrl extends jControllerDaoCrudFilter
             }
         }
         return true;
+    }
+
+
+    /**
+     *
+     */
+    function createVersion()
+    {
+        $itemId = $this->intParam('itemid');
+        $project = jDao::get($this->dao)->get($itemId);
+        if (!$project) {
+            jMessage::add('Unknown project');
+            return $this->redirect('boosteradmin~items:index');
+        }
+
+        $form = jForms::get('boosteradmin~versions_mod');
+        if (!$form) {
+            $form = jForms::create('boosteradmin~versions_mod');
+        }
+
+        $form->setData('item_id', $itemId);
+
+        $rep = $this->getResponse('html');
+        $tpl = new jTpl();
+        $tpl->assign('title', jLocale::get('boosteradmin~admin.version.edit.new.for').' '.$project->name);
+        $tpl->assign('action', 'boosteradmin~items:saveNewVersion');
+        $tpl->assign('actionParams', array('itemid'=>$itemId));
+        $tpl->assign('form',$form);
+        $tpl->assign('modified',false);
+        $tpl->assign('item_id', $itemId);
+        $rep->body->assign('MAIN',$tpl->fetch('edit_version'));
+        return $rep;
+    }
+
+    /**
+     * Save a new version
+     */
+    function saveNewVersion()
+    {
+        $itemId = $this->intParam('itemid');
+        $projectDao = jDao::get($this->dao);
+        $project = $projectDao->get($itemId);
+        if (!$project) {
+            jMessage::add('Unknown project');
+            return $this->redirect('boosteradmin~items:index');
+        }
+
+        $form = jForms::fill('boosteradmin~versions_mod');
+        if ($form->check()) {
+            //validator submit via the "Validate" button so we automaticaly validate the version
+            if($form->getData('_validate')){
+                $form->setData('status', 1);
+                jMessage::add(jLocale::get('boosteradmin~admin.version_validated'));
+            }
+            $jelixVersionMin = $form->getData('id_jelix_version');
+            $jelixVersionMax = $form->getData('id_jelix_version_max');
+
+            if ($jelixVersionMin && $jelixVersionMax &&  $jelixVersionMin > $jelixVersionMax) {
+                $form->setData('id_jelix_version', $jelixVersionMax);
+                $form->setData('id_jelix_version_max', $jelixVersionMin);
+            }
+
+            //item_by
+            $form->saveToDao('booster~boo_versions');
+            //update the modified date of the project
+            $project->modified = date("Y-m-d H:i:s");
+            $projectDao->update($project);
+            return $this->redirect('boosteradmin~items:view', array('id'=>$itemId));
+        }
+        jMessage::add(jLocale::get('boosteradmin~admin.invalid.data'));
+        return $this->redirect('boosteradmin~items:createVersion', array('itemid'=>$itemId));
+    }
+
+    /**
+     *
+     */
+    function editVersion()
+    {
+        $itemId = $this->intParam('itemid');
+        $project = jDao::get($this->dao)->get($itemId);
+        if (!$project) {
+            jMessage::add('Unknown project');
+            return $this->redirect('boosteradmin~items:index');
+        }
+        $vId = $this->intParam('id');
+
+        // charger les modifications existantes...
+        $form = jForms::get('boosteradmin~versions_mod', $vId);
+        if (!$form) {
+            $form = jForms::create('boosteradmin~versions_mod', $vId);
+            $form->initFromDao('booster~boo_versions');
+
+            $modified = jDao::get('boosteradmin~boo_versions_modifs')->findByVersionId($vId);
+            $modified_fields = array();
+            foreach($modified as $m){
+                $form->setData($m->field, $m->new_value);
+                $modified_fields[] = $m;
+            }
+        }
+        else {
+            $modified_fields = false;
+        }
+
+        $form->setData('item_id', $itemId);
+
+        $form->setData('id',$this->intParam('id'));
+        $rep = $this->getResponse('html');
+        $tpl = new jTpl();
+        $tpl->assign('title', jLocale::get('boosteradmin~admin.version.edit.modif.of',
+            array($form->getData('version_name'), $project->name)));
+
+        $tpl->assign('form', $form);
+        $tpl->assign('action', 'boosteradmin~items:saveVersion');
+        $tpl->assign('actionParams', array('itemid'=>$itemId, 'id'=>$vId));
+        $tpl->assign('id', $this->intParam('id'));
+        $tpl->assign('modified', $modified_fields);
+        $rep->body->assign('MAIN', $tpl->fetch('edit_version'));
+        return $rep;
+    }
+    /**
+     * Save the new submitted version
+     */
+    function saveVersion()
+    {
+        $itemId = $this->intParam('itemid');
+        $projectDao = jDao::get($this->dao);
+        $project = $projectDao->get($itemId);
+        if (!$project) {
+            jMessage::add('Unknown project');
+            return $this->redirect('boosteradmin~items:index');
+        }
+        $vId = $this->intParam('id');
+        $form = jForms::fill('boosteradmin~versions_mod', $vId);
+        if ($form->check()) {
+
+            //validator submit via the "Validate" button so we automatically validate the version
+            if($form->getData('_validate')){
+                $form->setData('status', 1);
+                jMessage::add(jLocale::get('boosteradmin~admin.version_validated'));
+            }
+
+            $jelixVersionMin = $form->getData('id_jelix_version');
+            $jelixVersionMax = $form->getData('id_jelix_version_max');
+
+            if ($jelixVersionMin && $jelixVersionMax &&  $jelixVersionMin > $jelixVersionMax) {
+                $form->setData('id_jelix_version', $jelixVersionMax);
+                $form->setData('id_jelix_version_max', $jelixVersionMin);
+            }
+
+            $form->saveToDao('booster~boo_versions');
+            //update the modified date of the project
+            $project->modified = date("Y-m-d H:i:s");
+            $projectDao->update($project);
+
+            jDao::get('boosteradmin~boo_versions_modifs','booster')->deleteByVersionId($vId);
+            return $this->redirect('boosteradmin~items:view', array('id'=>$itemId));
+        }
+        jMessage::add(jLocale::get('boosteradmin~admin.invalid.data'));
+        return $this->redirect('boosteradmin~items:editVersion', array('itemid'=>$itemId, 'id'=>$vId));
+
     }
 
 }

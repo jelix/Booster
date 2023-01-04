@@ -13,6 +13,11 @@
         <param name="id" type="numeric"/>
     </url>
 
+    <url pathinfo="/items/versions/:itemid/new" action="items:createVersion"/>
+    <url pathinfo="/items/versions/:itemid/savenew" action="items:saveNewVersion"/>
+    <url pathinfo="/items/versions/:itemid/edit/:id" action="items:editVersion"/>
+    <url pathinfo="/items/versions/:itemid/save/:id" action="items:saveVersion"/>
+
     <url pathinfo="/items/review"                  action="itemsreview:index" />
     <url pathinfo="/items/review/editnew/:id"      action="itemsreview:editnew" >
         <param name="id" type="numeric"/>

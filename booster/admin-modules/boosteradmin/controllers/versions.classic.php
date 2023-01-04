@@ -33,6 +33,7 @@ class versionsCtrl extends jController {
         $rep->body->assign('MAIN',$tpl->fetch('versions_mod'));
         return $rep;
     }
+
     /**
      * Index page that list all the validated versions
      */
@@ -82,6 +83,15 @@ class versionsCtrl extends jController {
             else {
                 jMessage::add(jLocale::get('boosteradmin~admin.version_saved_but_not_validated_yet'));
             }
+
+            $jelixVersionMin = $form->getData('id_jelix_version');
+            $jelixVersionMax = $form->getData('id_jelix_version_max');
+
+            if ($jelixVersionMin && $jelixVersionMax &&  $jelixVersionMin > $jelixVersionMax) {
+                $form->setData('id_jelix_version', $jelixVersionMax);
+                $form->setData('id_jelix_version_max', $jelixVersionMin);
+            }
+
             $form->saveToDao('booster~boo_versions');
             //update the modified date of the project
             $daoItem = jDao::get('booster~boo_items');

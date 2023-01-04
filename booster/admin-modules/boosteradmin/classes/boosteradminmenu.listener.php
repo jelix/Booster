@@ -16,7 +16,7 @@ class boosteradminmenuListener extends jEventListener{
             $event->add(new masterAdminMenuItem('booster','Booster', '', 20));
 
             $item = new masterAdminMenuItem('items',
-                        jLocale::get('boosteradmin~admin.items.validated'),
+                        jLocale::get('boosteradmin~admin.items'),
                         jUrl::get('boosteradmin~items:index'),
                         301,
                         'booster');
