@@ -13,7 +13,7 @@ body {
     margin:0;
     padding:0;
     background-color:#DCE8F2;
-    background-image:url(http://jelix.org/design/logo/logo_jelix_bg.png);
+    background-image:url(https://jelix.org/design/logo/logo_jelix_bg.png);
     background-repeat: repeat-x;
     background-position: top left;
     color : #002830;
@@ -30,7 +30,7 @@ a img { border:0;}
 pre {
   padding-left:1em;
   border-left:4px solid #efe03b;
-  background-image:url(http://jelix.org/design/2011/fond_horizontale.png);
+  background-image:url(https://jelix.org/design/2011/fond_horizontale.png);
   background-repeat:repeat-y;
   color:black;
   overflow:auto;
@@ -375,7 +375,7 @@ code.returnvalue {}
  color: #ddd;
 }
 
-#article ul { list-style-image:url(http://jelix.org/design/2011/puce_page.png); }
+#article ul { list-style-image:url(https://jelix.org/design/2011/puce_page.png); }
 #article li { padding-bottom:0.3em;}
 #article li.open { list-style-image: url(open.gif); }
 #article li.closed { list-style-image: url(closed.gif); }
