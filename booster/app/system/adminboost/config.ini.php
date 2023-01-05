@@ -8,6 +8,7 @@ htmlauth=adminLoginHtmlResponse
 
 [coordplugins]
 auth="adminboost/auth.coord.ini.php"
+autolocale=1
 jacl2=1
 
 [jacl2]

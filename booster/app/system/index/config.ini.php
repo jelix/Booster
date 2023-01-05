@@ -12,19 +12,9 @@ jacl2=1
 
 [acl2]
 driver=db
-
 hiddenRights=
 hideRights=off
 authAdapterClass=jAcl2JAuthAdapter
-[autolocale]
-;active la detection du changement de langage via l'url fournie
-enableUrlDetection=on
-
-;indique le nom du parametre url qui contient la langue choisie par l'utilisateur
-urlParamNameLanguage=lang
-
-; utilisation du langage indiqué dans le navigateur
-useDefaultLanguageBrowser=on
 
 
 [jacl2]

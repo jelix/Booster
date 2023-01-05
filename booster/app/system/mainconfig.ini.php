@@ -150,6 +150,15 @@ smtpPassword=
 ; SMTP server timeout in seconds
 smtpTimeout=10
 
+[autolocale]
+;active la detection du changement de langage via l'url fournie
+enableUrlDetection=on
+
+;indique le nom du parametre url qui contient la langue choisie par l'utilisateur
+urlParamNameLanguage=lang
+
+; utilisation du langage indiqué dans le navigateur
+useDefaultLanguageBrowser=on
 
 
 [acl2]
