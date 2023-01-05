@@ -3,6 +3,7 @@
     <!-- items -->
     <url pathinfo="/items/"        action="items:index" />
     <url pathinfo="/items/view/:id" action="items:view"/>
+    <url pathinfo="/items/reviewed/:id" action="items:reviewed"/>
     <url pathinfo="/items/precreate" action="items:precreate"/>
     <url pathinfo="/items/create" action="items:create"/>
     <url pathinfo="/items/savecreate" action="items:savecreate"/>
@@ -17,6 +18,8 @@
     <url pathinfo="/items/versions/:itemid/savenew" action="items:saveNewVersion"/>
     <url pathinfo="/items/versions/:itemid/edit/:id" action="items:editVersion"/>
     <url pathinfo="/items/versions/:itemid/save/:id" action="items:saveVersion"/>
+
+    <url pathinfo="/items/review/start"        action="items:startReview" />
 
     <url pathinfo="/items/review"                  action="itemsreview:index" />
     <url pathinfo="/items/review/editnew/:id"      action="itemsreview:editnew" >

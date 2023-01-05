@@ -26,6 +26,12 @@
         <item value="1" locale="jelix~ui.buttons.yes"/>
     </menulist>
 
+    <menulist ref="reviewed">
+        <label locale="boosteradmin~admin.reviewed"/>
+        <item value="0" locale="jelix~ui.buttons.no"/>
+        <item value="1" locale="jelix~ui.buttons.yes"/>
+    </menulist>
+
     <submit ref="_submitFilter">
         <label locale="jelix~ui.buttons.search"/>
     </submit>

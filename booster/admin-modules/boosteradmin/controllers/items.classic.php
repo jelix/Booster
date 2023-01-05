@@ -22,11 +22,11 @@ class itemsCtrl extends jControllerDaoCrudFilter
 
     protected $propertiesForList = array(
         'type_id', 'name', 'created', 'modified',
-        'item_by', 'status', 'dev_status');
+        'item_by', 'status', 'dev_status', 'reviewed');
 
     protected $propertiesForRecordsOrder = array(
         'type_id'=>'', 'name'=>'asc', 'created'=>'', 'modified'=>'',
-        'status'=>'', 'dev_status'=>'');
+        'status'=>'', 'dev_status'=>'', 'reviewed'=>'');
 
     protected $listTemplate = 'boosteradmin~items_list';
 
@@ -53,6 +53,8 @@ class itemsCtrl extends jControllerDaoCrudFilter
     {
         $this->recToSave = $form_daorec;
         $form_daorec->modified = date('Y-m-d H:i:s');
+        $form_daorec->review_date = date('Y-m-d H:i:s');
+        $form_daorec->reviewed = 1;
         $form_daorec->item_by = jAuth::getUserSession()->id;
     }
 
@@ -77,6 +79,8 @@ class itemsCtrl extends jControllerDaoCrudFilter
     protected function _beforeSaveUpdate($form, $form_daorec, $id)
     {
         $form_daorec->modified = date('Y-m-d H:i:s');
+        $form_daorec->review_date = date('Y-m-d H:i:s');
+        $form_daorec->reviewed = 1;
 
         $tagStr = str_replace('.',' ',$form->getData("tags"));
         $tags = explode(",", $tagStr);
@@ -112,6 +116,27 @@ class itemsCtrl extends jControllerDaoCrudFilter
         return true;
     }
 
+
+    function startReview()
+    {
+        jDao::get($this->dao)->startReview();
+        return $this->redirect('boosteradmin~items:index');
+    }
+
+    function reviewed()
+    {
+        if ($this->param('id')) {
+            $items = jDao::get($this->dao);
+            $items->reviewed($this->param('id'));
+            $next = $items->nextToReview();
+            if ($next) {
+                return $this->redirect('boosteradmin~items:view', array('id'=>$next->id));
+            }
+            jMessage:add(jLocale::get('boosteradmin~admin.review.no.more'));
+        }
+
+        return $this->redirect('boosteradmin~items:index');
+    }
 
     /**
      *
@@ -226,6 +251,7 @@ class itemsCtrl extends jControllerDaoCrudFilter
         $tpl->assign('actionParams', array('itemid'=>$itemId, 'id'=>$vId));
         $tpl->assign('id', $this->intParam('id'));
         $tpl->assign('modified', $modified_fields);
+        $tpl->assign('item_id', $itemId);
         $rep->body->assign('MAIN', $tpl->fetch('edit_version'));
         return $rep;
     }

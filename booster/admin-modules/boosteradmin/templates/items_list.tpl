@@ -43,6 +43,8 @@
             <td>{item_status $record->status}</td>
         {elseif $propname == 'dev_status'}
             <td>{item_dev_status $record->dev_status}</td>
+        {elseif $propname == 'reviewed'}
+            <td>{if $record->reviewed}{@jelix~ui.buttons.yes@}{else}-{/if}</td>
         {else}
             <td>{$record->$propname|eschtml}</td>
         {/if}
@@ -59,3 +61,6 @@
 {/if}
 <p><a href="{jurl $createAction}" class="crud-link">{@jelix~crud.link.create.record@}</a>.</p>
 
+<form action="{jurl 'boosteradmin~items:startReview'}">
+    <p><button>{@boosteradmin~admin.review.start@}</button></p>
+</form>

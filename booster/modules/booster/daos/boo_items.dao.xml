@@ -28,6 +28,8 @@
         <property name="created" fieldname="created" datatype="datetime" insertpattern="NOW()" />
         <property name="edited" fieldname="edited" datatype="datetime" updatepattern="NOW()"/>
         <property name="modified" fieldname="modified" datatype="datetime"/>
+        <property name="reviewed" fieldname="reviewed" datatype="int" default="0"/>
+        <property name="review_date" fieldname="review_date" datatype="datetime"/>
 
         <!--property name="nickname" fieldname="nickname" table="usr" datatype="varchar" required="true" maxlength="80"/>
         <property name="user_id" fieldname="id" table="usr" datatype="int"/-->
@@ -153,6 +155,33 @@
             </conditions>
             <order>
                 <orderitem property="modified" way="desc" />
+            </order>
+        </method>
+
+        <method name="startReview" type="update">
+            <values>
+                <value property="reviewed" value="0" />
+            </values>
+        </method>
+
+        <method name="reviewed" type="update">
+            <parameter name="id"/>
+            <conditions>
+                <eq property="id" expr="$id" />
+            </conditions>
+            <values>
+                <value property="reviewed" value="1" />
+                <value property="review_date" expr="NOW()" />
+            </values>
+        </method>
+
+
+        <method name="nextToReview" type="selectfirst">
+            <conditions>
+                <eq property="reviewed" value="0" />
+            </conditions>
+            <order>
+                <orderitem property="modified" way="asc" />
             </order>
         </method>
     </factory>

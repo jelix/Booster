@@ -1,11 +1,11 @@
 {if $id === null}
 
-<h1>{@jelix~crud.title.create@}</h1>
+<h1>{@booster~main.new.item@}</h1>
 {formfull $form, $submitAction}
 
 {else}
 
-<h1>{@jelix~crud.title.update@}</h1>
+<h1>{@booster~main.edit.item@}</h1>
 {formfull $form, $submitAction, array('id'=>$id, $offsetParameterName=>$page)}
 
 {/if}
