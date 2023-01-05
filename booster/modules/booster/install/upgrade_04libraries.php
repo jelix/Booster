@@ -1,5 +1,5 @@
 <?php
-class boosterModuleUpgrader_libraries extends \Jelix\Installer\Module\Installer {
+class boosterModuleUpgrader_04libraries extends \Jelix\Installer\Module\Installer {
  
     public $targetVersions = array('1.2.0');
     public $date = '2022-12-28';

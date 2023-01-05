@@ -1,7 +1,7 @@
             
 
 <?php
-class boosterModuleUpgrader_reco extends jInstallerModule {
+class boosterModuleUpgrader_01reco extends jInstallerModule {
  
     public $targetVersions = array('1.1pre.1');
     public $date = '2012-03-05';
