@@ -202,6 +202,7 @@ class itemsCtrl extends jControllerDaoCrudFilter
             //update the modified date of the project
             $project->modified = date("Y-m-d H:i:s");
             $projectDao->update($project);
+            jForms::destroy('boosteradmin~versions_mod');
             return $this->redirect('boosteradmin~items:view', array('id'=>$itemId));
         }
         jMessage::add(jLocale::get('boosteradmin~admin.invalid.data'));
@@ -289,7 +290,7 @@ class itemsCtrl extends jControllerDaoCrudFilter
             //update the modified date of the project
             $project->modified = date("Y-m-d H:i:s");
             $projectDao->update($project);
-
+            jForms::destroy('boosteradmin~versions_mod', $vId);
             jDao::get('boosteradmin~boo_versions_modifs','booster')->deleteByVersionId($vId);
             return $this->redirect('boosteradmin~items:view', array('id'=>$itemId));
         }
