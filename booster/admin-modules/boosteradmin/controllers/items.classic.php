@@ -95,6 +95,9 @@ class itemsCtrl extends jControllerDaoCrudFilter
     {
         $versions = jDao::get('booster~boo_versions')->findByItem($form->getData('id'));
         $tpl->assign('versions', $versions);
+
+        $tags = implode(', ', jClasses::getService("jtags~tags")->getTagsBySubject('booscope', $form->id()) ) ;
+        $tpl->assign('tags', $tags);
     }
 
     function _delete($id, $resp)
