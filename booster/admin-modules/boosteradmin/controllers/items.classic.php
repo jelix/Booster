@@ -135,7 +135,7 @@ class itemsCtrl extends jControllerDaoCrudFilter
             if ($next) {
                 return $this->redirect('boosteradmin~items:view', array('id'=>$next->id));
             }
-            jMessage:add(jLocale::get('boosteradmin~admin.review.no.more'));
+            jMessage::add(jLocale::get('boosteradmin~admin.review.no.more'));
         }
 
         return $this->redirect('boosteradmin~items:index');
