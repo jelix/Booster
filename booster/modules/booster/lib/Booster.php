@@ -22,6 +22,13 @@ class Booster {
     const TYPE_LANGPACK = 4;
     const TYPE_LIBRARY = 5;
 
+    const DEV_STATUS_MAINTAINED = 0;
+    const DEV_STATUS_UNMAINTAINED = 1;
+    const DEV_STATUS_GONE = 2;
+
+    const STATUS_VALID = 1;
+    const STATUS_INVALID = 0;
+
     /**
      * save a new Item
      *
@@ -30,32 +37,15 @@ class Booster {
     function saveItem($form) {
         $data = array();
 
-        $dao = \jDao::get('booster~boo_items','booster');
-        $record = \jDao::createRecord('booster~boo_items','booster');
-        $record->name           = $form->getData('name');
-        $record->item_composer_id = $form->getData('item_composer_id');
-        $record->slogan     = $form->getData('slogan');
-        $record->slogan_fr     = $form->getData('slogan_fr');
-        $record->short_desc  = $form->getData('short_desc');
-        $record->short_desc_fr  = $form->getData('short_desc_fr');
-        $record->type_id        = $form->getData('type_id');
-        $record->url_website    = $form->getData('url_website');
-        $record->url_repo       = $form->getData('url_repo');
-        $record->url_download   = $form->getData('url_download');
-        $record->dev_status     = $form->getData('dev_status');
-        $record->author         = $form->getData('author');
-        $record->item_by        = $form->getData('item_by');
-        $record->status         = 0; //will need moderation
+        $result = $form->prepareDaoFromControls('booster~boo_items');
+        $dao = $result['dao'];
+        $record = $result['daorec'];
+        $record->status         = self::STATUS_INVALID; //will need moderation
 
         if ($dao->insert($record)) {
             $id_booster = $record->id;
             $data['id']     = $id_booster;
             $data['name']   = $form->getData('name');
-
-            $tagStr = str_replace('.',' ',$form->getData("tags"));
-            $tags = explode(",", $tagStr);
-
-            \jClasses::getService("jtags~tags")->saveTagsBySubject($tags, 'booscope', $id_booster);
 
             $record->image = $this->saveImage($id_booster, $form, false);
             $dao->update($record);
@@ -68,13 +58,12 @@ class Booster {
      * @param \jFormsBase $form
      * @return boolean
      */
-    function saveVersion($form) {
-        $dao = \jDao::get('booster~boo_versions','booster');
-        $record = \jDao::createRecord('booster~boo_versions','booster');
-        $record->version_name   = $form->getData('version_name');
-        $record->version_date   = $form->getData('version_date');
-        $record->status         = 0; //will need moderation
-
+    function saveVersion($form)
+    {
+        $result = $form->prepareDaoFromControls('booster~boo_versions');
+        $dao = $result['dao'];
+        $record = $result['daorec'];
+        $record->status = Booster::STATUS_INVALID;
         $jelixVersionMin = $form->getData('id_jelix_version');
         $jelixVersionMax = $form->getData('id_jelix_version_max');
 
@@ -96,17 +85,11 @@ class Booster {
             $record->id_jelix_version = $jelixVersionMax;
             $record->id_jelix_version_max = $jelixVersionMin;
         }
-
-        $record->item_id        = $form->getData('item_id');
-        $record->last_changes   = $form->getData('last_changes');
-        $record->stability      = $form->getData('stability');
-        $record->filename       = $form->getData('filename');
-        $record->download_url   = $form->getData('download_url');
         return ($dao->insert($record)) ? true : false;
     }
 
     /**
-     * function to save one Editing Item
+     * function to save one existing item
      * to the dedicated "waiting table"
      *
      * @param \jFormsBase $form
@@ -199,6 +182,7 @@ class Booster {
                     items.image,
                     items.author,
                     items.item_by,
+                    items.tags,
                     items.recommendation,
                     items.dev_status,
                     type.type_name,
@@ -345,5 +329,33 @@ class Booster {
         }
         return '';
     }
+
+    /**
+     * @param string $itemId
+     * @param string $tagsStr
+     * @param int $devStatus
+     * @return void
+     */
+    public function saveTags($itemId, $tagsStr, $devStatus)
+    {
+        if ($devStatus == self::DEV_STATUS_GONE) {
+            // when the project does not exist any more, we delete tags
+            $tags = array();
+        }
+        else {
+            $tagsStr = str_replace('.',' ', trim($tagsStr));
+            $tags = preg_split("/ *, */", $tagsStr);
+        }
+        \jClasses::getService("jtags~tags")
+            ->saveTagsBySubject($tags, 'booscope', $itemId);
+    }
+
+
+    public function getTagsAsString($itemId)
+    {
+        $tags = \jClasses::getService("jtags~tags")->getTagsBySubject('booscope', $itemId);
+        return implode(',',$tags);
+    }
+
 
 }

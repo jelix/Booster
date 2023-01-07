@@ -22,6 +22,7 @@
         <property name="url_repo" fieldname="url_repo" datatype="varchar" maxlength="255"/>
         <property name="url_download" fieldname="url_download" datatype="varchar" maxlength="255"/>
         <property name="author" fieldname="author" datatype="varchar" required="true" maxlength="80"/>
+        <property name="tags" fieldname="tags" datatype="varchar" maxlength="255"/>
         <property name="item_by" fieldname="item_by" datatype="int" required="true"/>
         <!--property name="nickname" fieldname="nickname" table="usr" datatype="varchar" required="true" maxlength="80"/ -->
 

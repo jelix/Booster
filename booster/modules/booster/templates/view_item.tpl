@@ -97,7 +97,7 @@
             </div>
         </div>
         <div class="booster-item-infos">
-            {zone 'booster~tagsitem',array('id'=>$data->id)}
+            {zone 'booster~tagsitem',array('tags'=>$data->tags)}
 
             {zone 'booster~author', array('id'=>$data->item_by)}
         </div>

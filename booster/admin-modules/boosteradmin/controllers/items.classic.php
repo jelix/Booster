@@ -64,20 +64,14 @@ class itemsCtrl extends jControllerDaoCrudFilter
 
     protected function _afterCreate($form, $id, $resp)
     {
-        $tagStr = str_replace('.',' ',$form->getData("tags"));
-        $tags = explode(",", $tagStr);
-
-        \jClasses::getService("jtags~tags")->saveTagsBySubject($tags, 'booscope', $id);
-
         $booster = new \JelixBooster\Booster();
+        $booster->saveTags($id, $this->recToSave->tags, $this->recToSave->dev_status);
         $this->recToSave->image = $booster->saveImage($id, $form);
         jDao::get($this->dao, $this->dbProfile)->update($this->recToSave);
     }
 
     protected function _editUpdate($form, $resp, $tpl)
     {
-        $tags = implode(',', jClasses::getService("jtags~tags")->getTagsBySubject('booscope', $form->id()) ) ;
-        $form->setData('tags', $tags);
     }
 
     protected function _beforeSaveUpdate($form, $form_daorec, $id)
@@ -91,12 +85,8 @@ class itemsCtrl extends jControllerDaoCrudFilter
             jMessage::add(jLocale::get('boosteradmin~admin.item_validated'));
         }
 
-        $tagStr = str_replace('.',' ',$form->getData("tags"));
-        $tags = explode(",", $tagStr);
-
-        \jClasses::getService("jtags~tags")->saveTagsBySubject($tags, 'booscope', $id);
-
         $booster = new \JelixBooster\Booster();
+        $booster->saveTags($id, $form_daorec->tags, $form_daorec->dev_status);
         $form_daorec->image = $booster->saveImage($id, $form);
     }
 
@@ -104,9 +94,6 @@ class itemsCtrl extends jControllerDaoCrudFilter
     {
         $versions = jDao::get('booster~boo_versions')->findByItem($form->getData('id'));
         $tpl->assign('versions', $versions);
-
-        $tags = implode(', ', jClasses::getService("jtags~tags")->getTagsBySubject('booscope', $form->id()) ) ;
-        $tpl->assign('tags', $tags);
     }
 
     function _delete($id, $resp)
@@ -124,6 +111,9 @@ class itemsCtrl extends jControllerDaoCrudFilter
             foreach($versionsDao->findByItem($id) as $version) {
                 $versionsModifDao->deleteByVersionId($version->id);
             }
+
+            $booster = new \JelixBooster\Booster();
+            $booster->saveTags($id, '', $booster::DEV_STATUS_GONE);
         }
         return true;
     }

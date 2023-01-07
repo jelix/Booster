@@ -78,13 +78,15 @@ class defaultCtrl extends jController {
         }
 
         $data = jDao::get('booster~boo_items','booster')->get($this->intParam('id', 0));
+        if (!$data || $data->status == \JelixBooster\Booster::STATUS_INVALID) {
+            //the status is "not moderated" we don't display the item => 404
+            throw new jHttp404NotFoundException();
+        }
+
         // is the current user the author or the admin ?
         if ($this->userIsAdminOrAuthor($data->item_by)) {
             //so let's warn him if the item is moderated or not
-            $tpl->assign('item_not_moderated',!$data->status);
-        //the status is "not moderated" we don't display the item => 404
-        } elseif (!$data || $data->status == 0) {
-            throw new jHttp404NotFoundException();
+            $tpl->assign('item_not_moderated', !$data->status);
         }
 
         $rep = $this->getResponse('html');
@@ -212,10 +214,18 @@ class defaultCtrl extends jController {
                     jEvent::notify('new_version_added', array('version_id' => $data));
                     jForms::destroy('booster~version');
                     $item = jDao::get('booster~boo_items', 'booster')->get($form->getData('item_id'));
-                    return $this->redirect(
-                        'booster~default:viewItem',
-                        array('id' => $item->id, 'name' => $item->name)
-                    );
+                    if ($item->status == \JelixBooster\Booster::STATUS_VALID) {
+                        return $this->redirect(
+                            'booster~default:viewItem',
+                            array('id' => $item->id, 'name' => $item->name)
+                        );
+                    }
+                    else {
+                        return $this->redirect(
+                            'booster~default:index'
+                        );
+
+                    }
                 }
                 jMessage::add(jLocale::get('booster~main.version.saved.failed'));
             }
@@ -236,13 +246,19 @@ class defaultCtrl extends jController {
     /**
      * EditItem
      */
-    function editItem() {
+    function editItem()
+    {
         $id = $this->intParam('id');
         $data = jDao::get('booster~boo_items','booster')->get($id);
+
+        if (!$data) {
+            throw new jHttp404NotFoundException();
+        }
 
         if (!$this->userCanEditOrIsAuthor($data->item_by, 'item')) {
             throw new jHttp403ForbiddenException();
         }
+
         //if this item is not moderated
         //we'll just display a page with the item + a message to inform the user
         if ( $this->booster->isModerated($id,'items') === false ) {
@@ -256,7 +272,7 @@ class defaultCtrl extends jController {
                 $tpl->assign('current_user','');
             }
 
-            $tpl->assign('data',$data);
+            $tpl->assign('data', $data);
             $tpl->assign('item_not_moderated',1);
             $tpl->assign('show_all_versions', true);
             $rep->body->assign('MAIN',$tpl->fetch('view_item'));
@@ -264,13 +280,11 @@ class defaultCtrl extends jController {
             return $rep;
         }
 
-        $tags = implode(',', jClasses::getService("jtags~tags")->getTagsBySubject('booscope', $data->id) ) ;
-
         $form = jForms::get('booster~items',$data->id);
         if(!$form)
             $form = jForms::create('booster~items',$data->id);
         $form->initFromDao('booster~boo_items',null, 'booster');
-        $form->setData('tags',$tags);
+
         $form->initModifiedControlsList();
         $rep = $this->getResponse('html');
         $tpl = new jTpl();
@@ -288,6 +302,11 @@ class defaultCtrl extends jController {
      */
     function saveEditItem() {
         $id = $this->intParam('id');
+
+        $data = jDao::get('booster~boo_items','booster')->get($id);
+        if (!$data) {
+            throw new jHttp404NotFoundException();
+        }
 
         $form = jForms::fill('booster~items',$id);
         $saved = false;
@@ -353,7 +372,7 @@ class defaultCtrl extends jController {
             return $rep;
         }
 
-        $form = jForms::get('booster~version',$data->id);
+        $form = jForms::get('booster~version', $data->id);
         // if not
         if ($form === null) {
         // ... create it
@@ -536,32 +555,12 @@ class defaultCtrl extends jController {
         return $rep;
     }
 
-    public function validNewItem(){
-
-        // is the current user is an admin ?
-        if (jAuth::isConnected() and jAcl2::check('booster.admin.index') ) {
-
-            $id = $this->param('id');
-            jDao::get('booster~boo_items','booster')->setToValidated($id);
-
-        }
-        else {
-            throw new jHttp403ForbiddenException();
-        }
-
-        return $this->redirect(
-            'booster~default:viewItem',
-            array('id' => $id, 'name' => $this->param('name'))
-        );
-    }
-
     function credits() {
         $rep = $this->getResponse('html');
         $tpl = new jTpl;
         $rep->body->assign('MAIN',$tpl->fetch('credits'));
         return $rep;
     }
-
 
     public function recommendation()
     {

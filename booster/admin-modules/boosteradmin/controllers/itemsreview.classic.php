@@ -38,8 +38,6 @@ class itemsreviewCtrl extends jController {
         $form->initFromDao('booster~boo_items');
         $form->setData('id',$id);
 
-        $tags = implode(',', jClasses::getService("jtags~tags")->getTagsBySubject('booscope', $id) ) ;
-        $form->setData('tags', $tags);
         $rep = $this->getResponse('html');
         $tpl = new jTpl();
         $tpl->assign('id',$id);
@@ -89,9 +87,9 @@ class itemsreviewCtrl extends jController {
             $result = $form->prepareDaoFromControls('booster~boo_items');
             $rec = $result['daorec'];
             $rec->modified = date('Y-m-d H:i:s');
-            $result['dao']->insert($rec);
+            $result['dao']->update($rec);
 
-            jClasses::getService("jtags~tags")->saveTagsBySubject(explode(',', $form->getData('tags')), 'booscope', $id);
+            $booster->saveTags($id, $rec->tags, $rec->dev_status);
 
             jForms::destroy('boosteradmin~items_mod',$id);
         }
@@ -111,8 +109,7 @@ class itemsreviewCtrl extends jController {
         $form = jForms::create('boosteradmin~items_mod',$id);
         $form->initFromDao('booster~boo_items');
         $form->setData('id', $id);
-        $tags = implode(',', jClasses::getService("jtags~tags")->getTagsBySubject('booscope', $id) ) ;
-        $form->setData('tags', $tags);
+
         $name = $form->getData('name');
 
         $modified = jDao::get('boosteradmin~boo_items_modifs')->findByItemId($id);
@@ -131,7 +128,7 @@ class itemsreviewCtrl extends jController {
                 $form->setData($m->field, $m->new_value);
             }
 
-            if($m->field == 'type_id') {
+            if ($m->field == 'type_id') {
                 $dao_type = jDao::get('booster~boo_type');
                 $m->new_value = $dao_type->get($m->new_value)->type_name;
                 $m->old_value = $dao_type->get($m->old_value)->type_name;
@@ -168,10 +165,6 @@ class itemsreviewCtrl extends jController {
                 return $rep;
             }
 
-            $tagStr = str_replace('.',' ',$form->getData("tags"));
-            $tags = explode(",", $tagStr);
-            jClasses::getService("jtags~tags")->saveTagsBySubject($tags, 'booscope', $id);
-
             $booster = new \JelixBooster\Booster();
             $booster->saveImage($id, $form);
 
@@ -179,6 +172,8 @@ class itemsreviewCtrl extends jController {
             $rec = $result['daorec'];
             $rec->modified = date('Y-m-d H:i:s');
             $result['dao']->update($rec);
+
+            $booster->saveTags($id, $rec->tags, $rec->dev_status);
 
             jDao::get('boosteradmin~boo_items_modifs','booster')->deleteByItemId($id);
             jMessage::add(jLocale::get('boosteradmin~admin.item_validated'));
