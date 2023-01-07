@@ -8,17 +8,22 @@
             <th>{ctrl_label}</th>
             <td>{ifctrl_value ''}{else}<a href="{ctrl_rawvalue}" target="_blank">{ctrl_rawvalue}</a>{/ifctrl_value}</td>
         </tr>
-        {else}
-        {ifctrl 'tags'}
+        {else}{ifctrl 'tags'}
         <tr>
             <th>{ctrl_label}</th>
             <td>{$tags|eschtml}</td>
         </tr>
-            {else}
+        {else}{ifctrl 'item_composer_id'}
+            <tr>
+                <th>{ctrl_label}</th>
+                <td>{ifctrl_value ''}{else}<a href="https://packagist.org/packages/{ctrl_rawvalue}" target="_blank">{ctrl_rawvalue}</a>{/ifctrl_value}</td>
+            </tr>
+        {else}
         <tr>
             <th>{ctrl_label}</th>
             <td>{ctrl_value}</td>
         </tr>
+        {/ifctrl}
         {/ifctrl}
         {/ifctrl}
     {/formcontrols}
