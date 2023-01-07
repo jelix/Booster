@@ -56,6 +56,10 @@ class itemsCtrl extends jControllerDaoCrudFilter
         $form_daorec->review_date = date('Y-m-d H:i:s');
         $form_daorec->reviewed = 1;
         $form_daorec->item_by = jAuth::getUserSession()->id;
+        if ($form->getData('_validate')) {
+            $form_daorec->status = 1;
+            jMessage::add(jLocale::get('boosteradmin~admin.item_validated'));
+        }
     }
 
     protected function _afterCreate($form, $id, $resp)
@@ -81,6 +85,11 @@ class itemsCtrl extends jControllerDaoCrudFilter
         $form_daorec->modified = date('Y-m-d H:i:s');
         $form_daorec->review_date = date('Y-m-d H:i:s');
         $form_daorec->reviewed = 1;
+
+        if ($form->getData('_validate')) {
+            $form_daorec->status = 1;
+            jMessage::add(jLocale::get('boosteradmin~admin.item_validated'));
+        }
 
         $tagStr = str_replace('.',' ',$form->getData("tags"));
         $tags = explode(",", $tagStr);
