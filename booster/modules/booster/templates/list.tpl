@@ -1,7 +1,9 @@
     
     
 <h2>{$title}</h2>
-
+{if $description}
+    <p class="category-description">{$description|eschtml}</p>
+{/if}
 {if $datas->rowCount() > 0}
     {assign $show_all_versions = false}
     {foreach $datas as $data}

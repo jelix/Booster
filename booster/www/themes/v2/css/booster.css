@@ -782,6 +782,10 @@ small{font-size:0.8em;}
 
 /* Items */
 
+.category-description {
+    font-size:1.3em;
+}
+
 .booster-item{
     margin-bottom:20px;
     padding:12px;

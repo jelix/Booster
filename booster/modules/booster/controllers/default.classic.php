@@ -475,10 +475,11 @@ class defaultCtrl extends jController {
             $tpl->assign('current_user','');
         }
         $tpl->assign('title', $rep->title);
+        $tpl->assign('description', jLocale::get('booster~main.'.$typeName.'.description'));
         $tpl->assign('datas', $datas);
         $tpl->assign('item_not_moderated','');
         $this->setPagination($tpl, 'booster~default:'.$typeName, $typeId, $this->param('offset'));
-        $rep->body->assign('MAIN',$tpl->fetch('list'));
+        $rep->body->assign('MAIN', $tpl->fetch('list'));
         return $rep;
     }
 
