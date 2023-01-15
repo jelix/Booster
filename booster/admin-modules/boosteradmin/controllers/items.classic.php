@@ -24,11 +24,11 @@ class itemsCtrl extends jControllerDaoCrudFilter
     protected $form = 'boosteradmin~items_mod';
 
     protected $propertiesForList = array(
-        'type_id', 'name', 'created', 'modified',
+        'type_id', 'name', 'item_composer_id', 'created', 'modified',
         'item_by', 'status', 'dev_status', 'reviewed');
 
     protected $propertiesForRecordsOrder = array(
-        'type_id'=>'', 'name'=>'asc', 'created'=>'', 'modified'=>'',
+        'type_id'=>'', 'name'=>'asc', 'item_composer_id'=>'', 'created'=>'', 'modified'=>'',
         'status'=>'', 'dev_status'=>'', 'reviewed'=>'');
 
     protected $listTemplate = 'boosteradmin~items_list';
