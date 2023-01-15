@@ -1,4 +1,7 @@
 <?php
+
+use JelixBooster\PackagistException;
+
 /**
 * @package   booster
 * @subpackage items
@@ -49,6 +52,25 @@ class itemsCtrl extends jControllerDaoCrudFilter
 
     protected $recToSave;
 
+    protected function _create($form, $resp, $tpl)
+    {
+        $tpl->assign('title', jLocale::get('booster~main.new.item'));
+    }
+
+    protected function _checkData($form, $calltype)
+    {
+        $composerId = $form->getData('item_composer_id');
+        if ($composerId == '') {
+            return true;
+        }
+        $booster = new \JelixBooster\Booster();
+        if ($booster->isComposerPackageReferenced($composerId, $form->id())) {
+            $form->setErrorOn('item_composer_id', jLocale::get('boosteradmin~admin.package.already.referenced'));
+            return false;
+        }
+        return true;
+    }
+
     protected function _beforeSaveCreate($form, $form_daorec)
     {
         $this->recToSave = $form_daorec;
@@ -72,6 +94,7 @@ class itemsCtrl extends jControllerDaoCrudFilter
 
     protected function _editUpdate($form, $resp, $tpl)
     {
+        $tpl->assign('title', jLocale::get('booster~main.edit.item'));
     }
 
     protected function _beforeSaveUpdate($form, $form_daorec, $id)
@@ -301,4 +324,92 @@ class itemsCtrl extends jControllerDaoCrudFilter
 
     }
 
+
+    public function checkcomposer()
+    {
+        $composerId = $this->param('package');
+        $booster = new \JelixBooster\Booster();
+        $rep = $this->getResponse('json');
+
+        if ($booster->isComposerPackageReferenced($composerId)) {
+            $rep->data = array(
+                'error' => jLocale::get('boosteradmin~admin.package.already.referenced')
+            );
+            return $rep;
+        }
+
+        try {
+            $package = $booster->getComposerPackageInfo($composerId);
+
+            $rep->data = array(
+                'found' => true,
+                'values' => [
+                    'name' => ucwords(str_replace('/', ' ', $composerId)),
+                    'type_id' => '',
+                    'slogan' => '',
+                    'author' => '',
+                    'tags' => '',
+                    'url_website' => '',
+                    'url_repo' => '',
+                    'dev_status' => 0
+                ]
+            );
+
+            if (isset($package['type']) && isset(\JelixBooster\Booster::PACKAGIST_TYPE[$package['type']])) {
+                $rep->data['values']['type_id'] = \JelixBooster\Booster::PACKAGIST_TYPE[$package['type']];
+            }
+
+            if (isset($package['description'])) {
+                $rep->data['values']['slogan'] = $package['description'];
+            }
+            if (isset($package['authors'])) {
+
+                $authors = array_map(function($author) {
+                    return $author['name'];
+                    }, $package['authors']);
+
+                $rep->data['values']['author'] = implode(', ', $authors);
+            }
+            if (isset($package['keywords'])) {
+                $rep->data['values']['tags'] = implode(', ', $package['keywords']);
+            }
+            if (isset($package['homepage'])) {
+                $rep->data['values']['url_website'] = $package['homepage'];
+            }
+
+            if (isset($package['source']['url'])) {
+                $url = $package['source']['url'];
+                if (strpos($url, 'https://github.com/') === 0) {
+                    $url = str_replace('.git', '/', $url);
+                }
+                $rep->data['values']['url_repo'] = $url;
+            }
+
+            if (isset($package['abandoned']) && $package['abandoned']) {
+                $rep->data['values']['dev_status'] = 1;
+            }
+
+        }
+        catch(PackagistException $e) {
+            if ($e->getCode() == 404) {
+                $rep->data = array(
+                    'error' => jLocale::get('boosteradmin~admin.packagist.error.not.found')
+                );
+            }
+            else {
+                $rep->data = array(
+                    'error' => jLocale::get('boosteradmin~admin.packagist.error')
+                );
+                jLog::log($e->getMessage(), 'warning');
+            }
+        }
+        catch(\Exception $e) {
+            $rep->data = array(
+                'error' => $e->getMessage()
+            );
+        }
+
+
+        return $rep;
+    }
 }

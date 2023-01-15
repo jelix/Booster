@@ -58,7 +58,7 @@ class versionsCtrl extends jController {
         $tpl->assign('item_by',jDao::get('booster~boo_items','booster')->get($form->getData('item_id'))->item_by);
         $tpl->assign('action','boosteradmin~versions:savenew');
         $tpl->assign('id',$this->intParam('id'));
-        $rep->body->assign('MAIN',$tpl->fetch('edit'));
+        $rep->body->assign('MAIN',$tpl->fetch('edit_new_version'));
         return $rep;
     }
     /**

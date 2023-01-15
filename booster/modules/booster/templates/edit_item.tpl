@@ -6,10 +6,11 @@
     )}
     <table class="jforms-table">
         <tr>
-            <th>{ctrl_label 'name'}</th><td>{ctrl_control 'name'}</td>
+            <th>{ctrl_label 'item_composer_id'}</th>
+            <td>{ctrl_control 'item_composer_id'}</td>
         </tr>
         <tr>
-            <th>{ctrl_label 'item_composer_id'}</th><td>{ctrl_control 'item_composer_id'}</td>
+            <th>{ctrl_label 'name'}</th><td>{ctrl_control 'name'}</td>
         </tr>
         <tr>
             <th>{ctrl_label 'type_id'}</th><td>{ctrl_control 'type_id'}</td>

@@ -89,6 +89,13 @@
             </order>
         </method>
 
+        <method name="findByComposerId" type="selectfirst">
+            <parameter name="compId"/>
+            <conditions>
+                <eq property="item_composer_id" expr="$compId" />
+            </conditions>
+        </method>
+
         <method name="countByTypeId" type="count">
             <parameter name="type_id"/>
             <conditions>

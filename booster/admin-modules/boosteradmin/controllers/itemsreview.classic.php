@@ -42,10 +42,13 @@ class itemsreviewCtrl extends jController {
         $tpl = new jTpl();
         $tpl->assign('id',$id);
         $tpl->assign('title',jLocale::get('boosteradmin~admin.item.validation.or.modification'));
-        $tpl->assign('form',$form);
-        $tpl->assign('item_by',jDao::get('booster~boo_items','booster')->get($id)->item_by);
-        $tpl->assign('action','boosteradmin~itemsreview:savenew');
-        $rep->body->assign('MAIN',$tpl->fetch('edit'));
+        $tpl->assign('form', $form);
+        $tpl->assign('item_by', jDao::get('booster~boo_items','booster')->get($id)->item_by);
+        $tpl->assign('submitAction', 'boosteradmin~itemsreview:savenew');
+        $tpl->assign('offsetParameterName', null);
+        $tpl->assign('page', null);
+        $tpl->assign('listAction', 'itemsreview~index');
+        $rep->body->assign('MAIN', $tpl->fetch('items_edit'));
         return $rep;
     }
     /**

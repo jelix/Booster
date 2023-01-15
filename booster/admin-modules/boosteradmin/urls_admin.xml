@@ -13,6 +13,7 @@
     <url pathinfo="/items/delete/:id"       action="items:delete" >
         <param name="id" type="numeric"/>
     </url>
+    <url pathinfo="/items/composer/check/" action="items:checkcomposer"/>
 
     <url pathinfo="/items/versions/:itemid/new" action="items:createVersion"/>
     <url pathinfo="/items/versions/:itemid/savenew" action="items:saveNewVersion"/>

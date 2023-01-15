@@ -11,6 +11,8 @@
 namespace JelixBooster;
 
 
+use GuzzleHttp\RequestOptions;
+
 /**
  * Class that handle the booster business stuff
  */
@@ -21,6 +23,13 @@ class Booster {
     const TYPE_PLUGIN = 3;
     const TYPE_LANGPACK = 4;
     const TYPE_LIBRARY = 5;
+
+    const PACKAGIST_TYPE = array(
+        'library' => 5,
+        'project' => 1,
+        'jelix-module' => 2
+    );
+
 
     const DEV_STATUS_MAINTAINED = 0;
     const DEV_STATUS_UNMAINTAINED = 1;
@@ -357,5 +366,45 @@ class Booster {
         return implode(',',$tags);
     }
 
+    public function isComposerPackageReferenced($composerId, $itemIdToIgnore = null)
+    {
+        if (!preg_match("!^[a-zA-Z0-9\\.\\-]+/[a-zA-Z0-9\\.\\-]+$!", $composerId)) {
+            throw new \Exception('Bad composer name');
+        }
 
+        $dao = \jDao::get('booster~boo_items');
+        $item = $dao->findByComposerId($composerId);
+        if ($item && $item->id != $itemIdToIgnore) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function getComposerPackageInfo($composerId)
+    {
+        if (!preg_match("!^[a-zA-Z0-9\\.\\-]+/[a-zA-Z0-9\\.\\-]+$!", $composerId)) {
+            throw new \Exception('Bad composer name');
+        }
+
+        $httpApi = new \GuzzleHttp\Client(
+            array('base_uri' => 'https://repo.packagist.org/p2/')
+        );
+
+        $response = $httpApi->request('GET', $composerId.'.json', [
+            RequestOptions::HEADERS => [
+                "User-Agent" => "booster.jelix.org"
+            ],
+            RequestOptions::HTTP_ERRORS => false
+        ]);
+
+        if ($response->getStatusCode() != 200) {
+            throw new PackagistException('Request to packagist fails: '.$response->getStatusCode(). ' '.$response->getReasonPhrase(), $response->getStatusCode());
+        }
+
+        $json = $response->getBody()->getContents();
+        $package = json_decode($json, true);
+        \jLog::dump($package, 'packages');
+        return $package['packages'][$composerId][0];
+    }
 }

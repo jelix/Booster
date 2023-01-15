@@ -5,6 +5,11 @@
 <hidden ref="created"/>
 <hidden ref="modified"/>
 
+<input ref="item_composer_id" maxlength="255">
+    <label locale="booster~main.item_composer_id"/>
+    <help locale="booster~main.item_composer_id_hlp"/>
+</input>
+
 <input ref="name" required="true" maxlength="60">
     <label locale="booster~main.item_name"/>
 </input>
@@ -33,10 +38,6 @@
     <label locale="booster~main.item_author"/>
 </input>
 
-<input ref="item_composer_id" maxlength="255">
-    <label locale="booster~main.item_composer_id"/>
-    <help locale="booster~main.item_composer_id_hlp"/>
-</input>
 
 <input ref="tags" size="60">
     <label locale="booster~main.tags"/>
