@@ -708,6 +708,11 @@ small{font-size:0.8em;}
 #recommended-block .content-box a {
     color: #c03033;
 }
+
+#recommended-block p {
+    max-width: 14em;
+    margin:auto;
+}
     /* search */
 
 #submenubar{
