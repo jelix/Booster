@@ -47,7 +47,7 @@ class itemsreviewCtrl extends jController {
         $tpl->assign('submitAction', 'boosteradmin~itemsreview:savenew');
         $tpl->assign('offsetParameterName', null);
         $tpl->assign('page', null);
-        $tpl->assign('listAction', 'itemsreview~index');
+        $tpl->assign('listAction', 'boosteradmin~itemsreview:index');
         $rep->body->assign('MAIN', $tpl->fetch('items_edit'));
         return $rep;
     }
