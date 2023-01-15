@@ -23,3 +23,8 @@ ul.modifs li{
     font-weight: bold;
     color: #AF283A;
 }
+
+#review-form {
+    max-width:85em;
+    text-align:right;
+}

@@ -12,7 +12,10 @@
 </table>
 <div>{formreset}{formsubmit}</div>
 {/form}
-<h2>{jlocale 'jelix~crud.title.results', $recordCount}</h2>
+
+    <p><a href="{jurl $createAction}" class="crud-link">{@jelix~crud.link.create.record@}</a>.</p>
+
+    <h2>{jlocale 'jelix~crud.title.results', $recordCount}</h2>
 {/if}
 
 <table class="records-list">
@@ -59,8 +62,7 @@
 {if $recordCount > $listPageSize}
 <p class="record-pages-list">{@jelix~crud.title.pages@} : {pagelinks $listAction, array(),  $recordCount, $page, $listPageSize, $offsetParameterName }</p>
 {/if}
-<p><a href="{jurl $createAction}" class="crud-link">{@jelix~crud.link.create.record@}</a>.</p>
 
-<form action="{jurl 'boosteradmin~items:startReview'}">
+<form action="{jurl 'boosteradmin~items:startReview'}" id="review-form">
     <p><button>{@boosteradmin~admin.review.start@}</button></p>
 </form>
