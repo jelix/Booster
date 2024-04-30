@@ -49,7 +49,7 @@
         {elseif $propname == 'reviewed'}
             <td>{if $record->reviewed}{@jelix~ui.buttons.yes@}{else}-{/if}</td>
         {else}
-            <td>{$record->$propname|eschtml}</td>
+            <td>{if $record->$propname}{$record->$propname|eschtml}{/if}</td>
         {/if}
     {/foreach}
     <td>
