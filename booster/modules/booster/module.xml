@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="booster@jelix.org" name="booster" createdate="2011-05-03">
-        <version date="2023-01-15">1.4.2</version>
+        <version date="2024-04-30">1.4.3</version>
         <label lang="fr_FR">Booster</label>
         <description lang="fr_FR">Jelix Booster : portail de gestion des modules, plugins, pack de langue, applications produits en Jelix</description>
         <label lang="en_US">Booster</label>
         <description lang="en_US">Jelix Booster : portal management of modules, plugins, language pack, applications made in Jelix</description>
         <license URL="http://www.gnu.org/licenses/lgpl.html"> GNU Lesser General Public Licence, see LICENCE file</license>
-        <copyright>2011-2023 Laurent Jouanneau</copyright>
+        <copyright>2011-2024 Laurent Jouanneau</copyright>
         <creator name="FoxMaSk" since="2011-05-03" until="2013-02-17"/>
         <contributor name="laurentj" email="laurent@jelix.org" active="true" since="2011-06-04"/>
         <contributor name="FlorianLB" since="2011-05-15" until="2012-05-04"/>
