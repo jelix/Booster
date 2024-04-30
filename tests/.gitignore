@@ -1,3 +1,4 @@
 dumps/
 !dumps/.dummy
 jelix-design
+.env

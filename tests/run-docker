@@ -1,26 +1,38 @@
 #!/usr/bin/env bash
-
+basedir=$(dirname "$0")
 set -e
-
-export JELIX_USER_ID=${JELIX_USER_ID:-$(id -u)}
-export JELIX_GROUP_ID=${JELIX_GROUP_ID:-$(id -g)}
 
 CMD=$1
 
 export IMG_PREFIX=boosterjelix
 export APPBRANCH=
 
-
-if [ "$APP_WEB_PORT" == "" ]; then
-  export APP_WEB_PORT=8227
-fi
-
-if [ "$PHP_VERSION" == "" ]; then
-  export PHP_VERSION=8.1
-fi
-
 if [ ! -d ./jelix-design ]; then
   git clone https://github.com/jelix/jelix-design.git
+fi
+
+
+if [ ! -f $basedir/.env ]; then
+
+  JELIX_USER_ID=${JELIX_USER_ID:-$(id -u)}
+  JELIX_GROUP_ID=${JELIX_GROUP_ID:-$(id -g)}
+
+  if [ "$APP_WEB_PORT" == "" ]; then
+    export APP_WEB_PORT=8227
+  fi
+
+  if [ "$PHP_VERSION" == "" ]; then
+    PHP_VERSION=8.3
+  fi
+
+  cat <<-EOF > $basedir/.env
+JELIX_USER_ID=$JELIX_USER_ID
+JELIX_GROUP_ID=$JELIX_GROUP_ID
+APP_WEB_PORT=$APP_WEB_PORT
+PHP_VERSION=$PHP_VERSION
+EOF
+else
+  source $basedir/.env
 fi
 
 #if [ "$CMD" == "build" ]; then
@@ -29,7 +41,7 @@ fi
 
 if [ "$CMD" == "reset" ]; then
     # Stop/Remove containers
-    docker-compose -p ${IMG_PREFIX}-tests${APPBRANCH} rm -sf || true
+    docker compose rm -sf || true
     # Clean db volumes
     docker volume rm "${IMG_PREFIX}_mysql_data${APPBRANCH}" || true
     exit 0
@@ -40,4 +52,4 @@ else
 fi
 
 
-docker-compose -p ${IMG_PREFIX}-tests${APPBRANCH} $CMD
+docker compose -p ${IMG_PREFIX}-tests${APPBRANCH} $CMD

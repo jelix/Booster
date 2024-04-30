@@ -20,6 +20,8 @@ services:
   php:
     build:
       context: ./docker-conf/phpfpm
+      args:
+        PHP_VERSION: ${PHP_VERSION}
     container_name: ${IMG_PREFIX}_php${APPBRANCH}
     environment:
       APP_USER_ID: ${JELIX_USER_ID}

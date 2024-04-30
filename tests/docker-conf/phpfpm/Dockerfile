@@ -1,4 +1,5 @@
-FROM 3liz/liz-php-fpm:8.1
+ARG PHP_VERSION
+FROM 3liz/liz-php-fpm:${PHP_VERSION}
 
 RUN apt-get update && apt-get -y install \
     php${PHP_VERSION}-xdebug \
